@@ -1,12 +1,4 @@
-python3 << 'PYEOF'
-import base64, re
-
-with open('/home/claude/logo_b64.txt') as f:
-    LOGO = f.read().strip()
-
-LOGO_SRC = f"data:image/png;base64,{LOGO}"
-
-HTML = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8"/>
@@ -56,100 +48,110 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .nav-cta:hover{background:var(--ink);transform:scale(1.04);}
 
 /* =====================
-   HERO — full viewport
-   Logo massive + texte qui explose autour
+   HERO — logo centré + vie autour
    ===================== */
 #hero{
   min-height:100vh;
   padding-top:82px;
-  display:grid;
-  grid-template-rows:1fr auto;
+  display:flex;
+  flex-direction:column;
   border-bottom:1.5px solid var(--ink);
   position:relative;
   overflow:hidden;
 }
 
-/* Horizontal rule lines as texture */
+/* lignes horizontales texture */
 #hero::before{
   content:"";position:absolute;inset:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 99px,rgba(10,10,10,.05) 99px,rgba(10,10,10,.05) 100px);
+  background:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(10,10,10,.06) 79px,rgba(10,10,10,.06) 80px);
   pointer-events:none;z-index:0;
 }
 
-.hero-body{
-  position:relative;z-index:1;
-  display:grid;
-  grid-template-columns:1fr minmax(0,560px) 1fr;
-  grid-template-rows:auto auto auto;
-  min-height:calc(100vh - 82px - 80px);
-}
-
-/* TOP-LEFT label */
-.hero-tl{
-  grid-column:1;grid-row:1;
-  padding:2.5rem 2.5rem 0;
-  display:flex;flex-direction:column;gap:.6rem;
-}
-.hero-tl .badge{
-  font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
-  background:var(--yellow);color:var(--ink);display:inline-block;padding:4px 12px;border-radius:99px;
-  width:fit-content;
-}
-.hero-tl .label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);}
-
-/* TOP-RIGHT slogan */
-.hero-tr{
-  grid-column:3;grid-row:1;
-  padding:2.5rem 2.5rem 0;
-  display:flex;align-items:flex-start;justify-content:flex-end;
-}
-.hero-tr p{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--mist);text-align:right;line-height:1.8;
-}
-
-/* CENTER LOGO */
-.hero-center{
-  grid-column:2;grid-row:1/4;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:2rem 1rem;
+/* === HERO MAIN : logo + éléments autour === */
+.hero-main{
+  flex:1;
   position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:200px 1fr 200px;
+  grid-template-rows:1fr auto 1fr;
+  padding:2rem 2.5rem;
+  min-height:calc(100vh - 82px - 72px);
+}
+
+/* --- LOGO au centre absolu --- */
+.hero-logo-wrap{
+  grid-column:1/4;
+  grid-row:1/4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
 }
 .hero-logo{
-  width:100%;max-width:520px;
+  width:min(78vw, 760px);
   animation:pop .9s var(--ease) both;
+  filter:drop-shadow(0 8px 48px rgba(0,0,0,.13));
+  pointer-events:all;
 }
-.hero-logo:hover{animation:none;transform:scale(1.03);transition:transform .4s var(--ease);}
+.hero-logo:hover{
+  filter:drop-shadow(0 12px 60px rgba(0,0,0,.2));
+  transition:filter .4s var(--ease);
+}
 @keyframes pop{
-  0%{opacity:0;transform:scale(.7) rotate(-4deg);}
+  0%{opacity:0;transform:scale(.72) rotate(-3deg);}
   60%{transform:scale(1.06) rotate(1deg);}
   100%{opacity:1;transform:scale(1) rotate(0deg);}
 }
 
-/* The big title — bottom left */
-.hero-bl{
-  grid-column:1;grid-row:2/4;
-  padding:0 2.5rem 2.5rem;
-  display:flex;flex-direction:column;justify-content:flex-end;
+/* --- COIN HAUT GAUCHE --- */
+.hero-tl{
+  grid-column:1;grid-row:1;
+  display:flex;flex-direction:column;gap:.7rem;
+  align-self:start;
+  padding-top:.5rem;
+  animation:fadein .7s var(--ease) .3s both;
 }
-.hero-big-title{
+@keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;background:var(--yellow);color:var(--ink);display:inline-block;padding:4px 12px;border-radius:99px;width:fit-content;}
+.hero-label{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);line-height:1.7;}
+
+/* --- COIN HAUT DROIT --- */
+.hero-tr{
+  grid-column:3;grid-row:1;
+  display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;
+  align-self:start;
+  padding-top:.5rem;
+  animation:fadein .7s var(--ease) .45s both;
+}
+.hero-tr-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);text-align:right;line-height:1.8;}
+.hero-tr-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--stone);display:flex;align-items:center;justify-content:center;font-size:.6rem;}
+
+/* --- SLOGAN BAS GAUCHE --- */
+.hero-bl{
+  grid-column:1;grid-row:3;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:.7rem;
+  animation:fadein .7s var(--ease) .5s both;
+}
+.hero-slogan{
   font-family:var(--display);
-  font-size:clamp(2.8rem,6vw,6rem);
-  font-weight:800;letter-spacing:-.045em;line-height:.92;
+  font-size:clamp(1.1rem,2vw,1.7rem);
+  font-weight:800;
+  letter-spacing:-.04em;
+  line-height:1;
   text-transform:uppercase;
 }
-.hero-big-title .outline{-webkit-text-stroke:2px var(--ink);color:transparent;}
-.hero-big-title .red{color:var(--red);}
+.hero-slogan .red{color:var(--red);}
+.hero-slogan .ol{-webkit-text-stroke:1.5px var(--ink);color:transparent;}
 
-/* Bottom right — desc + btns */
+/* --- BAS DROIT : CTA --- */
 .hero-br{
-  grid-column:3;grid-row:2/4;
-  padding:0 2.5rem 2.5rem;
-  display:flex;flex-direction:column;justify-content:flex-end;gap:1.5rem;
+  grid-column:3;grid-row:3;
+  display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:.6rem;
+  animation:fadein .7s var(--ease) .55s both;
 }
-.hero-desc{font-size:.9rem;line-height:1.75;color:var(--mist);max-width:280px;margin-left:auto;}
-.hero-btns{display:flex;flex-direction:column;gap:.6rem;align-items:flex-end;}
-.btn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.7rem 1.6rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .22s var(--ease);}
+.btn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.7rem 1.5rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .22s var(--ease);}
 .btn-fill{background:var(--ink);color:var(--paper);}
 .btn-fill:hover{background:var(--red);}
 .btn-outline{border:1.5px solid var(--ink);}
@@ -157,16 +159,41 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .btn-ghost{border:1.5px solid var(--stone);color:var(--mist);border-radius:99px;}
 .btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
 
+/* --- SLOGAN CENTRAL en arc sous logo --- */
+.hero-sub{
+  grid-column:1/4;grid-row:3;
+  display:flex;align-items:flex-end;justify-content:center;
+  pointer-events:none;
+  padding-bottom:.5rem;
+}
+.hero-sub-text{
+  font-family:var(--mono);font-size:11px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--mist);text-align:center;
+  border-top:1px solid var(--stone);
+  padding-top:.8rem;
+  width:min(500px,60vw);
+  animation:fadein .8s var(--ease) .7s both;
+}
+.hero-sub-text em{color:var(--red);font-style:normal;}
+
+/* --- LIGNES DÉCORATIVES gauche/droite du logo --- */
+.deco-line{
+  position:absolute;
+  top:50%;transform:translateY(-50%);
+  width:1px;height:55%;
+  background:linear-gradient(to bottom, transparent, var(--stone) 30%, var(--stone) 70%, transparent);
+  pointer-events:none;
+  animation:fadein 1s var(--ease) .8s both;
+}
+.deco-line-l{left:260px;}
+.deco-line-r{right:260px;}
+
 /* STATS BAR */
 .hero-stats{
   position:relative;z-index:1;
   display:flex;border-top:1.5px solid var(--ink);
 }
-.hs{
-  flex:1;padding:1.2rem 2.5rem;
-  border-right:1.5px solid var(--ink);
-  display:flex;flex-direction:column;gap:.25rem;
-}
+.hs{flex:1;padding:1.2rem 2.5rem;border-right:1.5px solid var(--ink);display:flex;flex-direction:column;gap:.25rem;}
 .hs:last-child{border-right:none;flex:0 0 auto;justify-content:center;}
 .hs-n{font-family:var(--display);font-size:2.2rem;font-weight:800;letter-spacing:-.05em;line-height:1;}
 .hs-n sup{font-size:1rem;color:var(--red);}
@@ -192,7 +219,6 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .q-over::before{content:"";width:14px;height:1.5px;background:var(--yellow);}
 .q-quote{font-family:var(--display);font-size:clamp(2rem,4.2vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:2.5rem;}
 .q-meta{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#444;border-top:1px solid #1e1e1e;padding-top:1.2rem;display:flex;justify-content:space-between;}
-/* donut */
 .donut-area{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;height:100%;}
 .dnut-w{position:relative;width:220px;height:220px;}
 .dnut-svg{width:100%;height:100%;}
@@ -221,12 +247,7 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 /* =====================
    CARDS — À LA UNE
    ===================== */
-.cards-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  grid-template-rows:repeat(2,auto);
-  gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);
-}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,auto);gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);}
 .card{background:var(--paper);padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:220px;transition:background .25s;position:relative;overflow:hidden;}
 .card:hover{background:var(--ink);color:var(--paper);}
 .card.xl{grid-column:1/3;min-height:320px;}
@@ -251,7 +272,7 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .vcard{flex-shrink:0;width:300px;border:1px solid #1e1e1e;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:border-color .25s;}
 .vcard:hover{border-color:#444;}
 .vq{font-family:var(--display);font-size:1rem;font-weight:600;line-height:1.45;letter-spacing:-.01em;}
-.vq::before{content:"\201C";color:var(--yellow);font-size:2rem;line-height:0;vertical-align:-.45rem;margin-right:.1rem;}
+.vq::before{content:"C";color:var(--yellow);font-size:2rem;line-height:0;vertical-align:-.45rem;margin-right:.1rem;}
 .vfrom{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#333;display:flex;justify-content:space-between;}
 
 /* =====================
@@ -344,15 +365,15 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 @media(max-width:860px){
   nav{padding:0 1.2rem;}
   .nav-links{display:none;}
-  #hero{padding-top:82px;}
-  .hero-body{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;}
-  .hero-tl{grid-column:1;grid-row:1;padding:1.5rem 1.5rem 0;}
-  .hero-tr{grid-column:1;grid-row:2;padding:0 1.5rem;justify-content:flex-start;}
-  .hero-center{grid-column:1;grid-row:3;padding:2rem 1.5rem;}
-  .hero-bl{grid-column:1;grid-row:4;padding:0 1.5rem 1.5rem;}
-  .hero-br{grid-column:1;grid-row:5;padding:0 1.5rem 2rem;align-items:flex-start;}
-  .hero-desc{margin-left:0;}
-  .hero-btns{align-items:flex-start;}
+  .hero-main{grid-template-columns:1fr;grid-template-rows:auto auto auto;padding:1.5rem;}
+  .hero-logo-wrap{grid-column:1;grid-row:2;margin:1.5rem 0;}
+  .hero-tl{grid-column:1;grid-row:1;}
+  .hero-tr{grid-column:1;grid-row:1;display:none;}
+  .hero-bl{grid-column:1;grid-row:3;}
+  .hero-br{grid-column:1;grid-row:4;align-items:flex-start;}
+  .hero-sub{grid-column:1;grid-row:5;}
+  .deco-line{display:none;}
+  .hero-logo{width:90vw;}
   #question{grid-template-columns:1fr;}
   .qp-l{border-right:none;border-bottom:1px solid #1e1e1e;}
   .cards-grid{grid-template-columns:1fr;}
@@ -373,13 +394,13 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 <div class="ticker" aria-hidden="true">
   <div class="ticker-t">
     <span>Agora Dau</span><em> ◆ </em>
-    <span>Le média qui fait parler Dauphine</span><em> ◆ </em>
+    <span>Le média qui vous donne la parole</span><em> ◆ </em>
     <span>Podcasts · micros-trottoirs · débats</span><em> ◆ </em>
     <span>Esprit critique · sans filtre</span><em> ◆ </em>
     <span>Paris Dauphine–PSL</span><em> ◆ </em>
     <span>Issue No.01 — 2025/26</span><em> ◆ </em>
     <span>Agora Dau</span><em> ◆ </em>
-    <span>Le média qui fait parler Dauphine</span><em> ◆ </em>
+    <span>Le média qui vous donne la parole</span><em> ◆ </em>
     <span>Podcasts · micros-trottoirs · débats</span><em> ◆ </em>
     <span>Esprit critique · sans filtre</span><em> ◆ </em>
     <span>Paris Dauphine–PSL</span><em> ◆ </em>
@@ -401,46 +422,51 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   </ul>
 </nav>
 
-<!-- ═══════════════════════════════
-     HERO — le logo au centre,
-     tout explose autour
-     ═══════════════════════════════ -->
+<!-- ═══════ HERO ═══════ -->
 <section id="hero">
-  <div class="hero-body">
+  <div class="hero-main">
 
-    <!-- TOP LEFT -->
-    <div class="hero-tl">
-      <span class="badge">Issue N°01</span>
-      <span class="label" style="margin-top:.4rem;">Paris Dauphine–PSL · 2025/26</span>
-    </div>
-
-    <!-- TOP RIGHT -->
-    <div class="hero-tr">
-      <p>Médias étudiant<br>indépendant<br>— depuis 2025</p>
-    </div>
-
-    <!-- CENTER LOGO -->
-    <div class="hero-center">
+    <!-- Logo centré en overlapping grid -->
+    <div class="hero-logo-wrap">
       <img class="hero-logo" src="./AGORA%20DAU.png" alt="Agora Dau"/>
     </div>
 
-    <!-- BOTTOM LEFT : BIG TITLE -->
-    <div class="hero-bl">
-      <h1 class="hero-big-title">
-        <span class="outline">Le</span> média<br>
-        qui <span class="red">parle</span><br>
-        Dauphine.
-      </h1>
+    <!-- Lignes décoratives -->
+    <div class="deco-line deco-line-l"></div>
+    <div class="deco-line deco-line-r"></div>
+
+    <!-- COIN HAUT GAUCHE -->
+    <div class="hero-tl">
+      <span class="badge">Issue N°01</span>
+      <span class="hero-label">Paris Dauphine–PSL<br>2025 / 26</span>
     </div>
 
-    <!-- BOTTOM RIGHT : desc + btns -->
+    <!-- COIN HAUT DROIT -->
+    <div class="hero-tr">
+      <span class="hero-tr-tag">Média étudiant<br>indépendant</span>
+      <span class="hero-tr-tag" style="color:var(--red);">↓ Défiler</span>
+    </div>
+
+    <!-- BAS GAUCHE — slogan typographique -->
+    <div class="hero-bl">
+      <p class="hero-slogan">
+        Le <span class="red">média</span><br>
+        qui vous<br>
+        <span class="ol">donne</span><br>
+        la parole.
+      </p>
+    </div>
+
+    <!-- BAS DROIT — boutons CTA -->
     <div class="hero-br">
-      <p class="hero-desc">Podcasts, micro-trottoirs, débats, analyses — sans filtre, sans langue de bois, sans complexe.</p>
-      <div class="hero-btns">
-        <a href="#podcasts" class="btn btn-fill">🎙 Écouter</a>
-        <a href="#micros" class="btn btn-outline">🎤 Regarder</a>
-        <a href="#participer" class="btn btn-ghost">→ Participer</a>
-      </div>
+      <a href="#podcasts" class="btn btn-fill">🎙 Écouter</a>
+      <a href="#micros" class="btn btn-outline">🎤 Regarder</a>
+      <a href="#participer" class="btn btn-ghost">→ Participer</a>
+    </div>
+
+    <!-- Slogan centré en bas -->
+    <div class="hero-sub">
+      <span class="hero-sub-text">Podcasts · Micros-trottoirs · Débats · <em>Sans filtre</em></span>
     </div>
 
   </div>
@@ -734,13 +760,4 @@ document.getElementById("qbtn").addEventListener("click",function(){
 });
 </script>
 </body>
-</html>'''
-
-# Inject real logo
-HTML = HTML.replace('./AGORA%20DAU.png', LOGO_SRC)
-
-with open('/mnt/user-data/outputs/agora-dau-v4.html','w') as f:
-    f.write(HTML)
-
-print(f"Done — {len(HTML):,} chars, logo count: {HTML.count('data:image/png;base64,')}")
-PYEOF
+</html>
