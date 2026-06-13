@@ -48,10 +48,10 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .nav-cta:hover{background:var(--ink);transform:scale(1.04);}
 
 /* =====================
-   HERO — logo centré + vie autour
+   HERO — tout visible dès l'ouverture, sans scroller
    ===================== */
 #hero{
-  min-height:100vh;
+  height:100vh;
   padding-top:82px;
   display:flex;
   flex-direction:column;
@@ -60,26 +60,25 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
   overflow:hidden;
 }
 
-/* lignes horizontales texture */
 #hero::before{
   content:"";position:absolute;inset:0;
   background:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(10,10,10,.06) 79px,rgba(10,10,10,.06) 80px);
   pointer-events:none;z-index:0;
 }
 
-/* === HERO MAIN : logo + éléments autour === */
+/* hero-main prend tout l'espace restant entre nav et stats-bar */
 .hero-main{
   flex:1;
   position:relative;
   z-index:1;
   display:grid;
-  grid-template-columns:200px 1fr 200px;
-  grid-template-rows:1fr auto 1fr;
-  padding:2rem 2.5rem;
-  min-height:calc(100vh - 82px - 72px);
+  grid-template-columns:190px 1fr 190px;
+  grid-template-rows:auto 1fr auto;
+  padding:.8rem 2rem;
+  overflow:hidden;
 }
 
-/* --- LOGO au centre absolu --- */
+/* logo couvre toute la grille, centré */
 .hero-logo-wrap{
   grid-column:1/4;
   grid-row:1/4;
@@ -89,13 +88,17 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
   pointer-events:none;
 }
 .hero-logo{
-  width:min(78vw, 760px);
+  /* taille calculée pour tenir dans la hauteur disponible */
+  height:min(58vh, 480px);
+  width:auto;
+  max-width:min(70vw, 700px);
+  object-fit:contain;
   animation:pop .9s var(--ease) both;
-  filter:drop-shadow(0 8px 48px rgba(0,0,0,.13));
+  filter:drop-shadow(0 6px 36px rgba(0,0,0,.12));
   pointer-events:all;
 }
 .hero-logo:hover{
-  filter:drop-shadow(0 12px 60px rgba(0,0,0,.2));
+  filter:drop-shadow(0 10px 50px rgba(0,0,0,.2));
   transition:filter .4s var(--ease);
 }
 @keyframes pop{
@@ -104,54 +107,55 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
   100%{opacity:1;transform:scale(1) rotate(0deg);}
 }
 
-/* --- COIN HAUT GAUCHE --- */
+/* COIN HAUT GAUCHE */
 .hero-tl{
   grid-column:1;grid-row:1;
-  display:flex;flex-direction:column;gap:.7rem;
+  display:flex;flex-direction:column;gap:.4rem;
   align-self:start;
-  padding-top:.5rem;
   animation:fadein .7s var(--ease) .3s both;
+  z-index:2;
 }
-@keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 
-.badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;background:var(--yellow);color:var(--ink);display:inline-block;padding:4px 12px;border-radius:99px;width:fit-content;}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;background:var(--yellow);color:var(--ink);display:inline-block;padding:3px 10px;border-radius:99px;width:fit-content;}
 .hero-label{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);line-height:1.7;}
 
-/* --- COIN HAUT DROIT --- */
+/* COIN HAUT DROIT */
 .hero-tr{
   grid-column:3;grid-row:1;
-  display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;
+  display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;
   align-self:start;
-  padding-top:.5rem;
-  animation:fadein .7s var(--ease) .45s both;
+  animation:fadein .7s var(--ease) .4s both;
+  z-index:2;
 }
 .hero-tr-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);text-align:right;line-height:1.8;}
-.hero-tr-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--stone);display:flex;align-items:center;justify-content:center;font-size:.6rem;}
 
-/* --- SLOGAN BAS GAUCHE --- */
+/* BAS GAUCHE — slogan */
 .hero-bl{
   grid-column:1;grid-row:3;
-  display:flex;flex-direction:column;justify-content:flex-end;gap:.7rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
   animation:fadein .7s var(--ease) .5s both;
+  z-index:2;
 }
 .hero-slogan{
   font-family:var(--display);
-  font-size:clamp(1.1rem,2vw,1.7rem);
+  font-size:clamp(.85rem,1.4vw,1.3rem);
   font-weight:800;
   letter-spacing:-.04em;
-  line-height:1;
+  line-height:1.05;
   text-transform:uppercase;
 }
 .hero-slogan .red{color:var(--red);}
 .hero-slogan .ol{-webkit-text-stroke:1.5px var(--ink);color:transparent;}
 
-/* --- BAS DROIT : CTA --- */
+/* BAS DROIT — CTA */
 .hero-br{
   grid-column:3;grid-row:3;
-  display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:.6rem;
+  display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:.35rem;
   animation:fadein .7s var(--ease) .55s both;
+  z-index:2;
 }
-.btn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.7rem 1.5rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .22s var(--ease);}
+.btn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.55rem 1.2rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .22s var(--ease);}
 .btn-fill{background:var(--ink);color:var(--paper);}
 .btn-fill:hover{background:var(--red);}
 .btn-outline{border:1.5px solid var(--ink);}
@@ -159,34 +163,34 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .btn-ghost{border:1.5px solid var(--stone);color:var(--mist);border-radius:99px;}
 .btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
 
-/* --- SLOGAN CENTRAL en arc sous logo --- */
+/* SLOGAN CENTRAL bas */
 .hero-sub{
   grid-column:1/4;grid-row:3;
   display:flex;align-items:flex-end;justify-content:center;
   pointer-events:none;
-  padding-bottom:.5rem;
+  z-index:1;
 }
 .hero-sub-text{
-  font-family:var(--mono);font-size:11px;letter-spacing:.35em;text-transform:uppercase;
+  font-family:var(--mono);font-size:9px;letter-spacing:.28em;text-transform:uppercase;
   color:var(--mist);text-align:center;
   border-top:1px solid var(--stone);
-  padding-top:.8rem;
-  width:min(500px,60vw);
+  padding-top:.5rem;
+  width:min(420px,50vw);
   animation:fadein .8s var(--ease) .7s both;
 }
 .hero-sub-text em{color:var(--red);font-style:normal;}
 
-/* --- LIGNES DÉCORATIVES gauche/droite du logo --- */
+/* LIGNES DÉCORATIVES */
 .deco-line{
   position:absolute;
   top:50%;transform:translateY(-50%);
-  width:1px;height:55%;
+  width:1px;height:45%;
   background:linear-gradient(to bottom, transparent, var(--stone) 30%, var(--stone) 70%, transparent);
   pointer-events:none;
   animation:fadein 1s var(--ease) .8s both;
 }
-.deco-line-l{left:260px;}
-.deco-line-r{right:260px;}
+.deco-line-l{left:230px;}
+.deco-line-r{right:230px;}
 
 /* STATS BAR */
 .hero-stats{
