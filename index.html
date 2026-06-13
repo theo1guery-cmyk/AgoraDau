@@ -390,7 +390,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 <!-- NAV -->
 <nav id="nav">
   <a href="#hero" class="nav-logo">
-    <img src="LOGO_PLACEHOLDER" alt="Agora Dau" style="height:30px;width:auto;"/>
+    <img src="./AGORA%20DAU.png" alt="Agora Dau" style="height:30px;width:auto;"/>
   </a>
   <ul class="nav-links">
     <li><a href="#une">À la une</a></li>
@@ -421,7 +421,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 
     <!-- CENTER LOGO -->
     <div class="hero-center">
-      <img class="hero-logo" src="LOGO_PLACEHOLDER" alt="Agora Dau"/>
+      <img class="hero-logo" src="./AGORA%20DAU.png" alt="Agora Dau"/>
     </div>
 
     <!-- BOTTOM LEFT : BIG TITLE -->
@@ -737,7 +737,7 @@ document.getElementById("qbtn").addEventListener("click",function(){
 </html>'''
 
 # Inject real logo
-HTML = HTML.replace('LOGO_PLACEHOLDER', LOGO_SRC)
+HTML = HTML.replace('./AGORA%20DAU.png', LOGO_SRC)
 
 with open('/mnt/user-data/outputs/agora-dau-v4.html','w') as f:
     f.write(HTML)
