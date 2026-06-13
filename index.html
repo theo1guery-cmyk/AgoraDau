@@ -1,823 +1,746 @@
-cat > /mnt/user-data/outputs/agora-dau-newwave.html << 'HTMLEOF'
-<!DOCTYPE html>
+python3 << 'PYEOF'
+import base64, re
+
+with open('/home/claude/logo_b64.txt') as f:
+    LOGO = f.read().strip()
+
+LOGO_SRC = f"data:image/png;base64,{LOGO}"
+
+HTML = '''<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agora Dau — La voix de Dauphine</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Agora Dau — Le média qui fait parler Dauphine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --cream:#F5F0E8;
-  --black:#0D0D0D;
-  --red:#E8251A;
-  --gray:#6B6B6B;
-  --light-gray:#D9D4CC;
-  --white:#FAFAFA;
+  --ink:#0A0A0A;
+  --paper:#F0EDE6;
+  --red:#FF3B30;
+  --yellow:#FFE000;
+  --stone:#C8C4BC;
+  --mist:#7A776F;
+  --display:"Syne",sans-serif;
+  --body:"DM Sans",sans-serif;
+  --mono:"DM Mono",monospace;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 html{scroll-behavior:smooth;}
-body{
-  font-family:'Space Grotesk',sans-serif;
-  background:var(--cream);
-  color:var(--black);
-  overflow-x:hidden;
-  cursor:none;
-}
-/* CUSTOM CURSOR */
-#cur{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
-#cur.big{width:40px;height:40px;background:transparent;border:2px solid var(--red);}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);overflow-x:hidden;cursor:none;}
+a{text-decoration:none;color:inherit;}
+
+/* CURSOR */
+#cur{position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:var(--red);transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),opacity .2s;mix-blend-mode:multiply;}
+#cur.big{width:72px;height:72px;opacity:.15;}
 
 /* TICKER */
-.ticker-wrap{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  background:var(--black);
-  color:var(--cream);
-  font-family:'Space Mono',monospace;
-  font-size:11px;
-  letter-spacing:.08em;
-  height:32px;
-  display:flex;align-items:center;
-  overflow:hidden;
-}
-.ticker-inner{
-  display:flex;align-items:center;
-  white-space:nowrap;
-  animation:ticker 30s linear infinite;
-}
-.ticker-inner span{margin:0 2.5rem;}
-.ticker-dot{color:var(--red);font-size:16px;line-height:0;}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{position:fixed;top:0;left:0;right:0;z-index:600;height:28px;background:var(--ink);overflow:hidden;display:flex;align-items:center;}
+.ticker-t{display:flex;white-space:nowrap;animation:rtl 32s linear infinite;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--paper);}
+.ticker-t span{padding:0 2.5rem;}
+.ticker-t em{color:var(--yellow);font-style:normal;}
+@keyframes rtl{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* NAV */
-nav{
-  position:fixed;top:32px;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 3rem;height:60px;
-  border-bottom:1px solid transparent;
-  transition:all .4s var(--ease);
-}
-nav.scrolled{
-  background:var(--cream);
-  border-bottom:1px solid var(--black);
-}
-.nav-logo{
-  font-family:'Space Mono',monospace;
-  font-size:13px;font-weight:700;
-  letter-spacing:.15em;text-transform:uppercase;
-  text-decoration:none;color:var(--black);
-  display:flex;align-items:center;gap:.8rem;
-}
-.nav-logo-badge{
-  background:var(--red);color:var(--cream);
-  font-size:9px;padding:2px 6px;letter-spacing:.1em;
-}
-.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;}
-.nav-links a{
-  font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
-  text-decoration:none;color:var(--black);
-  position:relative;
-}
-.nav-links a::after{
-  content:'';position:absolute;bottom:-3px;left:0;right:0;
-  height:2px;background:var(--red);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .3s var(--ease);
-}
-.nav-links a:hover::after{transform:scaleX(1);}
-.nav-cta{
-  font-family:'Space Mono',monospace;
-  font-size:11px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;
-  background:var(--black);color:var(--cream);
-  padding:.6rem 1.4rem;text-decoration:none;
-  border:2px solid var(--black);
-  transition:all .25s;
-}
-.nav-cta:hover{background:var(--red);border-color:var(--red);}
+nav{position:fixed;top:28px;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:54px;transition:background .3s,border-bottom .3s;}
+nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
+.nav-logo img{height:30px;width:auto;}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;position:relative;}
+.nav-links a::after{content:"";position:absolute;bottom:-2px;left:0;width:100%;height:1px;background:var(--red);transform:scaleX(0);transform-origin:right;transition:transform .25s var(--ease);}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left;}
+.nav-cta{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;background:var(--red);color:#fff;padding:.5rem 1.4rem;border-radius:99px;transition:background .2s,transform .2s;}
+.nav-cta:hover{background:var(--ink);transform:scale(1.04);}
 
-/* HERO */
+/* =====================
+   HERO — full viewport
+   Logo massive + texte qui explose autour
+   ===================== */
 #hero{
   min-height:100vh;
-  padding:140px 3rem 5rem;
+  padding-top:82px;
   display:grid;
   grid-template-rows:1fr auto;
-  border-bottom:1px solid var(--black);
+  border-bottom:1.5px solid var(--ink);
   position:relative;
   overflow:hidden;
 }
-.hero-top{
+
+/* Horizontal rule lines as texture */
+#hero::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 99px,rgba(10,10,10,.05) 99px,rgba(10,10,10,.05) 100px);
+  pointer-events:none;z-index:0;
+}
+
+.hero-body{
+  position:relative;z-index:1;
   display:grid;
-  grid-template-columns:1fr auto;
-  gap:4rem;
-  align-items:start;
+  grid-template-columns:1fr minmax(0,560px) 1fr;
+  grid-template-rows:auto auto auto;
+  min-height:calc(100vh - 82px - 80px);
 }
-.hero-eyebrow{
-  font-family:'Space Mono',monospace;
-  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--red);margin-bottom:2rem;
-  display:flex;align-items:center;gap:.8rem;
+
+/* TOP-LEFT label */
+.hero-tl{
+  grid-column:1;grid-row:1;
+  padding:2.5rem 2.5rem 0;
+  display:flex;flex-direction:column;gap:.6rem;
 }
-.hero-eyebrow::before{content:'';display:block;width:30px;height:2px;background:var(--red);}
-.hero-title{
-  font-size:clamp(5rem,14vw,13rem);
-  font-weight:700;line-height:.9;letter-spacing:-.03em;
+.hero-tl .badge{
+  font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  background:var(--yellow);color:var(--ink);display:inline-block;padding:4px 12px;border-radius:99px;
+  width:fit-content;
+}
+.hero-tl .label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);}
+
+/* TOP-RIGHT slogan */
+.hero-tr{
+  grid-column:3;grid-row:1;
+  padding:2.5rem 2.5rem 0;
+  display:flex;align-items:flex-start;justify-content:flex-end;
+}
+.hero-tr p{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mist);text-align:right;line-height:1.8;
+}
+
+/* CENTER LOGO */
+.hero-center{
+  grid-column:2;grid-row:1/4;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2rem 1rem;
+  position:relative;
+}
+.hero-logo{
+  width:100%;max-width:520px;
+  animation:pop .9s var(--ease) both;
+}
+.hero-logo:hover{animation:none;transform:scale(1.03);transition:transform .4s var(--ease);}
+@keyframes pop{
+  0%{opacity:0;transform:scale(.7) rotate(-4deg);}
+  60%{transform:scale(1.06) rotate(1deg);}
+  100%{opacity:1;transform:scale(1) rotate(0deg);}
+}
+
+/* The big title — bottom left */
+.hero-bl{
+  grid-column:1;grid-row:2/4;
+  padding:0 2.5rem 2.5rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.hero-big-title{
+  font-family:var(--display);
+  font-size:clamp(2.8rem,6vw,6rem);
+  font-weight:800;letter-spacing:-.045em;line-height:.92;
   text-transform:uppercase;
 }
-.hero-title .line-outline{
-  -webkit-text-stroke:2px var(--black);
-  color:transparent;
-}
-.hero-title .line-red{color:var(--red);}
-.hero-right{
-  padding-top:1rem;
-  max-width:300px;
-}
-.hero-right p{
-  font-size:1rem;font-weight:400;line-height:1.7;
-  color:var(--gray);
-  border-left:2px solid var(--red);
-  padding-left:1.2rem;
-  margin-bottom:2rem;
-}
-.hero-right .pill{
-  display:inline-block;
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-  border:1px solid var(--black);
-  padding:.35rem .9rem;margin:.25rem .25rem 0 0;
-}
-.hero-bottom{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  padding-top:3rem;
-  border-top:1px solid var(--light-gray);
-  margin-top:3rem;
-}
-.hero-stat{text-align:left;}
-.hero-stat-n{
-  font-size:3.5rem;font-weight:700;line-height:1;letter-spacing:-.04em;
-  display:block;
-}
-.hero-stat-n span{color:var(--red);}
-.hero-stat-l{
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--gray);margin-top:.3rem;display:block;
-}
-.hero-scroll{
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gray);
-  display:flex;flex-direction:column;align-items:flex-end;gap:.8rem;
-}
-.hero-scroll-line{
-  width:1px;height:50px;background:var(--black);
-  animation:scrollDown 2s ease-in-out infinite;
-}
-@keyframes scrollDown{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+.hero-big-title .outline{-webkit-text-stroke:2px var(--ink);color:transparent;}
+.hero-big-title .red{color:var(--red);}
 
-/* MARQUEE SECTION */
-.marquee-section{
-  background:var(--black);
-  color:var(--cream);
-  padding:1.5rem 0;
-  overflow:hidden;
-  border-bottom:3px solid var(--red);
+/* Bottom right — desc + btns */
+.hero-br{
+  grid-column:3;grid-row:2/4;
+  padding:0 2.5rem 2.5rem;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:1.5rem;
 }
-.marquee-inner{
-  display:flex;align-items:center;gap:0;
-  white-space:nowrap;
-  animation:marquee 20s linear infinite;
-}
-.marquee-inner span{
-  font-family:'Space Mono',monospace;
-  font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:0 2rem;
-}
-.marquee-inner .sep{color:var(--red);}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-desc{font-size:.9rem;line-height:1.75;color:var(--mist);max-width:280px;margin-left:auto;}
+.hero-btns{display:flex;flex-direction:column;gap:.6rem;align-items:flex-end;}
+.btn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.7rem 1.6rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .22s var(--ease);}
+.btn-fill{background:var(--ink);color:var(--paper);}
+.btn-fill:hover{background:var(--red);}
+.btn-outline{border:1.5px solid var(--ink);}
+.btn-outline:hover{background:var(--ink);color:var(--paper);}
+.btn-ghost{border:1.5px solid var(--stone);color:var(--mist);border-radius:99px;}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
 
-/* ABOUT / CONCEPT */
-#concept{
-  display:grid;grid-template-columns:1fr 1fr;
-  border-bottom:1px solid var(--black);
+/* STATS BAR */
+.hero-stats{
+  position:relative;z-index:1;
+  display:flex;border-top:1.5px solid var(--ink);
 }
-.concept-left{
-  padding:5rem 3rem;
-  border-right:1px solid var(--black);
+.hs{
+  flex:1;padding:1.2rem 2.5rem;
+  border-right:1.5px solid var(--ink);
+  display:flex;flex-direction:column;gap:.25rem;
 }
-.concept-right{
-  padding:5rem 3rem;
-  display:flex;flex-direction:column;justify-content:space-between;
-}
-.section-label{
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--red);margin-bottom:2.5rem;
-  display:flex;align-items:center;gap:.8rem;
-}
-.section-label::before{content:'';display:block;width:20px;height:2px;background:var(--red);}
-.section-h{
-  font-size:clamp(2.5rem,5vw,4.5rem);
-  font-weight:700;letter-spacing:-.03em;
-  line-height:1;text-transform:uppercase;
-  margin-bottom:2rem;
-}
-.section-h em{color:var(--red);font-style:normal;}
-.section-body{
-  font-size:1rem;font-weight:400;line-height:1.8;
-  color:var(--gray);max-width:480px;
-}
-.concept-card{
-  border:1px solid var(--black);
-  padding:1.8rem 2rem;
-  margin-bottom:1px;
-  position:relative;
-  transition:background .25s;
-  cursor:default;
-}
-.concept-card:hover{background:var(--black);color:var(--cream);}
-.concept-card:hover .cc-icon{color:var(--red);}
-.concept-card:hover .cc-label{color:var(--light-gray);}
-.cc-icon{font-size:1.8rem;margin-bottom:.8rem;display:block;}
-.cc-title{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.5rem;}
-.cc-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);}
+.hs:last-child{border-right:none;flex:0 0 auto;justify-content:center;}
+.hs-n{font-family:var(--display);font-size:2.2rem;font-weight:800;letter-spacing:-.05em;line-height:1;}
+.hs-n sup{font-size:1rem;color:var(--red);}
+.hs-l{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mist);}
+.scroll-hint{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);display:flex;align-items:center;gap:.8rem;padding:1.2rem 2.5rem;}
+.scroll-line{width:1px;height:32px;background:var(--stone);}
 
-/* FORMATS */
-#formats{
-  padding:5rem 3rem;
-  border-bottom:1px solid var(--black);
-}
-.formats-grid{
+/* =====================
+   MARQUEE
+   ===================== */
+.mrq{background:var(--red);height:40px;overflow:hidden;display:flex;align-items:center;}
+.mrq-t{display:flex;white-space:nowrap;animation:rtl 15s linear infinite;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#fff;}
+.mrq-t span{padding:0 2rem;}
+.mrq-t .x{opacity:.4;}
+
+/* =====================
+   QUESTION
+   ===================== */
+#question{display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--paper);}
+.qp{padding:4.5rem 2.5rem;}
+.qp-l{border-right:1px solid #1e1e1e;}
+.q-over{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);display:flex;align-items:center;gap:.7rem;margin-bottom:1.8rem;}
+.q-over::before{content:"";width:14px;height:1.5px;background:var(--yellow);}
+.q-quote{font-family:var(--display);font-size:clamp(2rem,4.2vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:2.5rem;}
+.q-meta{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#444;border-top:1px solid #1e1e1e;padding-top:1.2rem;display:flex;justify-content:space-between;}
+/* donut */
+.donut-area{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;height:100%;}
+.dnut-w{position:relative;width:220px;height:220px;}
+.dnut-svg{width:100%;height:100%;}
+.dtrack{fill:none;stroke:#1a1a1a;stroke-width:16;}
+.dyes{fill:none;stroke:var(--red);stroke-width:16;stroke-dasharray:0 439;transition:stroke-dasharray 1.8s var(--ease);}
+.dno{fill:none;stroke:#282828;stroke-width:16;stroke-dasharray:0 439;transition:stroke-dasharray 1.8s var(--ease) .1s;}
+.dnut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.dnut-pct{font-family:var(--display);font-size:3rem;font-weight:800;letter-spacing:-.05em;line-height:1;}
+.dnut-pct span{color:var(--red);}
+.dnut-sub{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#555;margin-top:.2rem;}
+.dnut-key{display:flex;gap:1.5rem;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;}
+.dk{display:flex;align-items:center;gap:.4rem;}
+.dk-dot{width:8px;height:8px;border-radius:50%;}
+
+/* =====================
+   SECTION COMMONS
+   ===================== */
+.sec{padding:4.5rem 2.5rem;border-bottom:1.5px solid var(--ink);}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:3rem;}
+.s-over{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem;}
+.s-over::before{content:"";width:14px;height:1.5px;background:var(--red);}
+.s-title{font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-.04em;line-height:.95;text-transform:uppercase;}
+.s-title em{color:var(--red);font-style:normal;}
+.s-aside{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);}
+
+/* =====================
+   CARDS — À LA UNE
+   ===================== */
+.cards-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--black);
-  border:1px solid var(--black);
-  margin-top:3rem;
+  grid-template-rows:repeat(2,auto);
+  gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);
 }
-.format-item{
-  background:var(--cream);
-  padding:3rem 2rem;
-  position:relative;
-  overflow:hidden;
-  transition:background .3s;
-}
-.format-item::before{
-  content:attr(data-num);
-  position:absolute;top:1.5rem;right:1.5rem;
-  font-size:5rem;font-weight:700;letter-spacing:-.05em;
-  color:var(--light-gray);line-height:1;
-  transition:color .3s;
-}
-.format-item:hover{background:var(--black);}
-.format-item:hover::before{color:var(--red);}
-.format-item:hover .fi-title,.format-item:hover .fi-desc{color:var(--cream);}
-.fi-label{
-  font-family:'Space Mono',monospace;
-  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--red);margin-bottom:1.5rem;display:block;
-}
-.fi-title{
-  font-size:1.6rem;font-weight:700;letter-spacing:-.03em;
-  line-height:1.1;margin-bottom:1rem;text-transform:uppercase;
-  transition:color .3s;
-}
-.fi-desc{
-  font-size:.85rem;line-height:1.7;color:var(--gray);
-  transition:color .3s;
-}
+.card{background:var(--paper);padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:220px;transition:background .25s;position:relative;overflow:hidden;}
+.card:hover{background:var(--ink);color:var(--paper);}
+.card.xl{grid-column:1/3;min-height:320px;}
+.card.xl .c-title{font-size:clamp(1.4rem,2.2vw,2rem);}
+.c-type{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.4rem;}
+.card:hover .c-type{color:var(--yellow);}
+.c-title{font-family:var(--display);font-size:1.1rem;font-weight:700;letter-spacing:-.02em;line-height:1.2;}
+.c-sub{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-top:.4rem;}
+.card:hover .c-sub{color:#555;}
+.c-arrow{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-top:1rem;display:inline-flex;align-items:center;gap:.4rem;transition:gap .2s;}
+.card:hover .c-arrow{gap:.9rem;}
 
-/* THÈMES */
-#themes{
-  padding:5rem 3rem;
-  border-bottom:1px solid var(--black);
-  background:var(--black);
-  color:var(--cream);
-}
-.themes-header{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:3rem;
-}
-.themes-header .section-label{color:var(--red);}
-.themes-header .section-label::before{background:var(--red);}
-.themes-header .section-h{color:var(--cream);margin-bottom:0;}
-.theme-list{display:flex;flex-direction:column;gap:1px;}
-.theme-item{
-  display:flex;align-items:center;gap:2rem;
-  padding:1.5rem 0;
-  border-bottom:1px solid #222;
-  cursor:default;
-  transition:padding-left .25s;
-}
-.theme-item:hover{padding-left:1rem;}
-.theme-item:hover .ti-num{color:var(--red);}
-.theme-item:hover .ti-title{color:var(--red);}
-.ti-num{
-  font-family:'Space Mono',monospace;
-  font-size:11px;letter-spacing:.1em;
-  color:#555;min-width:30px;
-  transition:color .25s;
-}
-.ti-title{
-  font-size:1.4rem;font-weight:700;letter-spacing:-.02em;
-  flex:1;text-transform:uppercase;
-  transition:color .25s;
-}
-.ti-tag{
-  font-family:'Space Mono',monospace;
-  font-size:9px;letter-spacing:.15em;text-transform:uppercase;
-  border:1px solid #333;padding:.3rem .8rem;color:#666;
-}
-.ti-arrow{
-  font-size:1.2rem;color:#333;
-  transition:all .25s;
-}
-.theme-item:hover .ti-arrow{color:var(--red);transform:translateX(4px);}
+/* =====================
+   VOIX (scrolling)
+   ===================== */
+#voix{background:var(--ink);color:var(--paper);padding:4.5rem 2.5rem;overflow:hidden;}
+#voix .s-over{color:var(--yellow);}
+#voix .s-over::before{background:var(--yellow);}
+#voix .s-title{color:var(--paper);}
+.vscroll{display:flex;gap:1.5rem;margin-top:2.5rem;animation:rtl 48s linear infinite;width:max-content;}
+.vscroll:hover{animation-play-state:paused;}
+.vcard{flex-shrink:0;width:300px;border:1px solid #1e1e1e;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:border-color .25s;}
+.vcard:hover{border-color:#444;}
+.vq{font-family:var(--display);font-size:1rem;font-weight:600;line-height:1.45;letter-spacing:-.01em;}
+.vq::before{content:"\201C";color:var(--yellow);font-size:2rem;line-height:0;vertical-align:-.45rem;margin-right:.1rem;}
+.vfrom{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#333;display:flex;justify-content:space-between;}
 
-/* BUREAU */
-#bureau{
-  padding:5rem 3rem;
-  border-bottom:1px solid var(--black);
-}
-.bureau-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--black);border:1px solid var(--black);
-  margin-top:3rem;
-}
-.bcard{
-  background:var(--cream);padding:2.5rem 1.8rem;
-  transition:background .25s;
-}
-.bcard:hover{background:var(--black);}
-.bcard:hover .bc-name,.bcard:hover .bc-role,.bcard:hover .bc-desc{color:var(--cream);}
-.bcard:hover .bc-role{color:var(--red);}
-.bc-init{
-  width:56px;height:56px;
-  border:2px solid var(--black);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Space Mono',monospace;font-size:14px;font-weight:700;
-  margin-bottom:1.5rem;
-  transition:border-color .25s,background .25s,color .25s;
-}
-.bcard:hover .bc-init{border-color:var(--red);background:var(--red);color:var(--cream);}
-.bc-name{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.3rem;transition:color .25s;}
-.bc-role{
-  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--red);margin-bottom:.8rem;display:block;
-}
-.bc-desc{font-size:.8rem;line-height:1.6;color:var(--gray);transition:color .25s;}
+/* =====================
+   PODCASTS
+   ===================== */
+.pod-list{border-top:1.5px solid var(--ink);display:flex;flex-direction:column;}
+.pod-row{display:flex;align-items:center;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--stone);transition:padding-left .28s var(--ease);cursor:default;}
+.pod-row:hover{padding-left:1.2rem;}
+.pod-row:hover .play{background:var(--red);border-color:var(--red);color:#fff;}
+.pod-row:hover .ep-t{color:var(--red);}
+.play{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--stone);display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0;transition:all .22s;}
+.ep-info{flex:1;}
+.ep-t{font-family:var(--display);font-size:1rem;font-weight:700;letter-spacing:-.02em;transition:color .22s;}
+.ep-m{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-top:.25rem;}
+.ep-dur{font-family:var(--mono);font-size:10px;color:var(--stone);}
+.ep-tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--stone);padding:.2rem .8rem;border-radius:99px;color:var(--mist);}
 
-/* PODCAST / MICRO-TROTTOIR */
-#micro{
-  display:grid;grid-template-columns:1fr 1fr;
-  border-bottom:1px solid var(--black);
-  background:var(--red);
-  color:var(--cream);
-}
-.micro-left{
-  padding:5rem 3rem;
-  border-right:1px solid rgba(255,255,255,.2);
-}
-.micro-left .section-label{color:var(--cream);opacity:.6;}
-.micro-left .section-label::before{background:var(--cream);}
-.micro-left .section-h{color:var(--cream);}
-.micro-left .section-body{color:rgba(245,240,232,.75);}
-.micro-right{
-  padding:5rem 3rem;
-  display:flex;flex-direction:column;justify-content:center;gap:1.5rem;
-}
-.pod-item{
-  border:1px solid rgba(255,255,255,.2);
-  padding:1.5rem 2rem;
-  display:flex;align-items:center;gap:1.5rem;
-  transition:background .25s;
-  cursor:default;
-}
-.pod-item:hover{background:rgba(0,0,0,.15);}
-.pod-icon{
-  width:48px;height:48px;border:1px solid rgba(255,255,255,.3);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;flex-shrink:0;
-}
-.pod-title{font-size:1rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.2rem;}
-.pod-sub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;}
+/* =====================
+   MICROS (split)
+   ===================== */
+#micros{display:grid;grid-template-columns:1fr 1fr;border-bottom:1.5px solid var(--ink);}
+.micros-l{background:var(--yellow);color:var(--ink);padding:4.5rem 2.5rem;border-right:1.5px solid var(--ink);}
+.micros-l .s-over{color:rgba(10,10,10,.5);}
+.micros-l .s-over::before{background:var(--ink);opacity:.4;}
+.micros-l .s-title{text-transform:uppercase;}
+.micros-l .s-title em{color:var(--ink);-webkit-text-stroke:2px var(--ink);}
+.micros-body{font-size:.9rem;line-height:1.75;color:rgba(10,10,10,.6);margin-top:1.2rem;max-width:360px;}
+.micros-r{background:var(--ink);color:var(--paper);padding:4.5rem 2.5rem;display:flex;flex-direction:column;gap:1px;}
+.mt-item{display:flex;align-items:center;gap:1.5rem;padding:1.4rem 1.2rem;border:1px solid transparent;transition:all .22s;cursor:default;}
+.mt-item:hover{background:#0f0f0f;border-color:#2a2a2a;}
+.mt-icon{width:44px;height:44px;border:1px solid #2a2a2a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:border-color .22s;}
+.mt-item:hover .mt-icon{border-color:var(--yellow);}
+.mt-t{font-family:var(--display);font-size:.95rem;font-weight:700;letter-spacing:-.015em;margin-bottom:.2rem;}
+.mt-s{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#444;}
 
-/* JOIN */
-#join{
-  padding:5rem 3rem;
-  border-bottom:1px solid var(--black);
-}
-.join-inner{max-width:700px;margin:0 auto;text-align:center;}
-.join-inner .section-label{justify-content:center;}
-.join-inner .section-label::before{display:none;}
-.join-inner .section-h{font-size:clamp(3rem,8vw,7rem);margin-bottom:1.5rem;}
-.join-inner .section-body{margin:0 auto 3rem;text-align:center;max-width:460px;}
-.join-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
-.btn-primary{
-  font-family:'Space Mono',monospace;
-  font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  background:var(--black);color:var(--cream);
-  padding:.9rem 2.5rem;text-decoration:none;
-  border:2px solid var(--black);
-  transition:all .25s;display:inline-block;
-}
-.btn-primary:hover{background:var(--red);border-color:var(--red);}
-.btn-outline{
-  font-family:'Space Mono',monospace;
-  font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  background:transparent;color:var(--black);
-  padding:.9rem 2.5rem;text-decoration:none;
-  border:2px solid var(--black);
-  transition:all .25s;display:inline-block;
-}
-.btn-outline:hover{background:var(--black);color:var(--cream);}
+/* =====================
+   THÈMES (pills)
+   ===================== */
+.theme-pills{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.5rem;}
+.tp{font-family:var(--display);font-size:clamp(1rem,1.8vw,1.4rem);font-weight:700;letter-spacing:-.02em;border:1.5px solid var(--ink);padding:.55rem 1.4rem;border-radius:99px;display:flex;align-items:center;gap:.55rem;transition:all .22s var(--ease);cursor:default;}
+.tp:hover{background:var(--ink);color:var(--paper);transform:scale(1.05);}
+.tp:hover .tpdot{background:var(--yellow);}
+.tpdot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;transition:background .22s;}
+
+/* =====================
+   PARTICIPER
+   ===================== */
+#participer{background:var(--ink);color:var(--paper);padding:6rem 2.5rem;text-align:center;border-bottom:1.5px solid var(--ink);}
+.part-h{font-family:var(--display);font-size:clamp(3.5rem,11vw,11rem);font-weight:800;line-height:.86;letter-spacing:-.055em;text-transform:uppercase;margin-bottom:2rem;}
+.part-h em{color:var(--red);font-style:normal;}
+.part-h .ol{-webkit-text-stroke:2px var(--paper);color:transparent;}
+.part-sub{font-size:.95rem;line-height:1.75;color:#666;max-width:480px;margin:0 auto 2.5rem;}
+.qform{max-width:600px;margin:0 auto;display:flex;border:1.5px solid #2a2a2a;border-radius:99px;overflow:hidden;}
+.qform input{flex:1;background:transparent;border:none;outline:none;font-family:var(--body);font-size:.9rem;color:var(--paper);padding:.9rem 1.8rem;}
+.qform input::placeholder{color:#333;}
+.qform button{background:var(--red);color:#fff;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.9rem 1.8rem;border-radius:0 99px 99px 0;transition:background .2s;flex-shrink:0;}
+.qform button:hover{background:#d42820;}
+.part-note{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#2a2a2a;margin-top:1rem;}
+
+/* =====================
+   REJOINDRE
+   ===================== */
+#rejoindre{display:grid;grid-template-columns:1fr 1fr;border-bottom:1.5px solid var(--ink);}
+.rj-l{padding:4.5rem 2.5rem;border-right:1.5px solid var(--ink);}
+.rj-h{font-family:var(--display);font-size:clamp(2.5rem,5vw,5rem);font-weight:800;letter-spacing:-.05em;line-height:.9;text-transform:uppercase;margin-bottom:1.2rem;}
+.rj-h em{color:var(--red);font-style:normal;}
+.rj-body{font-size:.9rem;line-height:1.75;color:var(--mist);max-width:360px;margin-bottom:1.8rem;}
+.rj-r{padding:4.5rem 2.5rem;display:flex;flex-direction:column;gap:1.2rem;}
+.rcard{border:1.5px solid var(--stone);padding:1.4rem 1.8rem;transition:all .25s var(--ease);cursor:default;}
+.rcard:hover{border-color:var(--ink);transform:translateX(6px);}
+.rc-role{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.35rem;}
+.rc-t{font-family:var(--display);font-size:1rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.35rem;}
+.rc-d{font-size:.82rem;line-height:1.65;color:var(--mist);}
 
 /* FOOTER */
-footer{
-  background:var(--black);color:var(--cream);
-  padding:3rem;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:2rem;
-}
-.footer-logo{
-  font-family:'Space Mono',monospace;font-size:16px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  display:flex;align-items:center;gap:.8rem;
-}
-.footer-logo-dot{width:8px;height:8px;background:var(--red);border-radius:50%;}
-.footer-links{display:flex;gap:2rem;list-style:none;flex-wrap:wrap;}
-.footer-links a{
-  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:#666;text-decoration:none;transition:color .25s;
-}
-.footer-links a:hover{color:var(--red);}
-.footer-copy{
-  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;
-  color:#444;width:100%;padding-top:2rem;border-top:1px solid #222;
-  display:flex;align-items:center;justify-content:space-between;
-}
+footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
+.ft{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;padding-bottom:2rem;border-bottom:1px solid #1c1c1c;}
+.ft-brand{font-family:var(--display);font-size:1.2rem;font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:.5rem;}
+.ft-dot{width:9px;height:9px;border-radius:50%;background:var(--red);}
+.ft-nav{display:flex;gap:2rem;list-style:none;flex-wrap:wrap;}
+.ft-nav a{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#444;transition:color .2s;}
+.ft-nav a:hover{color:var(--yellow);}
+.ft-copy{padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:#333;}
 
 /* REVEAL */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
-.reveal.visible{opacity:1;transform:none;}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
+.rv.in{opacity:1;transform:none;}
 
 /* RESPONSIVE */
-@media(max-width:900px){
-  nav{padding:0 1.5rem;}
-  #hero{padding:140px 1.5rem 4rem;}
-  .hero-top{grid-template-columns:1fr;}
-  .hero-right{max-width:100%;}
-  #concept{grid-template-columns:1fr;}
-  .concept-left{border-right:none;border-bottom:1px solid var(--black);}
-  .formats-grid{grid-template-columns:1fr;}
-  .bureau-grid{grid-template-columns:1fr 1fr;}
-  #micro{grid-template-columns:1fr;}
-  .micro-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.2);}
-  #formats,#bureau,#join,#concept .concept-left,#concept .concept-right{padding:4rem 1.5rem;}
-  #themes{padding:4rem 1.5rem;}
-  footer{padding:2rem 1.5rem;}
+@media(max-width:860px){
+  nav{padding:0 1.2rem;}
+  .nav-links{display:none;}
+  #hero{padding-top:82px;}
+  .hero-body{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;}
+  .hero-tl{grid-column:1;grid-row:1;padding:1.5rem 1.5rem 0;}
+  .hero-tr{grid-column:1;grid-row:2;padding:0 1.5rem;justify-content:flex-start;}
+  .hero-center{grid-column:1;grid-row:3;padding:2rem 1.5rem;}
+  .hero-bl{grid-column:1;grid-row:4;padding:0 1.5rem 1.5rem;}
+  .hero-br{grid-column:1;grid-row:5;padding:0 1.5rem 2rem;align-items:flex-start;}
+  .hero-desc{margin-left:0;}
+  .hero-btns{align-items:flex-start;}
+  #question{grid-template-columns:1fr;}
+  .qp-l{border-right:none;border-bottom:1px solid #1e1e1e;}
+  .cards-grid{grid-template-columns:1fr;}
+  .card.xl{grid-column:auto;}
+  #micros{grid-template-columns:1fr;}
+  .micros-l{border-right:none;border-bottom:1.5px solid var(--ink);}
+  #rejoindre{grid-template-columns:1fr;}
+  .rj-l{border-right:none;border-bottom:1.5px solid var(--ink);}
+  .sec{padding:4rem 1.5rem;}
+  #voix,#participer{padding:4rem 1.5rem;}
 }
 </style>
 </head>
 <body>
-
 <div id="cur"></div>
 
 <!-- TICKER -->
-<div class="ticker-wrap" aria-label="Flux Agora Dau">
-  <div class="ticker-inner">
-    <span>Agora Dau</span><span class="ticker-dot">●</span>
-    <span>La voix de Dauphine</span><span class="ticker-dot">●</span>
-    <span>Podcasts & micros-trottoirs</span><span class="ticker-dot">●</span>
-    <span>Esprit critique</span><span class="ticker-dot">●</span>
-    <span>Tout le monde a la parole</span><span class="ticker-dot">●</span>
-    <span>Nouveau semestre · nouvelles thématiques</span><span class="ticker-dot">●</span>
-    <span>Agora Dau</span><span class="ticker-dot">●</span>
-    <span>La voix de Dauphine</span><span class="ticker-dot">●</span>
-    <span>Podcasts & micros-trottoirs</span><span class="ticker-dot">●</span>
-    <span>Esprit critique</span><span class="ticker-dot">●</span>
-    <span>Tout le monde a la parole</span><span class="ticker-dot">●</span>
-    <span>Nouveau semestre · nouvelles thématiques</span><span class="ticker-dot">●</span>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-t">
+    <span>Agora Dau</span><em> ◆ </em>
+    <span>Le média qui fait parler Dauphine</span><em> ◆ </em>
+    <span>Podcasts · micros-trottoirs · débats</span><em> ◆ </em>
+    <span>Esprit critique · sans filtre</span><em> ◆ </em>
+    <span>Paris Dauphine–PSL</span><em> ◆ </em>
+    <span>Issue No.01 — 2025/26</span><em> ◆ </em>
+    <span>Agora Dau</span><em> ◆ </em>
+    <span>Le média qui fait parler Dauphine</span><em> ◆ </em>
+    <span>Podcasts · micros-trottoirs · débats</span><em> ◆ </em>
+    <span>Esprit critique · sans filtre</span><em> ◆ </em>
+    <span>Paris Dauphine–PSL</span><em> ◆ </em>
+    <span>Issue No.01 — 2025/26</span><em> ◆ </em>
   </div>
 </div>
 
 <!-- NAV -->
-<nav id="navbar">
+<nav id="nav">
   <a href="#hero" class="nav-logo">
-    <span>Agora</span>
-    <span class="nav-logo-badge">DAU</span>
+    <img src="LOGO_PLACEHOLDER" alt="Agora Dau" style="height:30px;width:auto;"/>
   </a>
   <ul class="nav-links">
-    <li><a href="#concept">Le projet</a></li>
-    <li><a href="#formats">Formats</a></li>
+    <li><a href="#une">À la une</a></li>
+    <li><a href="#podcasts">Podcasts</a></li>
+    <li><a href="#micros">Micros</a></li>
     <li><a href="#themes">Thèmes</a></li>
-    <li><a href="#bureau">Équipe</a></li>
-    <li><a href="#join" class="nav-cta">Rejoindre</a></li>
+    <li><a href="#participer" class="nav-cta">Participer</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ═══════════════════════════════
+     HERO — le logo au centre,
+     tout explose autour
+     ═══════════════════════════════ -->
 <section id="hero">
-  <div class="hero-top">
-    <div>
-      <p class="hero-eyebrow">Média étudiant · Paris Dauphine–PSL</p>
-      <h1 class="hero-title">
-        <span class="line-solid">Agora</span><br>
-        <span class="line-outline">Dau-</span><br>
-        <span class="line-red">phine</span>
+  <div class="hero-body">
+
+    <!-- TOP LEFT -->
+    <div class="hero-tl">
+      <span class="badge">Issue N°01</span>
+      <span class="label" style="margin-top:.4rem;">Paris Dauphine–PSL · 2025/26</span>
+    </div>
+
+    <!-- TOP RIGHT -->
+    <div class="hero-tr">
+      <p>Médias étudiant<br>indépendant<br>— depuis 2025</p>
+    </div>
+
+    <!-- CENTER LOGO -->
+    <div class="hero-center">
+      <img class="hero-logo" src="LOGO_PLACEHOLDER" alt="Agora Dau"/>
+    </div>
+
+    <!-- BOTTOM LEFT : BIG TITLE -->
+    <div class="hero-bl">
+      <h1 class="hero-big-title">
+        <span class="outline">Le</span> média<br>
+        qui <span class="red">parle</span><br>
+        Dauphine.
       </h1>
     </div>
-    <div class="hero-right">
-      <p>Le média indépendant de Dauphine. Podcasts, micros-trottoirs, posts brûlants — on donne le micro à tout le monde et on n'a pas peur des sujets qui fâchent.</p>
-      <div>
-        <span class="pill">Esprit critique</span>
-        <span class="pill">Micro ouvert</span>
-        <span class="pill">Tout le monde</span>
-        <span class="pill">Sans filtre</span>
+
+    <!-- BOTTOM RIGHT : desc + btns -->
+    <div class="hero-br">
+      <p class="hero-desc">Podcasts, micro-trottoirs, débats, analyses — sans filtre, sans langue de bois, sans complexe.</p>
+      <div class="hero-btns">
+        <a href="#podcasts" class="btn btn-fill">🎙 Écouter</a>
+        <a href="#micros" class="btn btn-outline">🎤 Regarder</a>
+        <a href="#participer" class="btn btn-ghost">→ Participer</a>
       </div>
     </div>
+
   </div>
-  <div class="hero-bottom">
-    <div class="hero-stat">
-      <span class="hero-stat-n">4<span>+</span></span>
-      <span class="hero-stat-l">Formats de contenu</span>
+
+  <!-- STATS BAR -->
+  <div class="hero-stats">
+    <div class="hs">
+      <span class="hs-n">4<sup>+</sup></span>
+      <span class="hs-l">Formats de contenu</span>
     </div>
-    <div class="hero-stat">
-      <span class="hero-stat-n">100<span>%</span></span>
-      <span class="hero-stat-l">Voix étudiantes</span>
+    <div class="hs">
+      <span class="hs-n">100<sup>%</sup></span>
+      <span class="hs-l">Voix étudiantes</span>
     </div>
-    <div class="hero-stat">
-      <span class="hero-stat-n">0</span>
-      <span class="hero-stat-l">Filtre politique</span>
+    <div class="hs">
+      <span class="hs-n">0</span>
+      <span class="hs-l">Filtre · langue de bois</span>
     </div>
-    <div class="hero-scroll">
-      Défiler
-      <div class="hero-scroll-line"></div>
+    <div class="hs">
+      <div class="scroll-hint">
+        <div class="scroll-line"></div>
+        Défiler
+      </div>
     </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-section" aria-hidden="true">
-  <div class="marquee-inner">
-    <span>Podcast</span><span class="sep">✕</span>
-    <span>Micro-trottoir</span><span class="sep">✕</span>
-    <span>Post thématique</span><span class="sep">✕</span>
-    <span>Débat ouvert</span><span class="sep">✕</span>
-    <span>Voix étudiante</span><span class="sep">✕</span>
-    <span>Esprit critique</span><span class="sep">✕</span>
-    <span>Dauphine PSL</span><span class="sep">✕</span>
-    <span>Podcast</span><span class="sep">✕</span>
-    <span>Micro-trottoir</span><span class="sep">✕</span>
-    <span>Post thématique</span><span class="sep">✕</span>
-    <span>Débat ouvert</span><span class="sep">✕</span>
-    <span>Voix étudiante</span><span class="sep">✕</span>
-    <span>Esprit critique</span><span class="sep">✕</span>
-    <span>Dauphine PSL</span><span class="sep">✕</span>
+<div class="mrq" aria-hidden="true">
+  <div class="mrq-t">
+    <span>Podcast</span><span class="x"> ✕ </span>
+    <span>Micro-trottoir</span><span class="x"> ✕ </span>
+    <span>Débat</span><span class="x"> ✕ </span>
+    <span>Analyse flash</span><span class="x"> ✕ </span>
+    <span>Opinion</span><span class="x"> ✕ </span>
+    <span>Esprit critique</span><span class="x"> ✕ </span>
+    <span>Dauphine PSL</span><span class="x"> ✕ </span>
+    <span>Podcast</span><span class="x"> ✕ </span>
+    <span>Micro-trottoir</span><span class="x"> ✕ </span>
+    <span>Débat</span><span class="x"> ✕ </span>
+    <span>Analyse flash</span><span class="x"> ✕ </span>
+    <span>Opinion</span><span class="x"> ✕ </span>
+    <span>Esprit critique</span><span class="x"> ✕ </span>
+    <span>Dauphine PSL</span><span class="x"> ✕ </span>
   </div>
 </div>
 
-<!-- CONCEPT -->
-<section id="concept">
-  <div class="concept-left">
-    <p class="section-label reveal">Le projet</p>
-    <h2 class="section-h reveal">Pas un <em>journal</em>.<br>Une vraie <em>agora</em>.</h2>
-    <p class="section-body reveal">À Dauphine, les débats restent dans les amphi. Les opinions brûlantes finissent dans les groupes WhatsApp. Agora Dau change ça : on sort le micro, on pose les vraies questions, et on donne la parole à ceux qu'on n'entend jamais.</p>
+<!-- QUESTION -->
+<section id="question">
+  <div class="qp qp-l">
+    <p class="q-over rv">Question de la semaine</p>
+    <h2 class="q-quote rv">"Faut-il limiter les réseaux sociaux avant 16 ans ?"</h2>
+    <div class="q-meta rv">
+      <span>427 réponses · Campus Dauphine</span>
+      <span>Semaine 42 · 2025</span>
+    </div>
   </div>
-  <div class="concept-right">
-    <div class="concept-card reveal">
-      <span class="cc-icon">🎙️</span>
-      <p class="cc-title">On capte les vraies voix</p>
-      <span class="cc-label">Micro-trottoir · Campus</span>
-    </div>
-    <div class="concept-card reveal">
-      <span class="cc-icon">🔥</span>
-      <p class="cc-title">On traite les sujets qui fâchent</p>
-      <span class="cc-label">Thématiques brûlantes</span>
-    </div>
-    <div class="concept-card reveal">
-      <span class="cc-icon">🧠</span>
-      <p class="cc-title">On éveille l'esprit critique</p>
-      <span class="cc-label">Analyse · Débat · Décryptage</span>
-    </div>
-    <div class="concept-card reveal">
-      <span class="cc-icon">📢</span>
-      <p class="cc-title">On publie, on diffuse, on fait du bruit</p>
-      <span class="cc-label">Réseaux · Podcast · Posts</span>
+  <div class="qp" style="display:flex;align-items:center;justify-content:center;">
+    <div class="donut-area rv" id="poll-wrap">
+      <div class="dnut-w">
+        <svg class="dnut-svg" viewBox="0 0 140 140">
+          <circle class="dtrack" cx="70" cy="70" r="54" stroke-dashoffset="-18"/>
+          <circle class="dyes" id="dyes" cx="70" cy="70" r="54" stroke-dashoffset="-18" transform="rotate(-90 70 70)"/>
+          <circle class="dno" id="dno" cx="70" cy="70" r="54" stroke-dashoffset="-18" transform="rotate(-90 70 70)"/>
+        </svg>
+        <div class="dnut-c">
+          <span class="dnut-pct"><span>61</span>%</span>
+          <span class="dnut-sub">disent oui</span>
+        </div>
+      </div>
+      <div class="dnut-key">
+        <span class="dk"><span class="dk-dot" style="background:var(--red)"></span>OUI 61%</span>
+        <span class="dk"><span class="dk-dot" style="background:#282828"></span>NON 39%</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FORMATS -->
-<section id="formats">
-  <p class="section-label reveal">Ce qu'on produit</p>
-  <h2 class="section-h reveal">Nos <em>formats</em></h2>
-  <div class="formats-grid">
-    <div class="format-item reveal" data-num="01">
-      <span class="fi-label">Audio</span>
-      <p class="fi-title">Podcast</p>
-      <p class="fi-desc">Des épisodes courts et percutants. Une thématique, plusieurs voix étudiantes, un angle franc. Aucune langue de bois.</p>
+<!-- À LA UNE -->
+<section class="sec" id="une">
+  <div class="sh rv">
+    <div><p class="s-over">À la une</p><h2 class="s-title">Derniers <em>contenus</em></h2></div>
+    <span class="s-aside">Semestre 1 · 2025–26</span>
+  </div>
+  <div class="cards-grid rv">
+    <div class="card xl">
+      <div class="c-type">🔥 Débat · À la une</div>
+      <div>
+        <p class="c-title">L'IA va-t-elle vraiment tuer nos jobs ? Le grand débat Dauphine.</p>
+        <p class="c-sub">6 étudiants · 3 positions · 0 consensus</p>
+        <p class="c-arrow">Lire le débat →</p>
+      </div>
     </div>
-    <div class="format-item reveal" data-num="02">
-      <span class="fi-label">Vidéo / Terrain</span>
-      <p class="fi-title">Micro-trottoir</p>
-      <p class="fi-desc">On sort dans Dauphine avec un micro. On demande ce que tout le monde pense mais personne ne dit. La réponse de la vraie vie.</p>
+    <div class="card">
+      <div class="c-type">🎙️ Podcast</div>
+      <div>
+        <p class="c-title">La finance, c'est vraiment le mal ?</p>
+        <p class="c-sub">Ep.03 · 28 min</p>
+        <p class="c-arrow">Écouter →</p>
+      </div>
     </div>
-    <div class="format-item reveal" data-num="03">
-      <span class="fi-label">Réseaux sociaux</span>
-      <p class="fi-title">Posts thématiques</p>
-      <p class="fi-desc">Des publications qui tranchent sur des sujets d'actu — économie, politique, société, tech. Sourcées, directes, partageables.</p>
+    <div class="card">
+      <div class="c-type">🎤 Micro-trottoir</div>
+      <div>
+        <p class="c-title">Êtes-vous heureux à Dauphine ?</p>
+        <p class="c-sub">32 réponses · 4 min</p>
+        <p class="c-arrow">Regarder →</p>
+      </div>
     </div>
-    <div class="format-item reveal" data-num="04">
-      <span class="fi-label">Live / IRL</span>
-      <p class="fi-title">Débat ouvert</p>
-      <p class="fi-desc">Des sessions en vrai. Un sujet clivant, des étudiants aux positions opposées, un format accessible à tous. Pas de préparation requise.</p>
+    <div class="card">
+      <div class="c-type">📰 Analyse</div>
+      <div>
+        <p class="c-title">Le mérite à Dauphine : mythe ou réalité ?</p>
+        <p class="c-sub">5 min · Campus & Société</p>
+        <p class="c-arrow">Lire →</p>
+      </div>
     </div>
-    <div class="format-item reveal" data-num="05">
-      <span class="fi-label">Écrit</span>
-      <p class="fi-title">Analyse flash</p>
-      <p class="fi-desc">En 3 minutes chrono, on démonte un sujet complexe. Format newsletter ou post long — pour ceux qui veulent le fond.</p>
+    <div class="card">
+      <div class="c-type">🗳️ Sondage</div>
+      <div>
+        <p class="c-title">On croit encore à la démocratie ?</p>
+        <p class="c-sub">127 répondants · Résultats live</p>
+        <p class="c-arrow">Voir →</p>
+      </div>
     </div>
-    <div class="format-item reveal" data-num="06">
-      <span class="fi-label">Interactif</span>
-      <p class="fi-title">Sondages &amp; réactions</p>
-      <p class="fi-desc">On teste les opinions du campus. Sondages anonymes, réactions, threads — l'agora version numérique, sans le costume.</p>
+  </div>
+</section>
+
+<!-- VOIX -->
+<section id="voix" style="overflow:hidden;">
+  <div class="sh rv">
+    <div><p class="s-over" style="color:var(--yellow);"><span style="display:inline-block;width:14px;height:1.5px;background:var(--yellow);margin-right:.7rem;vertical-align:middle;"></span>Les voix de Dauphine</p><h2 class="s-title" style="color:var(--paper);">Ce qu'ils <em>disent vraiment</em></h2></div>
+    <span class="s-aside" style="color:#333;">Hover pour pauser</span>
+  </div>
+  <div class="vscroll rv">
+    <div class="vcard"><p class="vq">L'IA va transformer notre manière d'apprendre. Personne n'en parle vraiment ici.</p><div class="vfrom"><span>M3 Finance</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">On parle beaucoup trop peu de santé mentale. On fait comme si ça n'existait pas.</p><div class="vfrom"><span>M1 Gestion</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Le débat politique a disparu des campus. C'est inquiétant pour la démocratie.</p><div class="vfrom"><span>L3 Droit</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Dauphine forme des gens brillants à reproduire le système. Personne ne le remet en question.</p><div class="vfrom"><span>M2 Éco</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Les réseaux nous ont appris à avoir des opinions mais pas à les défendre.</p><div class="vfrom"><span>L2 Info</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Être étudiant à Paris en 2025 avec 900€ par mois ? Non, c'est impossible.</p><div class="vfrom"><span>M1 Marketing</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">L'IA va transformer notre manière d'apprendre. Personne n'en parle vraiment ici.</p><div class="vfrom"><span>M3 Finance</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">On parle beaucoup trop peu de santé mentale. On fait comme si ça n'existait pas.</p><div class="vfrom"><span>M1 Gestion</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Le débat politique a disparu des campus. C'est inquiétant pour la démocratie.</p><div class="vfrom"><span>L3 Droit</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Dauphine forme des gens brillants à reproduire le système. Personne ne le remet en question.</p><div class="vfrom"><span>M2 Éco</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Les réseaux nous ont appris à avoir des opinions mais pas à les défendre.</p><div class="vfrom"><span>L2 Info</span><span>Anon.</span></div></div>
+    <div class="vcard"><p class="vq">Être étudiant à Paris en 2025 avec 900€ par mois ? Non, c'est impossible.</p><div class="vfrom"><span>M1 Marketing</span><span>Anon.</span></div></div>
+  </div>
+</section>
+
+<!-- PODCASTS -->
+<section class="sec" id="podcasts">
+  <div class="sh rv">
+    <div><p class="s-over">Audio</p><h2 class="s-title">Nos <em>podcasts</em></h2></div>
+    <a href="#" class="btn btn-outline" style="align-self:flex-end;">Tout écouter →</a>
+  </div>
+  <div class="pod-list rv">
+    <div class="pod-row">
+      <div class="play">▶</div>
+      <div class="ep-info"><p class="ep-t">La finance, c'est vraiment le mal ?</p><p class="ep-m">Économie · Politique · Société</p></div>
+      <span class="ep-dur">28:14</span><span class="ep-tag">Ep.03</span>
     </div>
+    <div class="pod-row">
+      <div class="play">▶</div>
+      <div class="ep-info"><p class="ep-t">Réseaux sociaux : on est tous manipulés ?</p><p class="ep-m">Tech · Médias · Société</p></div>
+      <span class="ep-dur">34:52</span><span class="ep-tag">Ep.02</span>
+    </div>
+    <div class="pod-row">
+      <div class="play">▶</div>
+      <div class="ep-info"><p class="ep-t">L'IA va-t-elle tuer nos jobs ?</p><p class="ep-m">Intelligence artificielle · Travail · Futur</p></div>
+      <span class="ep-dur">22:07</span><span class="ep-tag">Ep.01</span>
+    </div>
+  </div>
+</section>
+
+<!-- MICROS -->
+<section id="micros">
+  <div class="micros-l">
+    <p class="s-over rv">Terrain</p>
+    <h2 class="s-title rv" style="text-transform:uppercase;">Micro-<br><em style="color:var(--ink);">trottoirs</em></h2>
+    <p class="micros-body rv">On sort dans Dauphine avec un vrai micro. On pose les questions que tout le monde se pose. On publie les réponses brutes — sans couper ce qui dérange.</p>
+  </div>
+  <div class="micros-r">
+    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">Êtes-vous heureux à Dauphine ?</p><p class="mt-s">32 réponses · 4 min</p></div></div>
+    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">Votre vrai avis sur les profs ?</p><p class="mt-s">28 réponses · 3 min</p></div></div>
+    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">Vous gagneriez combien dans 5 ans ?</p><p class="mt-s">41 réponses · 5 min</p></div></div>
+    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">La politique, vous y croyez encore ?</p><p class="mt-s">25 réponses · 3 min</p></div></div>
   </div>
 </section>
 
 <!-- THÈMES -->
-<section id="themes">
-  <div class="themes-header">
-    <div>
-      <p class="section-label reveal">Au programme</p>
-      <h2 class="section-h reveal">Les <em>sujets</em><br>du semestre</h2>
-    </div>
+<section class="sec" id="themes">
+  <div class="sh rv">
+    <div><p class="s-over">Au programme</p><h2 class="s-title">Thèmes <em>chauds</em></h2></div>
+    <span class="s-aside">Semestre 1 · 2025–26</span>
   </div>
-  <div class="theme-list">
-    <div class="theme-item reveal">
-      <span class="ti-num">01</span>
-      <span class="ti-title">L'IA va-t-elle tuer nos jobs ?</span>
-      <span class="ti-tag">Tech · Travail</span>
-      <span class="ti-arrow">→</span>
-    </div>
-    <div class="theme-item reveal">
-      <span class="ti-num">02</span>
-      <span class="ti-title">Être étudiant en 2025 : c'est quoi vraiment ?</span>
-      <span class="ti-tag">Société · Campus</span>
-      <span class="ti-arrow">→</span>
-    </div>
-    <div class="theme-item reveal">
-      <span class="ti-num">03</span>
-      <span class="ti-title">La finance, c'est vraiment le mal ?</span>
-      <span class="ti-tag">Économie · Politique</span>
-      <span class="ti-arrow">→</span>
-    </div>
-    <div class="theme-item reveal">
-      <span class="ti-num">04</span>
-      <span class="ti-title">On croit encore en la démocratie ?</span>
-      <span class="ti-tag">Politique · Société</span>
-      <span class="ti-arrow">→</span>
-    </div>
-    <div class="theme-item reveal">
-      <span class="ti-num">05</span>
-      <span class="ti-title">Réseaux sociaux : on est tous manipulés ?</span>
-      <span class="ti-tag">Média · Tech</span>
-      <span class="ti-arrow">→</span>
-    </div>
-    <div class="theme-item reveal">
-      <span class="ti-num">06</span>
-      <span class="ti-title">Le mérite à Dauphine, c'est du flan ?</span>
-      <span class="ti-tag">Campus · Société</span>
-      <span class="ti-arrow">→</span>
-    </div>
+  <div class="theme-pills rv">
+    <div class="tp"><span class="tpdot"></span>Intelligence Artificielle</div>
+    <div class="tp"><span class="tpdot"></span>Finance & Pouvoir</div>
+    <div class="tp"><span class="tpdot"></span>Démocratie en crise ?</div>
+    <div class="tp"><span class="tpdot"></span>Réseaux & Manipulation</div>
+    <div class="tp"><span class="tpdot"></span>Être étudiant aujourd'hui</div>
+    <div class="tp"><span class="tpdot"></span>Géopolitique & Gen Z</div>
+    <div class="tp"><span class="tpdot"></span>Santé mentale au campus</div>
+    <div class="tp"><span class="tpdot"></span>Sport & Société</div>
   </div>
 </section>
 
-<!-- PODCAST / MICRO -->
-<section id="micro">
-  <div class="micro-left">
-    <p class="section-label reveal">Production</p>
-    <h2 class="section-h reveal">Du <em>contenu</em> qui claque</h2>
-    <p class="section-body reveal">On est pas une asso qui fait des CR de réunion. On fait du contenu. Vrai, brut, étudiant. Avec un vrai micro, de vraies opinions, et l'envie que ça circule au-delà de Dauphine.</p>
-  </div>
-  <div class="micro-right">
-    <div class="pod-item reveal">
-      <div class="pod-icon">🎙️</div>
-      <div>
-        <p class="pod-title">Agora Dau Podcast</p>
-        <p class="pod-sub">Épisodes bimestriels · 20–35 min</p>
-      </div>
-    </div>
-    <div class="pod-item reveal">
-      <div class="pod-icon">📱</div>
-      <div>
-        <p class="pod-title">Stories &amp; Reels thématiques</p>
-        <p class="pod-sub">Instagram · TikTok · LinkedIn</p>
-      </div>
-    </div>
-    <div class="pod-item reveal">
-      <div class="pod-icon">🎤</div>
-      <div>
-        <p class="pod-title">Micros-trottoirs campus</p>
-        <p class="pod-sub">Tournage in situ · Dauphine &amp; PSL</p>
-      </div>
-    </div>
-    <div class="pod-item reveal">
-      <div class="pod-icon">📝</div>
-      <div>
-        <p class="pod-title">Newsletter décryptage</p>
-        <p class="pod-sub">Format rapide · Hebdo</p>
-      </div>
-    </div>
-  </div>
+<!-- PARTICIPER -->
+<section id="participer">
+  <p class="s-over rv" style="color:var(--yellow);justify-content:center;margin-bottom:1.5rem;"><span style="display:inline-block;width:14px;height:1.5px;background:var(--yellow);margin-right:.7rem;vertical-align:middle;"></span>Participez</p>
+  <h2 class="part-h rv">Quelle<br><span class="ol">question</span><br>on doit <em>poser ?</em></h2>
+  <p class="part-sub rv">Soumets une question à poser à Dauphine. Les plus populaires deviennent notre prochain micro-trottoir.</p>
+  <form class="qform rv" onsubmit="return false;">
+    <input type="text" placeholder="Ta question pour Dauphine…" aria-label="Question"/>
+    <button type="submit" id="qbtn">Envoyer →</button>
+  </form>
+  <p class="part-note rv">Questions anonymes · Modérées par l'équipe éditoriale</p>
 </section>
 
-<!-- BUREAU -->
-<section id="bureau">
-  <p class="section-label reveal">L'équipe</p>
-  <h2 class="section-h reveal">Le <em>bureau</em></h2>
-  <div class="bureau-grid">
-    <div class="bcard reveal">
-      <div class="bc-init">R</div>
-      <p class="bc-name">Rafael</p>
-      <span class="bc-role">Président</span>
-      <p class="bc-desc">Vision éditoriale et direction générale du projet.</p>
-    </div>
-    <div class="bcard reveal">
-      <div class="bc-init">TG</div>
-      <p class="bc-name">Théo Guéry</p>
-      <span class="bc-role">Vice-Président</span>
-      <p class="bc-desc">Coordination des formats et production de contenu.</p>
-    </div>
-    <div class="bcard reveal">
-      <div class="bc-init">M</div>
-      <p class="bc-name">Mathilde</p>
-      <span class="bc-role">Trésorière</span>
-      <p class="bc-desc">Gestion financière, subventions, partenariats.</p>
-    </div>
-    <div class="bcard reveal" style="opacity:.5">
-      <div class="bc-init" style="border-style:dashed">?</div>
-      <p class="bc-name">Ta place</p>
-      <span class="bc-role">Membre fondateur·rice</span>
-      <p class="bc-desc">Rejoins l'équipe dès le semestre 1.</p>
+<!-- REJOINDRE -->
+<section id="rejoindre">
+  <div class="rj-l">
+    <p class="s-over rv">On recrute</p>
+    <h2 class="rj-h rv">T'as quelque chose<br>à <em>dire</em> ?</h2>
+    <p class="rj-body rv">Journaliste en herbe, amoureux·se du débat, geek du micro ou juste quelqu'un avec des opinions. Zéro prérequis, max d'envie.</p>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;">
+      <a href="mailto:agora.dau@gmail.com" class="btn btn-fill rv">Rejoindre →</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn-outline rv">Instagram ↗</a>
     </div>
   </div>
-</section>
-
-<!-- JOIN -->
-<section id="join">
-  <div class="join-inner">
-    <p class="section-label reveal">On recrute</p>
-    <h2 class="section-h reveal">T'as quelque chose à dire ?</h2>
-    <p class="section-body reveal">Journaliste en herbe, amoureux·se du débat, geek du micro ou juste quelqu'un avec des opinions — on a besoin de toi. Zéro prérequis, max d'envie.</p>
-    <div class="join-buttons">
-      <a href="mailto:agora.dau@gmail.com" class="btn-primary">Rejoindre l'asso →</a>
-      <a href="https://www.instagram.com" target="_blank" rel="noopener" class="btn-outline">Suivre sur Insta</a>
-    </div>
+  <div class="rj-r">
+    <div class="rcard rv"><p class="rc-role">Rédaction & Analyse</p><p class="rc-t">Journaliste étudiant·e</p><p class="rc-d">Tu écris, tu analyses, tu poses les vraies questions.</p></div>
+    <div class="rcard rv"><p class="rc-role">Audio & Vidéo</p><p class="rc-t">Podcasteur·euse · Filmeur·euse</p><p class="rc-d">Micro, caméra, montage — on forme sur le tas.</p></div>
+    <div class="rcard rv"><p class="rc-role">Communication</p><p class="rc-t">Responsable réseaux</p><p class="rc-d">Instagram, TikTok, LinkedIn. Les formats qui cartonnent.</p></div>
+    <div class="rcard rv" style="border-style:dashed;opacity:.4;"><p class="rc-role">Ton profil</p><p class="rc-t">Compétence inattendue</p><p class="rc-d">Graphisme, dev, droit ? Écris-nous.</p></div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">
-    <div class="footer-logo-dot"></div>
-    Agora Dau
+  <div class="ft">
+    <div class="ft-brand"><span class="ft-dot"></span>Agora Dau</div>
+    <ul class="ft-nav">
+      <li><a href="#une">À la une</a></li>
+      <li><a href="#podcasts">Podcasts</a></li>
+      <li><a href="#micros">Micros-trottoirs</a></li>
+      <li><a href="#themes">Thèmes</a></li>
+      <li><a href="#rejoindre">Équipe</a></li>
+      <li><a href="mailto:agora.dau@gmail.com">Contact</a></li>
+    </ul>
   </div>
-  <ul class="footer-links">
-    <li><a href="#concept">Le projet</a></li>
-    <li><a href="#formats">Formats</a></li>
-    <li><a href="#themes">Thèmes</a></li>
-    <li><a href="#bureau">Équipe</a></li>
-    <li><a href="mailto:agora.dau@gmail.com">Contact</a></li>
-  </ul>
-  <div class="footer-copy">
+  <div class="ft-copy">
     <span>© 2026 Agora Dau · Université Paris Dauphine–PSL · RNA W913016495</span>
     <span>agora.dau@gmail.com</span>
   </div>
 </footer>
 
 <script>
-const cur = document.getElementById('cur');
-let mx=0,my=0;
-document.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-document.querySelectorAll('a,button,.concept-card,.format-item,.theme-item,.bcard,.pod-item').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
-  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+/* CURSOR */
+const cur=document.getElementById("cur");
+document.addEventListener("mousemove",e=>{cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";});
+document.querySelectorAll("a,button,.card,.pod-row,.mt-item,.rcard,.tp,.vcard").forEach(el=>{
+  el.addEventListener("mouseenter",()=>cur.classList.add("big"));
+  el.addEventListener("mouseleave",()=>cur.classList.remove("big"));
 });
-const nav=document.getElementById('navbar');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
-const obs=new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);obs.unobserve(e.target);}});
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+/* NAV */
+const nav=document.getElementById("nav");
+window.addEventListener("scroll",()=>nav.classList.toggle("pinned",scrollY>60),{passive:true});
+/* REVEAL */
+const ro=new IntersectionObserver(entries=>entries.forEach((e,i)=>{
+  if(e.isIntersecting){setTimeout(()=>e.target.classList.add("in"),i*45);ro.unobserve(e.target);}
+}),{threshold:.07});
+document.querySelectorAll(".rv").forEach(el=>ro.observe(el));
+/* POLL */
+const C=2*Math.PI*54;
+const dy=document.getElementById("dyes"),dn=document.getElementById("dno");
+const po=new IntersectionObserver(([e])=>{
+  if(!e.isIntersecting)return;
+  const y=C*.61,n=C*.39;
+  dy.style.strokeDasharray=y+" "+(C-y);
+  dn.style.strokeDasharray=n+" "+(C-n);
+  dn.style.strokeDashoffset=(-18-y)+"";
+  po.disconnect();
+},{threshold:.3});
+po.observe(document.getElementById("poll-wrap"));
+/* FORM */
+document.getElementById("qbtn").addEventListener("click",function(){
+  const inp=this.closest(".qform").querySelector("input");
+  if(inp.value.trim()){this.textContent="Envoyé ✓";this.style.background="#0a2a0a";inp.value="";setTimeout(()=>{this.textContent="Envoyer →";this.style.background="";},3000);}
+});
 </script>
 </body>
-</html>
-HTMLEOF
-echo "Done"
+</html>'''
+
+# Inject real logo
+HTML = HTML.replace('LOGO_PLACEHOLDER', LOGO_SRC)
+
+with open('/mnt/user-data/outputs/agora-dau-v4.html','w') as f:
+    f.write(HTML)
+
+print(f"Done — {len(HTML):,} chars, logo count: {HTML.count('data:image/png;base64,')}")
+PYEOF
