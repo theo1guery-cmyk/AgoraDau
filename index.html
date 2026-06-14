@@ -123,9 +123,9 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 }
 .hero-logo{
   /* taille calculée pour tenir dans la hauteur disponible */
-  height:min(58vh, 480px);
+  height:min(72vh, 580px);
   width:auto;
-  max-width:min(70vw, 700px);
+  max-width:min(60vw, 780px);
   object-fit:contain;
   animation:pop .9s var(--ease) both;
   filter:drop-shadow(0 6px 36px rgba(0,0,0,.12));
@@ -173,14 +173,21 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 }
 .hero-slogan{
   font-family:var(--display);
-  font-size:clamp(.85rem,1.4vw,1.3rem);
+  font-size:clamp(2rem,4.5vw,3.6rem);
   font-weight:800;
-  letter-spacing:-.04em;
-  line-height:1.05;
+  letter-spacing:-.05em;
+  line-height:.9;
   text-transform:uppercase;
 }
+.hero-slogan .accent-line{
+  display:block;
+  width:32px;
+  height:3px;
+  background:var(--red);
+  margin-bottom:.6rem;
+}
 .hero-slogan .red{color:var(--red);}
-.hero-slogan .ol{-webkit-text-stroke:1.5px var(--ink);color:transparent;}
+.hero-slogan .ol{-webkit-text-stroke:2.5px var(--ink);color:transparent;}
 
 /* BAS DROIT — CTA */
 .hero-br{
@@ -427,7 +434,8 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   .hero-sub{grid-column:1;grid-row:5;justify-content:flex-start;margin-top:1.5rem;}
   .hero-sub-text{width:auto;text-align:left;}
   .deco-line{display:none;}
-  .hero-logo{width:78vw;height:auto;max-width:360px;}
+  .hero-logo{width:82vw;height:auto;max-width:420px;}
+  .hero-slogan{font-size:clamp(1.6rem,8vw,2.8rem);}
   .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);}
   .hs{padding:1rem .7rem;}
   .hs-n{font-size:1.7rem;}
@@ -512,6 +520,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <!-- BAS GAUCHE — slogan typographique -->
     <div class="hero-bl">
       <p class="hero-slogan">
+        <span class="accent-line"></span>
         Le <span class="red">média</span><br>
         qui vous<br>
         <span class="ol">donne</span><br>
