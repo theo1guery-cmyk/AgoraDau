@@ -391,6 +391,31 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 .ft-nav a:hover{color:var(--yellow);}
 .ft-copy{padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:#333;}
 
+/* NOS FORMATS */
+.fmt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);}
+.fmt-grid .card{min-height:240px;}
+.fmt-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);border:1px solid var(--stone);padding:.18rem .7rem;border-radius:99px;align-self:flex-start;margin-top:1rem;}
+.card:hover .fmt-tag{color:var(--yellow);border-color:#333;}
+
+/* À VENIR (état vide) */
+.soon{border:1.5px dashed var(--stone);padding:4.5rem 2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem;}
+.soon-badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:4px 12px;border-radius:99px;}
+.soon-h{font-family:var(--display);font-size:clamp(1.7rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;text-transform:uppercase;max-width:16ch;}
+.soon-p{font-size:.92rem;line-height:1.75;color:var(--mist);max-width:440px;}
+
+/* BUREAU */
+.bureau-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);}
+.bu-card{background:var(--paper);padding:2rem 1.6rem;display:flex;flex-direction:column;gap:1.1rem;transition:background .25s;min-height:170px;justify-content:space-between;}
+.bu-card:hover{background:var(--ink);color:var(--paper);}
+.bu-av{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;flex-shrink:0;transition:all .25s;}
+.bu-card:hover .bu-av{border-color:var(--yellow);color:var(--yellow);}
+.bu-role{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:.35rem;}
+.bu-card:hover .bu-role{color:var(--yellow);}
+.bu-name{font-family:var(--display);font-size:1.1rem;font-weight:700;letter-spacing:-.02em;line-height:1.12;}
+.bu-card.open .bu-av{border-style:dashed;color:var(--mist);}
+.bu-hint{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-top:.45rem;}
+.bu-card.open:hover .bu-hint{color:var(--yellow);}
+
 /* REVEAL */
 .rv{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
 .rv.in{opacity:1;transform:none;}
@@ -432,6 +457,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   #question{grid-template-columns:1fr;}
   .qp-l{border-right:none;border-bottom:1px solid #1e1e1e;}
   .cards-grid{grid-template-columns:1fr;}
+  .fmt-grid{grid-template-columns:1fr;}
   .card.xl{grid-column:auto;}
   #micros{grid-template-columns:1fr;}
   .micros-l{border-right:none;border-bottom:1.5px solid var(--ink);}
@@ -469,11 +495,11 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <span class="nav-dot"></span>Agora Dau
   </a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#une">À la une</a></li>
-    <li><a href="#podcasts">Podcasts</a></li>
-    <li><a href="#micros">Micros</a></li>
+    <li><a href="#apropos">Le projet</a></li>
+    <li><a href="#formats">Formats</a></li>
     <li><a href="#themes">Thèmes</a></li>
-    <li><a href="#participer" class="nav-cta">Participer</a></li>
+    <li><a href="#bureau">Bureau</a></li>
+    <li><a href="#rejoindre" class="nav-cta">Rejoindre</a></li>
   </ul>
   <button class="nav-burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
     <span></span><span></span><span></span>
@@ -514,9 +540,9 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 
     <!-- BAS DROIT — boutons CTA -->
     <div class="hero-br">
-      <a href="#podcasts" class="btn btn-fill">🎙 Écouter</a>
-      <a href="#micros" class="btn btn-outline">🎤 Regarder</a>
-      <a href="#participer" class="btn btn-ghost">→ Participer</a>
+      <a href="#apropos" class="btn btn-fill">Découvrir</a>
+      <a href="#formats" class="btn btn-outline">Nos formats</a>
+      <a href="#rejoindre" class="btn btn-ghost">→ Rejoindre</a>
     </div>
 
     <!-- Slogan centré en bas -->
@@ -569,146 +595,69 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   </div>
 </div>
 
-<!-- QUESTION -->
-<section id="question">
-  <div class="qp qp-l">
-    <p class="q-over rv">Question de la semaine</p>
-    <h2 class="q-quote rv">"Faut-il limiter les réseaux sociaux avant 16 ans ?"</h2>
-    <div class="q-meta rv">
-      <span>427 réponses · Campus Dauphine</span>
-      <span>Semaine 42 · 2025</span>
-    </div>
-  </div>
-  <div class="qp" style="display:flex;align-items:center;justify-content:center;">
-    <div class="donut-area rv" id="poll-wrap">
-      <div class="dnut-w">
-        <svg class="dnut-svg" viewBox="0 0 140 140">
-          <circle class="dtrack" cx="70" cy="70" r="54" stroke-dashoffset="-18"/>
-          <circle class="dyes" id="dyes" cx="70" cy="70" r="54" stroke-dashoffset="-18" transform="rotate(-90 70 70)"/>
-          <circle class="dno" id="dno" cx="70" cy="70" r="54" stroke-dashoffset="-18" transform="rotate(-90 70 70)"/>
-        </svg>
-        <div class="dnut-c">
-          <span class="dnut-pct"><span>61</span>%</span>
-          <span class="dnut-sub">disent oui</span>
-        </div>
-      </div>
-      <div class="dnut-key">
-        <span class="dk"><span class="dk-dot" style="background:var(--red)"></span>OUI 61%</span>
-        <span class="dk"><span class="dk-dot" style="background:#282828"></span>NON 39%</span>
-      </div>
-    </div>
+<!-- LE PROJET -->
+<section id="apropos" style="background:var(--ink);color:var(--paper);padding:5.5rem 2.5rem;border-bottom:1.5px solid var(--ink);">
+  <div style="max-width:820px;margin:0 auto;">
+    <p class="s-over rv" style="color:var(--yellow);"><span style="display:inline-block;width:14px;height:1.5px;background:var(--yellow);margin-right:.7rem;vertical-align:middle;"></span>Le projet</p>
+    <h2 class="rv" style="font-family:var(--display);font-size:clamp(1.9rem,4.2vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;text-transform:uppercase;margin-bottom:1.8rem;">Une <em style="color:var(--red);font-style:normal;">nouvelle voix</em> sur le campus.</h2>
+    <p class="rv" style="font-size:1rem;line-height:1.85;color:#a8a49c;max-width:640px;">Agora Dau est un tout jeune média étudiant, indépendant, né à Paris Dauphine–PSL. Notre but : rendre la parole aux étudiants, sans filtre ni langue de bois — à travers des podcasts, des micros-trottoirs, des débats et des analyses.</p>
+    <p class="rv" style="font-size:1rem;line-height:1.85;color:#a8a49c;max-width:640px;margin-top:1.1rem;">On démarre tout juste. Ce que tu vois ici, c'est notre point de départ : la première pierre. La suite — les contenus, les débats, les rencontres — on va l'écrire ensemble.</p>
   </div>
 </section>
 
-<!-- À LA UNE -->
-<section class="sec" id="une">
+<!-- NOS FORMATS -->
+<section class="sec" id="formats">
   <div class="sh rv">
-    <div><p class="s-over">À la une</p><h2 class="s-title">Derniers <em>contenus</em></h2></div>
-    <span class="s-aside">Semestre 1 · 2025–26</span>
+    <div><p class="s-over">Ce qu'on prépare</p><h2 class="s-title">Nos <em>formats</em></h2></div>
+    <span class="s-aside">Lancement 2025–26</span>
   </div>
-  <div class="cards-grid rv">
-    <div class="card xl">
-      <div class="c-type">🔥 Débat · À la une</div>
+  <div class="fmt-grid rv">
+    <div class="card">
+      <div class="c-type">🎙️ Audio</div>
       <div>
-        <p class="c-title">L'IA va-t-elle vraiment tuer nos jobs ? Le grand débat Dauphine.</p>
-        <p class="c-sub">6 étudiants · 3 positions · 0 consensus</p>
-        <p class="c-arrow">Lire le débat →</p>
+        <p class="c-title">Podcasts</p>
+        <p class="c-sub">Conversations et débats de fond, en format long.</p>
+        <span class="fmt-tag">Bientôt</span>
       </div>
     </div>
     <div class="card">
-      <div class="c-type">🎙️ Podcast</div>
+      <div class="c-type">🎤 Terrain</div>
       <div>
-        <p class="c-title">La finance, c'est vraiment le mal ?</p>
-        <p class="c-sub">Ep.03 · 28 min</p>
-        <p class="c-arrow">Écouter →</p>
+        <p class="c-title">Micros-trottoirs</p>
+        <p class="c-sub">On tend le micro sur le campus, réponses brutes.</p>
+        <span class="fmt-tag">Bientôt</span>
       </div>
     </div>
     <div class="card">
-      <div class="c-type">🎤 Micro-trottoir</div>
+      <div class="c-type">🔥 Confrontation</div>
       <div>
-        <p class="c-title">Êtes-vous heureux à Dauphine ?</p>
-        <p class="c-sub">32 réponses · 4 min</p>
-        <p class="c-arrow">Regarder →</p>
+        <p class="c-title">Débats</p>
+        <p class="c-sub">Plusieurs voix, plusieurs positions, zéro consensus tiède.</p>
+        <span class="fmt-tag">Bientôt</span>
       </div>
     </div>
     <div class="card">
-      <div class="c-type">📰 Analyse</div>
+      <div class="c-type">📰 Décryptage</div>
       <div>
-        <p class="c-title">Le mérite à Dauphine : mythe ou réalité ?</p>
-        <p class="c-sub">5 min · Campus & Société</p>
-        <p class="c-arrow">Lire →</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="c-type">🗳️ Sondage</div>
-      <div>
-        <p class="c-title">On croit encore à la démocratie ?</p>
-        <p class="c-sub">127 répondants · Résultats live</p>
-        <p class="c-arrow">Voir →</p>
+        <p class="c-title">Analyses</p>
+        <p class="c-sub">Des sujets de société décortiqués par des étudiants.</p>
+        <span class="fmt-tag">Bientôt</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VOIX -->
-<section id="voix" style="overflow:hidden;">
+<!-- PUBLICATIONS (à venir) -->
+<section class="sec" id="publications">
   <div class="sh rv">
-    <div><p class="s-over" style="color:var(--yellow);"><span style="display:inline-block;width:14px;height:1.5px;background:var(--yellow);margin-right:.7rem;vertical-align:middle;"></span>Les voix de Dauphine</p><h2 class="s-title" style="color:var(--paper);">Ce qu'ils <em>disent vraiment</em></h2></div>
-    <span class="s-aside" style="color:#333;">Hover pour pauser</span>
+    <div><p class="s-over">Le contenu</p><h2 class="s-title">Nos <em>publications</em></h2></div>
+    <span class="s-aside">Saison 01</span>
   </div>
-  <div class="vscroll rv">
-    <div class="vcard"><p class="vq">L'IA va transformer notre manière d'apprendre. Personne n'en parle vraiment ici.</p><div class="vfrom"><span>M3 Finance</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">On parle beaucoup trop peu de santé mentale. On fait comme si ça n'existait pas.</p><div class="vfrom"><span>M1 Gestion</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Le débat politique a disparu des campus. C'est inquiétant pour la démocratie.</p><div class="vfrom"><span>L3 Droit</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Dauphine forme des gens brillants à reproduire le système. Personne ne le remet en question.</p><div class="vfrom"><span>M2 Éco</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Les réseaux nous ont appris à avoir des opinions mais pas à les défendre.</p><div class="vfrom"><span>L2 Info</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Être étudiant à Paris en 2025 avec 900€ par mois ? Non, c'est impossible.</p><div class="vfrom"><span>M1 Marketing</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">L'IA va transformer notre manière d'apprendre. Personne n'en parle vraiment ici.</p><div class="vfrom"><span>M3 Finance</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">On parle beaucoup trop peu de santé mentale. On fait comme si ça n'existait pas.</p><div class="vfrom"><span>M1 Gestion</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Le débat politique a disparu des campus. C'est inquiétant pour la démocratie.</p><div class="vfrom"><span>L3 Droit</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Dauphine forme des gens brillants à reproduire le système. Personne ne le remet en question.</p><div class="vfrom"><span>M2 Éco</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Les réseaux nous ont appris à avoir des opinions mais pas à les défendre.</p><div class="vfrom"><span>L2 Info</span><span>Anon.</span></div></div>
-    <div class="vcard"><p class="vq">Être étudiant à Paris en 2025 avec 900€ par mois ? Non, c'est impossible.</p><div class="vfrom"><span>M1 Marketing</span><span>Anon.</span></div></div>
-  </div>
-</section>
-
-<!-- PODCASTS -->
-<section class="sec" id="podcasts">
-  <div class="sh rv">
-    <div><p class="s-over">Audio</p><h2 class="s-title">Nos <em>podcasts</em></h2></div>
-    <a href="#" class="btn btn-outline" style="align-self:flex-end;">Tout écouter →</a>
-  </div>
-  <div class="pod-list rv">
-    <div class="pod-row">
-      <div class="play">▶</div>
-      <div class="ep-info"><p class="ep-t">La finance, c'est vraiment le mal ?</p><p class="ep-m">Économie · Politique · Société</p></div>
-      <span class="ep-dur">28:14</span><span class="ep-tag">Ep.03</span>
-    </div>
-    <div class="pod-row">
-      <div class="play">▶</div>
-      <div class="ep-info"><p class="ep-t">Réseaux sociaux : on est tous manipulés ?</p><p class="ep-m">Tech · Médias · Société</p></div>
-      <span class="ep-dur">34:52</span><span class="ep-tag">Ep.02</span>
-    </div>
-    <div class="pod-row">
-      <div class="play">▶</div>
-      <div class="ep-info"><p class="ep-t">L'IA va-t-elle tuer nos jobs ?</p><p class="ep-m">Intelligence artificielle · Travail · Futur</p></div>
-      <span class="ep-dur">22:07</span><span class="ep-tag">Ep.01</span>
-    </div>
-  </div>
-</section>
-
-<!-- MICROS -->
-<section id="micros">
-  <div class="micros-l">
-    <p class="s-over rv">Terrain</p>
-    <h2 class="s-title rv" style="text-transform:uppercase;">Micro-<br><em style="color:var(--ink);">trottoirs</em></h2>
-    <p class="micros-body rv">On sort dans Dauphine avec un vrai micro. On pose les questions que tout le monde se pose. On publie les réponses brutes — sans couper ce qui dérange.</p>
-  </div>
-  <div class="micros-r">
-    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">Êtes-vous heureux à Dauphine ?</p><p class="mt-s">32 réponses · 4 min</p></div></div>
-    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">Votre vrai avis sur les profs ?</p><p class="mt-s">28 réponses · 3 min</p></div></div>
-    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">Vous gagneriez combien dans 5 ans ?</p><p class="mt-s">41 réponses · 5 min</p></div></div>
-    <div class="mt-item rv"><div class="mt-icon">🎤</div><div><p class="mt-t">La politique, vous y croyez encore ?</p><p class="mt-s">25 réponses · 3 min</p></div></div>
+  <div class="soon rv">
+    <span class="soon-badge">Bientôt</span>
+    <p class="soon-h">Nos premiers contenus arrivent</p>
+    <p class="soon-p">L'asso vient tout juste de se lancer. Nos premiers podcasts, micros-trottoirs et analyses seront publiés ici très vite. En attendant, suis-nous sur Instagram pour ne rien rater du lancement.</p>
+    <a href="https://www.instagram.com/agora_dau/" target="_blank" rel="noopener" class="btn btn-fill">Suivre sur Instagram ↗</a>
   </div>
 </section>
 
@@ -730,24 +679,38 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   </div>
 </section>
 
+<!-- BUREAU -->
+<section class="sec" id="bureau">
+  <div class="sh rv">
+    <div><p class="s-over">L'équipe</p><h2 class="s-title">Le <em>bureau</em></h2></div>
+    <span class="s-aside">Mandat 2025–26</span>
+  </div>
+  <div class="bureau-grid rv">
+    <div class="bu-card"><div class="bu-av">RG</div><div><p class="bu-role">Président</p><p class="bu-name">Rafael Gomes-Nascimento</p></div></div>
+    <div class="bu-card"><div class="bu-av">TG</div><div><p class="bu-role">Vice-président</p><p class="bu-name">Théo Guéry</p></div></div>
+    <div class="bu-card"><div class="bu-av">MM</div><div><p class="bu-role">Trésorière</p><p class="bu-name">Mathilde Mazier</p></div></div>
+    <div class="bu-card"><div class="bu-av">OP</div><div><p class="bu-role">Secrétaire générale</p><p class="bu-name">Oriane Poitrimol</p></div></div>
+    <a href="mailto:agora.dau@gmail.com" class="bu-card open"><div class="bu-av">?</div><div><p class="bu-role">À pourvoir</p><p class="bu-name">Responsable éditoriale</p><p class="bu-hint">Ce poste t'intéresse ? →</p></div></a>
+  </div>
+</section>
+
 <!-- PARTICIPER -->
 <section id="participer">
   <p class="s-over rv" style="color:var(--yellow);justify-content:center;margin-bottom:1.5rem;"><span style="display:inline-block;width:14px;height:1.5px;background:var(--yellow);margin-right:.7rem;vertical-align:middle;"></span>Participez</p>
-  <h2 class="part-h rv">Quelle<br><span class="ol">question</span><br>on doit <em>poser ?</em></h2>
-  <p class="part-sub rv">Soumets une question à poser à Dauphine. Les plus populaires deviennent notre prochain micro-trottoir.</p>
-  <form class="qform rv" onsubmit="return false;">
-    <input type="text" placeholder="Ta question pour Dauphine…" aria-label="Question"/>
-    <button type="submit" id="qbtn">Envoyer →</button>
-  </form>
-  <p class="part-note rv">Questions anonymes · Modérées par l'équipe éditoriale</p>
+  <h2 class="part-h rv">T'as un<br><span class="ol">sujet</span><br>en <em>tête ?</em></h2>
+  <p class="part-sub rv">Une question qui mérite un micro-trottoir, une idée de débat ou de podcast ? Envoie-nous tout — les meilleures idées deviendront nos prochains contenus.</p>
+  <div class="rv" style="display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-top:.5rem;">
+    <a href="https://www.instagram.com/agora_dau/" target="_blank" rel="noopener" class="btn" style="background:var(--red);color:#fff;">Écris-nous en DM ↗</a>
+    <a href="mailto:agora.dau@gmail.com" class="btn" style="border:1.5px solid #2a2a2a;color:var(--paper);">agora.dau@gmail.com</a>
+  </div>
 </section>
 
 <!-- REJOINDRE -->
 <section id="rejoindre">
   <div class="rj-l">
     <p class="s-over rv">On recrute</p>
-    <h2 class="rj-h rv">T'as quelque chose<br>à <em>dire</em> ?</h2>
-    <p class="rj-body rv">Journaliste en herbe, amoureux·se du débat, geek du micro ou juste quelqu'un avec des opinions. Zéro prérequis, max d'envie.</p>
+    <h2 class="rj-h rv">Construis<br>l'asso avec <em>nous</em></h2>
+    <p class="rj-body rv">Agora Dau démarre — c'est le meilleur moment pour embarquer et façonner le média de zéro. Journaliste en herbe, créatif·ve, geek du micro ou juste motivé·e : zéro prérequis, max d'envie.</p>
     <div style="display:flex;gap:.7rem;flex-wrap:wrap;">
       <a href="mailto:agora.dau@gmail.com" class="btn btn-fill rv">Rejoindre →</a>
       <a href="https://www.instagram.com/agora_dau/" target="_blank" rel="noopener" class="btn btn-outline rv">Instagram ↗</a>
@@ -755,10 +718,9 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     </div>
   </div>
   <div class="rj-r">
-    <div class="rcard rv"><p class="rc-role">Rédaction & Analyse</p><p class="rc-t">Journaliste étudiant·e</p><p class="rc-d">Tu écris, tu analyses, tu poses les vraies questions.</p></div>
-    <div class="rcard rv"><p class="rc-role">Audio & Vidéo</p><p class="rc-t">Podcasteur·euse · Filmeur·euse</p><p class="rc-d">Micro, caméra, montage — on forme sur le tas.</p></div>
-    <div class="rcard rv"><p class="rc-role">Communication</p><p class="rc-t">Responsable réseaux</p><p class="rc-d">Instagram, TikTok, LinkedIn. Les formats qui cartonnent.</p></div>
-    <div class="rcard rv" style="border-style:dashed;opacity:.4;"><p class="rc-role">Ton profil</p><p class="rc-t">Compétence inattendue</p><p class="rc-d">Graphisme, dev, droit ? Écris-nous.</p></div>
+    <div class="rcard rv"><p class="rc-role">Pôle</p><p class="rc-t">Communication & Partenariats</p><p class="rc-d">Réseaux, identité visuelle, événements, partenariats. Tu fais rayonner l'asso et tu noues les contacts.</p></div>
+    <div class="rcard rv"><p class="rc-role">Pôle</p><p class="rc-t">Rédaction</p><p class="rc-d">Articles, analyses, podcasts, micros-trottoirs. Tu produis le contenu qui donne la parole.</p></div>
+    <div class="rcard rv" style="border-style:dashed;opacity:.55;"><p class="rc-role">Et toi ?</p><p class="rc-t">Compétence inattendue</p><p class="rc-d">Graphisme, audio/vidéo, dev, droit… on a sûrement une place pour toi. Écris-nous.</p></div>
   </div>
 </section>
 
@@ -767,11 +729,11 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   <div class="ft">
     <div class="ft-brand"><span class="ft-dot"></span>Agora Dau</div>
     <ul class="ft-nav">
-      <li><a href="#une">À la une</a></li>
-      <li><a href="#podcasts">Podcasts</a></li>
-      <li><a href="#micros">Micros-trottoirs</a></li>
+      <li><a href="#apropos">Le projet</a></li>
+      <li><a href="#formats">Formats</a></li>
       <li><a href="#themes">Thèmes</a></li>
-      <li><a href="#rejoindre">Équipe</a></li>
+      <li><a href="#bureau">Bureau</a></li>
+      <li><a href="#rejoindre">Rejoindre</a></li>
       <li><a href="https://www.instagram.com/agora_dau/" target="_blank" rel="noopener">Instagram ↗</a></li>
       <li><a href="https://www.linkedin.com/company/agora-dau/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
       <li><a href="mailto:agora.dau@gmail.com">Contact</a></li>
@@ -787,7 +749,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 /* CURSOR */
 const cur=document.getElementById("cur");
 document.addEventListener("mousemove",e=>{cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";});
-document.querySelectorAll("a,button,.card,.pod-row,.mt-item,.rcard,.tp,.vcard").forEach(el=>{
+document.querySelectorAll("a,button,.card,.rcard,.tp,.bu-card").forEach(el=>{
   el.addEventListener("mouseenter",()=>cur.classList.add("big"));
   el.addEventListener("mouseleave",()=>cur.classList.remove("big"));
 });
@@ -805,23 +767,6 @@ const ro=new IntersectionObserver(entries=>entries.forEach((e,i)=>{
   if(e.isIntersecting){setTimeout(()=>e.target.classList.add("in"),i*45);ro.unobserve(e.target);}
 }),{threshold:.07});
 document.querySelectorAll(".rv").forEach(el=>ro.observe(el));
-/* POLL */
-const C=2*Math.PI*54;
-const dy=document.getElementById("dyes"),dn=document.getElementById("dno");
-const po=new IntersectionObserver(([e])=>{
-  if(!e.isIntersecting)return;
-  const y=C*.61,n=C*.39;
-  dy.style.strokeDasharray=y+" "+(C-y);
-  dn.style.strokeDasharray=n+" "+(C-n);
-  dn.style.strokeDashoffset=(-18-y)+"";
-  po.disconnect();
-},{threshold:.3});
-po.observe(document.getElementById("poll-wrap"));
-/* FORM */
-document.getElementById("qbtn").addEventListener("click",function(){
-  const inp=this.closest(".qform").querySelector("input");
-  if(inp.value.trim()){this.textContent="Envoyé ✓";this.style.background="#0a2a0a";inp.value="";setTimeout(()=>{this.textContent="Envoyer →";this.style.background="";},3000);}
-});
 </script>
 </body>
 </html>
