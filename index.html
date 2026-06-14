@@ -221,18 +221,6 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 }
 .hero-sub-text em{color:var(--red);font-style:normal;}
 
-/* LIGNES DÉCORATIVES */
-.deco-line{
-  position:absolute;
-  top:50%;transform:translateY(-50%);
-  width:1px;height:45%;
-  background:linear-gradient(to bottom, transparent, var(--stone) 30%, var(--stone) 70%, transparent);
-  pointer-events:none;
-  animation:fadein 1s var(--ease) .8s both;
-}
-.deco-line-l{left:230px;}
-.deco-line-r{right:230px;}
-
 /* STATS BAR */
 .hero-stats{
   position:relative;z-index:1;
@@ -433,7 +421,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   .hero-br{grid-column:1;grid-row:4;flex-direction:row;flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;gap:.6rem;margin-top:1.3rem;}
   .hero-sub{grid-column:1;grid-row:5;justify-content:flex-start;margin-top:1.5rem;}
   .hero-sub-text{width:auto;text-align:left;}
-  .deco-line{display:none;}
   .hero-logo{width:82vw;height:auto;max-width:420px;}
   .hero-slogan{font-size:clamp(1.6rem,8vw,2.8rem);}
   .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);}
@@ -500,10 +487,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <div class="hero-logo-wrap">
       <img class="hero-logo" src="./AGORA%20DAU.png" alt="Agora Dau"/>
     </div>
-
-    <!-- Lignes décoratives -->
-    <div class="deco-line deco-line-l"></div>
-    <div class="deco-line deco-line-r"></div>
 
     <!-- COIN HAUT GAUCHE -->
     <div class="hero-tl">
