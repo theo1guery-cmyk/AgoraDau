@@ -485,6 +485,15 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 .pub-item{position:relative;overflow:hidden;aspect-ratio:1/1;background:var(--paper);cursor:default;}
 .pub-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease);}
 .pub-item:hover img{transform:scale(1.06);}
+.pub-carousel{position:relative;border:1.5px solid var(--ink);overflow:hidden;background:var(--paper);margin-bottom:2.5rem;}
+.pub-track{display:flex;transition:transform .55s var(--ease);}
+.pub-slide{flex:0 0 100%;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+.pub-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 1.5rem;border-top:1.5px solid var(--ink);}
+.pub-counter{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);}
+.pub-counter b{color:var(--red);font-weight:500;}
+.pub-dots{display:flex;gap:.55rem;}
+.pub-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--stone);background:transparent;cursor:pointer;padding:0;transition:all .25s var(--ease);}
+.pub-dot.on{background:var(--red);border-color:var(--red);transform:scale(1.15);}
 
 /* LE PROJET — soulignement animé */
 .apropos-hl{position:relative;display:inline-block;}
@@ -561,6 +570,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   .rj-l{border-bottom:1.5px solid var(--ink);position:static;}
   .rj-r{border-left:none;}
   .pub-feat{grid-template-columns:minmax(0,1fr);}
+  .pub-slide{grid-template-columns:minmax(0,1fr);}
   .pub-feat-body{padding:2rem 1.5rem;}
   .sec{padding:4rem 1.5rem;}
   #voix,#participer{padding:4rem 1.5rem;}
@@ -760,24 +770,54 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <span class="s-aside">Saison 01</span>
   </div>
 
-  <!-- Prochain sujet -->
-  <div class="pub-feat rv">
-    <div class="pub-feat-media">
-      <img src="./analyse-colonialisme-vert.jpg" alt="Le nouveau colonialisme vert — prochaine analyse d'Agora Dau" loading="lazy"/>
+  <!-- Carrousel à la une -->
+  <div class="pub-carousel rv" id="pubCarousel">
+    <div class="pub-track" id="pubTrack">
+      <div class="pub-slide">
+        <div class="pub-feat-media"><img src="./analyse-colonialisme-vert.jpg" alt="Le nouveau colonialisme vert — analyse à venir d'Agora Dau" loading="lazy"/></div>
+        <div class="pub-feat-body">
+          <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
+          <p class="pub-feat-title">Le nouveau colonialisme vert</p>
+          <p class="pub-feat-desc">Sous prétexte de sauver la planète, qui met vraiment la main sur les terres et les ressources du Sud ?</p>
+        </div>
+      </div>
+      <div class="pub-slide">
+        <div class="pub-feat-media"><img src="./analyse-modele-masculin.jpg" alt="Quand le modèle masculin s'effondre — analyse à venir d'Agora Dau" loading="lazy"/></div>
+        <div class="pub-feat-body">
+          <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
+          <p class="pub-feat-title">Quand le modèle masculin s'effondre</p>
+          <p class="pub-feat-desc">Du Capitole aux forums en ligne : ce qui se joue quand la virilité traditionnelle vacille.</p>
+        </div>
+      </div>
+      <div class="pub-slide">
+        <div class="pub-feat-media"><img src="./analyse-eglise-trump.jpg" alt="L'église qui a fait Trump — analyse à venir d'Agora Dau" loading="lazy"/></div>
+        <div class="pub-feat-body">
+          <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
+          <p class="pub-feat-title">L'église qui a fait Trump</p>
+          <p class="pub-feat-desc">Comment les évangéliques américains sont devenus la colonne vertébrale du trumpisme.</p>
+        </div>
+      </div>
+      <div class="pub-slide">
+        <div class="pub-feat-media"><img src="./analyse-postes-police-pekin.jpg" alt="Les postes de police secrets de Pékin — analyse à venir d'Agora Dau" loading="lazy"/></div>
+        <div class="pub-feat-body">
+          <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
+          <p class="pub-feat-title">Les postes de police secrets de Pékin</p>
+          <p class="pub-feat-desc">Enquête sur les antennes clandestines par lesquelles la Chine surveille ses ressortissants à l'étranger.</p>
+        </div>
+      </div>
+      <div class="pub-slide">
+        <div class="pub-feat-media"><img src="./analyse-fous-par-decret.jpg" alt="Fous par décret — analyse à venir d'Agora Dau" loading="lazy"/></div>
+        <div class="pub-feat-body">
+          <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
+          <p class="pub-feat-title">Fous par décret</p>
+          <p class="pub-feat-desc">Quand la psychiatrie devient l'arme la plus propre du pouvoir.</p>
+        </div>
+      </div>
     </div>
-    <div class="pub-feat-body">
-      <p class="pub-feat-kicker"><span class="fmt-dot"></span>Prochain sujet · À venir</p>
-      <p class="pub-feat-title">Le nouveau colonialisme vert</p>
-      <p class="pub-feat-desc">Notre toute première analyse arrive très bientôt. Laisse ton email juste en dessous pour la recevoir dès sa sortie.</p>
+    <div class="pub-bar">
+      <span class="pub-counter"><b id="pubCur">01</b> / 05 · à suivre</span>
+      <div class="pub-dots" id="pubDots"></div>
     </div>
-  </div>
-
-  <p class="pub-more-label rv">Aussi au programme</p>
-  <div class="pub-grid rv">
-    <div class="pub-item"><img src="./analyse-modele-masculin.jpg" alt="Quand le modèle masculin s'effondre — analyse à venir d'Agora Dau" loading="lazy"/></div>
-    <div class="pub-item"><img src="./analyse-eglise-trump.jpg" alt="L'église qui a fait Trump — analyse à venir d'Agora Dau" loading="lazy"/></div>
-    <div class="pub-item"><img src="./analyse-postes-police-pekin.jpg" alt="Les postes de police secrets de Pékin — analyse à venir d'Agora Dau" loading="lazy"/></div>
-    <div class="pub-item"><img src="./analyse-fous-par-decret.jpg" alt="Fous par décret : quand la psychiatrie devient une arme du pouvoir — analyse à venir d'Agora Dau" loading="lazy"/></div>
   </div>
 
   <div class="soon rv">
@@ -904,6 +944,35 @@ if(nlForm){
     });
   });
 }
+/* CARROUSEL "À LA UNE" (rotation auto 5s, pause au survol) */
+(function(){
+  const car=document.getElementById("pubCarousel");
+  if(!car)return;
+  const track=document.getElementById("pubTrack");
+  const n=track.children.length;
+  const dotsWrap=document.getElementById("pubDots");
+  const curEl=document.getElementById("pubCur");
+  let idx=0,timer;
+  const dots=[];
+  for(let i=0;i<n;i++){
+    const b=document.createElement("button");
+    b.className="pub-dot"+(i===0?" on":"");
+    b.setAttribute("aria-label","Voir l'analyse "+(i+1));
+    b.addEventListener("click",function(){go(i);restart();});
+    dotsWrap.appendChild(b);dots.push(b);
+  }
+  function go(i){
+    idx=(i+n)%n;
+    track.style.transform="translateX(-"+(idx*100)+"%)";
+    dots.forEach(function(d,j){d.classList.toggle("on",j===idx);});
+    curEl.textContent=("0"+(idx+1)).slice(-2);
+  }
+  function start(){timer=setInterval(function(){go(idx+1);},5000);}
+  function restart(){clearInterval(timer);start();}
+  car.addEventListener("mouseenter",function(){clearInterval(timer);});
+  car.addEventListener("mouseleave",start);
+  start();
+})();
 </script>
 </body>
 </html>
