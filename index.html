@@ -11,7 +11,9 @@
 <link rel="canonical" href="https://agoradau.fr/"/>
 
 <!-- Favicons -->
+<link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg"/>
+<link rel="icon" type="image/png" sizes="48x48" href="./favicon-48.png"/>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png"/>
 <link rel="apple-touch-icon" href="./apple-touch-icon.png"/>
@@ -454,17 +456,17 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 .soon-p{font-size:.92rem;line-height:1.75;color:var(--mist);max-width:440px;}
 
 /* BUREAU */
-.bureau-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);}
-.bu-card{background:var(--paper);padding:2rem 1.6rem;display:flex;flex-direction:column;gap:1.1rem;transition:background .25s;min-height:170px;justify-content:space-between;}
+.bureau-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);}
+.bu-card{position:relative;background:var(--paper);padding:2.4rem 1.8rem;display:flex;flex-direction:column;gap:1.3rem;min-height:230px;overflow:hidden;cursor:default;transition:background .4s var(--ease),color .4s var(--ease);}
 .bu-card:hover{background:var(--ink);color:var(--paper);}
-.bu-av{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;flex-shrink:0;transition:all .25s;}
-.bu-card:hover .bu-av{border-color:var(--yellow);color:var(--yellow);}
-.bu-role{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:.35rem;}
+.bu-av{width:64px;height:64px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;flex-shrink:0;opacity:0;transition:opacity .55s var(--ease),transform .45s var(--ease),border-color .4s var(--ease),color .4s var(--ease),background .4s var(--ease);}
+.bu-card.in .bu-av{opacity:1;}
+.bu-card:hover .bu-av{border-color:var(--yellow);color:var(--yellow);background:rgba(255,224,0,.07);transform:scale(1.07) rotate(-4deg);}
+.bu-text{opacity:0;transform:translateY(14px);transition:opacity .55s var(--ease) .1s,transform .55s var(--ease) .1s;}
+.bu-card.in .bu-text{opacity:1;transform:none;}
+.bu-role{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.45rem;transition:color .35s;}
 .bu-card:hover .bu-role{color:var(--yellow);}
-.bu-name{font-family:var(--display);font-size:1.1rem;font-weight:700;letter-spacing:-.02em;line-height:1.12;}
-.bu-card.open .bu-av{border-style:dashed;color:var(--mist);}
-.bu-hint{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-top:.45rem;}
-.bu-card.open:hover .bu-hint{color:var(--yellow);}
+.bu-name{font-family:var(--display);font-size:1.3rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;}
 
 /* REVEAL */
 .rv{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
@@ -728,12 +730,12 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <div><p class="s-over">L'équipe</p><h2 class="s-title">Le <em>bureau</em></h2></div>
     <span class="s-aside">Mandat 2025–26</span>
   </div>
-  <div class="bureau-grid rv">
-    <div class="bu-card"><div class="bu-av">RG</div><div><p class="bu-role">Président</p><p class="bu-name">Rafael Gomes-Nascimento</p></div></div>
-    <div class="bu-card"><div class="bu-av">TG</div><div><p class="bu-role">Vice-président</p><p class="bu-name">Théo Guéry</p></div></div>
-    <div class="bu-card"><div class="bu-av">MM</div><div><p class="bu-role">Trésorière</p><p class="bu-name">Mathilde Mazier</p></div></div>
-    <div class="bu-card"><div class="bu-av">OP</div><div><p class="bu-role">Secrétaire générale</p><p class="bu-name">Oriane Poitrimol</p></div></div>
-    <div class="bu-card"><div class="bu-av">CF</div><div><p class="bu-role">Responsable éditoriale</p><p class="bu-name">Clémence Fernandez</p></div></div>
+  <div class="bureau-grid">
+    <div class="bu-card"><div class="bu-av">RG</div><div class="bu-text"><p class="bu-role">Président</p><p class="bu-name">Rafael Gomes-Nascimento</p></div></div>
+    <div class="bu-card"><div class="bu-av">TG</div><div class="bu-text"><p class="bu-role">Vice-président</p><p class="bu-name">Théo Guéry</p></div></div>
+    <div class="bu-card"><div class="bu-av">MM</div><div class="bu-text"><p class="bu-role">Trésorière</p><p class="bu-name">Mathilde Mazier</p></div></div>
+    <div class="bu-card"><div class="bu-av">OP</div><div class="bu-text"><p class="bu-role">Secrétaire générale</p><p class="bu-name">Oriane Poitrimol</p></div></div>
+    <div class="bu-card"><div class="bu-av">CF</div><div class="bu-text"><p class="bu-role">Responsable éditoriale</p><p class="bu-name">Clémence Fernandez</p></div></div>
   </div>
 </section>
 
@@ -812,6 +814,7 @@ const ro=new IntersectionObserver(entries=>entries.forEach((e,i)=>{
 }),{threshold:.07});
 document.querySelectorAll(".rv").forEach(el=>ro.observe(el));
 document.querySelectorAll(".fmt-card").forEach(el=>ro.observe(el));
+document.querySelectorAll(".bu-card").forEach(el=>ro.observe(el));
 </script>
 </body>
 </html>
