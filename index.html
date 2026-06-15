@@ -479,6 +479,12 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 .pub-feat-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.55rem;}
 .pub-feat-title{font-family:var(--display);font-size:clamp(1.3rem,2.4vw,2rem);font-weight:800;letter-spacing:-.03em;line-height:1.04;text-transform:uppercase;overflow-wrap:break-word;}
 .pub-feat-desc{font-size:.93rem;line-height:1.65;color:var(--mist);max-width:42ch;}
+.pub-more-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:1.3rem;display:flex;align-items:center;gap:.7rem;}
+.pub-more-label::before{content:"";width:14px;height:1.5px;background:var(--red);}
+.pub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);margin-bottom:2.5rem;}
+.pub-item{position:relative;overflow:hidden;aspect-ratio:1/1;background:var(--paper);cursor:default;}
+.pub-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease);}
+.pub-item:hover img{transform:scale(1.06);}
 
 /* LE PROJET — soulignement animé */
 .apropos-hl{position:relative;display:inline-block;}
@@ -509,6 +515,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 /* RESPONSIVE */
 @media(max-width:1080px){
   .fmt-grid{grid-template-columns:repeat(2,1fr);}
+  .pub-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:860px){
   nav{padding:0 1.2rem;}
@@ -763,6 +770,14 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
       <p class="pub-feat-title">Le nouveau colonialisme vert</p>
       <p class="pub-feat-desc">Notre toute première analyse arrive très bientôt. Laisse ton email juste en dessous pour la recevoir dès sa sortie.</p>
     </div>
+  </div>
+
+  <p class="pub-more-label rv">Aussi au programme</p>
+  <div class="pub-grid rv">
+    <div class="pub-item"><img src="./analyse-modele-masculin.jpg" alt="Quand le modèle masculin s'effondre — analyse à venir d'Agora Dau" loading="lazy"/></div>
+    <div class="pub-item"><img src="./analyse-eglise-trump.jpg" alt="L'église qui a fait Trump — analyse à venir d'Agora Dau" loading="lazy"/></div>
+    <div class="pub-item"><img src="./analyse-postes-police-pekin.jpg" alt="Les postes de police secrets de Pékin — analyse à venir d'Agora Dau" loading="lazy"/></div>
+    <div class="pub-item"><img src="./analyse-fous-par-decret.jpg" alt="Fous par décret : quand la psychiatrie devient une arme du pouvoir — analyse à venir d'Agora Dau" loading="lazy"/></div>
   </div>
 
   <div class="soon rv">
