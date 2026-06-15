@@ -408,11 +408,13 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .rj-h em{color:var(--red);font-style:normal;}
 .rj-body{font-size:.9rem;line-height:1.75;color:var(--mist);max-width:360px;margin-bottom:1.8rem;}
 .rj-r{padding:4.5rem 2.5rem;display:flex;flex-direction:column;gap:1.2rem;border-left:1.5px solid var(--ink);}
-.rcard{border:1.5px solid var(--stone);padding:1.4rem 1.8rem;transition:all .25s var(--ease);cursor:default;}
-.rcard:hover{border-color:var(--ink);transform:translateX(6px);}
-.rc-role{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.35rem;}
-.rc-t{font-family:var(--display);font-size:1rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.35rem;}
-.rc-d{font-size:.82rem;line-height:1.65;color:var(--mist);}
+.rcard{position:relative;border:1.5px solid var(--stone);padding:1.5rem 1.8rem;transition:background .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease),color .3s var(--ease);cursor:default;overflow:hidden;}
+.rcard:hover{border-color:var(--ink);background:var(--ink);color:var(--paper);transform:translateX(8px);}
+.rc-role{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.35rem;transition:color .3s;}
+.rcard:hover .rc-role{color:var(--yellow);}
+.rc-t{font-family:var(--display);font-size:1.05rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem;}
+.rc-d{font-size:.84rem;line-height:1.65;color:var(--mist);transition:color .3s;}
+.rcard:hover .rc-d{color:#b4b1a8;}
 
 /* FOOTER */
 footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
@@ -451,9 +453,19 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 
 /* À VENIR (état vide) */
 .soon{border:1.5px dashed var(--stone);padding:4.5rem 2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem;}
-.soon-badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:4px 12px;border-radius:99px;}
+.soon-badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:4px 12px;border-radius:99px;animation:soonpulse 2.2s var(--ease) infinite;}
+@keyframes soonpulse{0%{box-shadow:0 0 0 0 rgba(255,224,0,.55);}70%{box-shadow:0 0 0 10px rgba(255,224,0,0);}100%{box-shadow:0 0 0 0 rgba(255,224,0,0);}}
 .soon-h{font-family:var(--display);font-size:clamp(1.7rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;text-transform:uppercase;max-width:16ch;}
 .soon-p{font-size:.92rem;line-height:1.75;color:var(--mist);max-width:440px;}
+
+/* LE PROJET — soulignement animé */
+.apropos-hl{position:relative;display:inline-block;}
+.apropos-hl::after{content:"";position:absolute;left:0;bottom:-.04em;width:100%;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease) .45s;}
+.rv.in .apropos-hl::after{transform:scaleX(1);}
+
+/* PARTICIPER — le mot contour se remplit au survol de la section */
+#participer .part-h .ol{transition:color .45s var(--ease),-webkit-text-stroke-width .45s var(--ease);}
+#participer:hover .part-h .ol{-webkit-text-stroke-width:0;color:var(--red);}
 
 /* BUREAU */
 .bureau-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);}
@@ -654,7 +666,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 <section id="apropos" style="background:var(--ink);color:var(--paper);padding:5.5rem 2.5rem;border-bottom:1.5px solid var(--ink);">
   <div style="max-width:820px;margin:0 auto;">
     <p class="s-over rv" style="color:var(--yellow);"><span style="display:inline-block;width:14px;height:1.5px;background:var(--yellow);margin-right:.7rem;vertical-align:middle;"></span>Le projet</p>
-    <h2 class="rv" style="font-family:var(--display);font-size:clamp(1.9rem,4.2vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;text-transform:uppercase;margin-bottom:1.8rem;">Une <em style="color:var(--red);font-style:normal;">nouvelle voix</em> sur le campus.</h2>
+    <h2 class="rv" style="font-family:var(--display);font-size:clamp(1.9rem,4.2vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;text-transform:uppercase;margin-bottom:1.8rem;">Une <em class="apropos-hl" style="color:var(--red);font-style:normal;">nouvelle voix</em> sur le campus.</h2>
     <p class="rv" style="font-size:1rem;line-height:1.85;color:#a8a49c;max-width:640px;">Agora Dau est un tout jeune média étudiant, indépendant, né à Paris Dauphine–PSL. Notre but : rendre la parole aux étudiants, sans filtre ni langue de bois — à travers des podcasts, des micros-trottoirs, des débats et des analyses.</p>
     <p class="rv" style="font-size:1rem;line-height:1.85;color:#a8a49c;max-width:640px;margin-top:1.1rem;">On démarre tout juste. Ce que tu vois ici, c'est notre point de départ : la première pierre. La suite — les contenus, les débats, les rencontres — on va l'écrire ensemble.</p>
   </div>
@@ -767,7 +779,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <div class="rcard rv"><p class="rc-role">Pôle</p><p class="rc-t">Rédaction</p><p class="rc-d">Articles, analyses, enquêtes. Tu écris et tu poses les vraies questions.</p></div>
     <div class="rcard rv"><p class="rc-role">Pôle</p><p class="rc-t">Média</p><p class="rc-d">Podcasts, vidéo, micros-trottoirs : captation, montage, production. Tu donnes une voix et une image au média.</p></div>
     <div class="rcard rv"><p class="rc-role">Pôle</p><p class="rc-t">Événementiel</p><p class="rc-d">Débats en live, conférences, rencontres, soirées. Tu fais exister le média en vrai, sur le campus.</p></div>
-    <div class="rcard rv" style="border-style:dashed;opacity:.55;"><p class="rc-role">Et toi ?</p><p class="rc-t">Compétence inattendue</p><p class="rc-d">Graphisme, dev, droit… on a sûrement une place pour toi. Écris-nous.</p></div>
+    <div class="rcard rv" style="border-style:dashed;"><p class="rc-role">Et toi ?</p><p class="rc-t">Compétence inattendue</p><p class="rc-d">Graphisme, dev, droit… on a sûrement une place pour toi. Écris-nous.</p></div>
   </div>
 </section>
 
