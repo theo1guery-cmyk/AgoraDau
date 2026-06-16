@@ -985,8 +985,6 @@ if(nlForm){
   }
   function start(){clearInterval(timer);timer=setInterval(function(){go(idx+1);},10000);}
   function restart(){start();}
-  car.addEventListener("mouseenter",function(){clearInterval(timer);});
-  car.addEventListener("mouseleave",start);
   start();
 })();
 </script>
