@@ -960,7 +960,7 @@ if(nlForm){
     });
   });
 }
-/* CARROUSEL "À LA UNE" (rotation auto 5s, pause au survol) */
+/* CARROUSEL "À LA UNE" (rotation auto 10s, pause au survol, timer unique) */
 (function(){
   const car=document.getElementById("pubCarousel");
   if(!car)return;
@@ -983,8 +983,8 @@ if(nlForm){
     dots.forEach(function(d,j){d.classList.toggle("on",j===idx);});
     curEl.textContent=("0"+(idx+1)).slice(-2);
   }
-  function start(){timer=setInterval(function(){go(idx+1);},10000);}
-  function restart(){clearInterval(timer);start();}
+  function start(){clearInterval(timer);timer=setInterval(function(){go(idx+1);},10000);}
+  function restart(){start();}
   car.addEventListener("mouseenter",function(){clearInterval(timer);});
   car.addEventListener("mouseleave",start);
   start();
