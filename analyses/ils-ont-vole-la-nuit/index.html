@@ -144,6 +144,15 @@ main{max-width:1180px;margin:0 auto;padding:7.5rem 1.5rem 0;}
 .art-cover img{width:100%;border:1.5px solid var(--ink);}
 .art-cover figcaption{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-top:.7rem;text-align:right;}
 
+/* FIGURE DANS L'ARTICLE */
+.art-fig{max-width:680px;margin:3rem auto;}
+.art-fig img{width:100%;border:1.5px solid var(--ink);display:block;}
+.art-fig figcaption{margin-top:1rem;padding-left:1.1rem;border-left:2px solid var(--red);}
+.art-fig .cap-t{display:block;font-size:.92rem;line-height:1.5;color:var(--ink);}
+.art-fig .cap-t i{font-style:italic;}
+.art-fig .cap-d{display:block;font-size:.86rem;line-height:1.55;color:var(--mist);margin-top:.4rem;}
+.art-fig .cap-c{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-top:.55rem;}
+
 /* STATS */
 .art-stats{max-width:1180px;margin:3.2rem auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--ink);border:1.5px solid var(--ink);}
 .stat{background:var(--paper);padding:2rem 1.6rem;display:flex;flex-direction:column;gap:.6rem;}
@@ -311,6 +320,15 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;margin-top:5
 
     <h2 class="art-h2"><span class="n">II</span>La fabrique de l'insomnie</h2>
     <p>Un tableau de 1782 résume mieux que n'importe quel traité ce qu'il s'est passé. Joseph Wright of Derby a peint Les filatures de coton d'Arkwright, la nuit : une usine illuminée sous un clair de lune, ses fenêtres brillant d'une lumière artificielle qui concurrence les étoiles. Cette image, reproduite dans des dizaines de manuels d'histoire économique, est présentée comme une célébration du progrès industriel. Crary y lit autre chose : l'annonce d'un temps abstrait, découplé des cycles naturels, où la production peut théoriquement ne jamais s'arrêter. La lune est encore là dans le tableau. Mais elle a déjà perdu la bataille.</p>
+
+    <figure class="art-fig">
+      <img src="/analyse-nuit-filature-wright.jpg" alt="Les filatures de coton d'Arkwright la nuit, peinture de Joseph Wright of Derby (vers 1782-83)" width="763" height="614"/>
+      <figcaption>
+        <span class="cap-t"><i>Les filatures de coton d'Arkwright, la nuit</i> — Joseph Wright of Derby, vers 1782-83.</span>
+        <span class="cap-d">L'usine illuminée rivalise avec le clair de lune : la première image d'un monde où la production ne s'arrête plus jamais.</span>
+        <span class="cap-c">Huile sur toile · Domaine public — via WikiArt</span>
+      </figcaption>
+    </figure>
     <p>Ce temps abstrait, Crary l'appelle le "temps 24/7". Non pas une métaphore — une description littérale. Un monde où les marchés ne ferment plus, où les flux d'information ne s'interrompent pas, où la frontière entre jour et nuit a été juridiquement, économiquement, technologiquement dissoute. L'expression "Open 24/7" n'est pas un argument commercial. C'est un programme anthropologique : l'être humain comme terminal toujours actif, jamais véritablement hors ligne, jamais réellement off.</p>
     <p>Ce programme a une généalogie concrète. Depuis les années 1980, la cocaïne et ses dérivés amphetaminiques permettent aux traders et banquiers de Wall Street de prolonger indéfiniment leur présence au marché. Les jeunes analystes de Goldman Sachs dorment sous leur bureau — littéralement. Un stagiaire de 21 ans, Moritz Ehrardt, meurt en 2013 d'une crise d'épilepsie dans sa douche, après soixante-douze heures de travail consécutives. Thomas Hughes, 29 ans, banquier en fusion-acquisition, se défenestre en 2015 après des nuits à base d'alcool et de cocaïne. Goldman Sachs "réforme" ses pratiques : les jeunes employés ne doivent plus être au bureau le vendredi soir après 21h. Pendant le week-end, ils peuvent travailler de chez eux.</p>
 
