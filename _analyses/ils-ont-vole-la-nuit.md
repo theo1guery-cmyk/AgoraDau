@@ -161,9 +161,9 @@ Deux positions philosophiques permettent de mesurer l'ancienneté de ce mépris.
 
 ## La fabrique de l'insomnie
 
-Un tableau de 1782 résume mieux que n'importe quel traité ce qu'il s'est passé. Joseph Wright of Derby a peint Les filatures de coton d'Arkwright, la nuit : une usine illuminée sous un clair de lune, ses fenêtres brillant d'une lumière artificielle qui concurrence les étoiles. Cette image, reproduite dans des dizaines de manuels d'histoire économique, est présentée comme une célébration du progrès industriel. Crary y lit autre chose : l'annonce d'un temps abstrait, découplé des cycles naturels, où la production peut théoriquement ne jamais s'arrêter. La lune est encore là dans le tableau. Mais elle a déjà perdu la bataille.
+Un tableau de 1782 résume mieux que n'importe quel traité ce qu'il s'est passé. Joseph Wright of Derby a peint Les filatures de coton d'Arkwright, la nuit : une usine illuminée sous un clair de lune, ses fenêtres brillant d'une lumière artificielle qui concurrence les étoiles. Cette image, reproduite dans des dizaines de manuels d'histoire économique, est présentée comme une célébration du progrès industriel. Crary y lit autre chose : l'annonce d'un temps abstrait, découplé des cycles naturels, où la production peut théoriquement ne jamais s'arrêter. La lune est encore là dans le tableau. Mais elle a déjà perdu la bataille. 
 
-![Les filatures de coton d'Arkwright la nuit, peinture de Joseph Wright of Derby (vers 1782-83)](analyse-nuit-filature-wright.jpg)
+![image.png](/media/image.png)
 
 *Les filatures de coton d'Arkwright, la nuit* — Joseph Wright of Derby, vers 1782-83. L'usine illuminée rivalise avec le clair de lune : la première image d'un monde où la production ne s'arrête plus jamais. Huile sur toile · Domaine public — via WikiArt
 
