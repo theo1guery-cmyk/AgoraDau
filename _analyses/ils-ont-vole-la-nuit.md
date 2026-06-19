@@ -165,7 +165,7 @@ Un tableau de 1782 résume mieux que n'importe quel traité ce qu'il s'est pass�
 
 ![image.png](/media/image.png)
 
-++*Les filatures de coton d'Arkwright, la nuit — Joseph Wright of Derby, vers 1782-83. L'usine illuminée rivalise avec le clair de lune : la première image d'un monde où la production ne s'arrête plus jamais. Huile sur toile · Domaine public — via WikiArt*++
+*Les filatures de coton d'Arkwright, la nuit — Joseph Wright of Derby, vers 1782-83. L'usine illuminée rivalise avec le clair de lune : la première image d'un monde où la production ne s'arrête plus jamais. Huile sur toile · Domaine public — via WikiArt*
 
 Ce temps abstrait, Crary l'appelle le "temps 24/7". Non pas une métaphore — une description littérale. Un monde où les marchés ne ferment plus, où les flux d'information ne s'interrompent pas, où la frontière entre jour et nuit a été juridiquement, économiquement, technologiquement dissoute. L'expression "Open 24/7" n'est pas un argument commercial. C'est un programme anthropologique : l'être humain comme terminal toujours actif, jamais véritablement hors ligne, jamais réellement off.
 
