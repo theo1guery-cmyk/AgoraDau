@@ -494,6 +494,16 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 .pub-dots{display:flex;gap:.55rem;}
 .pub-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--stone);background:transparent;cursor:pointer;padding:0;transition:all .25s var(--ease);}
 .pub-dot.on{background:var(--red);border-color:var(--red);transform:scale(1.15);}
+/* slide publiée (cliquable) */
+.pub-slide--live{position:relative;}
+.pub-overlay{position:absolute;inset:0;z-index:5;}
+.pub-slide--live .pub-feat-media{position:relative;overflow:hidden;}
+.pub-slide--live .pub-feat-media img{transition:transform .7s var(--ease);}
+.pub-slide--live:hover .pub-feat-media img{transform:scale(1.05);}
+.pub-live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 0 rgba(255,59,48,.55);animation:livepulse 2s var(--ease) infinite;}
+@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(255,59,48,.55);}70%{box-shadow:0 0 0 8px rgba(255,59,48,0);}100%{box-shadow:0 0 0 0 rgba(255,59,48,0);}}
+.pub-read{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);background:var(--yellow);align-self:flex-start;padding:.55rem 1.1rem;border-radius:99px;margin-top:.4rem;transition:background .22s,color .22s,transform .22s;}
+.pub-slide--live:hover .pub-read{background:var(--red);color:#fff;transform:translateX(3px);}
 
 /* LE PROJET — soulignement animé */
 .apropos-hl{position:relative;display:inline-block;}
@@ -829,13 +839,15 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
           <p class="pub-feat-desc">Le logiciel espion qui transforme n'importe quel téléphone en mouchard, jusque dans les mains des États.</p>
         </div>
       </div>
-      <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-fin-sommeil.jpg" alt="La fin du sommeil : Amazon, Uber, les plateformes — analyse à venir d'Agora Dau" loading="lazy"/></div>
+      <div class="pub-slide pub-slide--live">
+        <div class="pub-feat-media"><img src="./analyse-fin-sommeil.jpg" alt="Ils ont volé la nuit — analyse d'Agora Dau sur le capitalisme et le sommeil" loading="lazy"/></div>
         <div class="pub-feat-body">
-          <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
-          <p class="pub-feat-title">La fin du sommeil</p>
-          <p class="pub-feat-desc">Amazon, Uber, livraison 24/7 : comment les plateformes ont colonisé la nuit et grignoté notre repos.</p>
+          <p class="pub-feat-kicker"><span class="pub-live-dot"></span>Analyse · En ligne</p>
+          <p class="pub-feat-title">Ils ont volé la nuit</p>
+          <p class="pub-feat-desc">Du dorveille médiéval aux algorithmes de Netflix : comment le capitalisme a colonisé la nuit et privatisé notre repos.</p>
+          <span class="pub-read">Lire l'analyse →</span>
         </div>
+        <a class="pub-overlay" href="/analyses/ils-ont-vole-la-nuit/" aria-label="Lire l'analyse : Ils ont volé la nuit"></a>
       </div>
       <div class="pub-slide">
         <div class="pub-feat-media"><img src="./analyse-realite-fox.jpg" alt="La réalité version Fox — analyse à venir d'Agora Dau" loading="lazy"/></div>
