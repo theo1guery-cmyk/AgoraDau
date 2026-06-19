@@ -1,0 +1,22 @@
+title: Agora Dau
+url: "https://agoradau.fr"
+baseurl: ""
+markdown: kramdown
+
+collections:
+  analyses:
+    output: true
+    permalink: /analyses/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: analyses
+    values:
+      layout: analyse
+
+# Fichiers à ne pas publier
+exclude:
+  - README.md
+  - GUIDE-PUBLICATION.md
+  - .claude
