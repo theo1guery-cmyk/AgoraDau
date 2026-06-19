@@ -1,0 +1,130 @@
+# Configuration de l'éditeur Pages CMS (https://pagescms.org)
+# Décrit le formulaire de rédaction des analyses. Ne touche pas au site.
+
+media:
+  - name: images
+    label: Images
+    input: media
+    output: /media
+
+content:
+  - name: analyses
+    label: Analyses
+    type: collection
+    path: _analyses
+    format: yaml-frontmatter
+    filename: '{slug}.md'
+    subfolders: false
+    view:
+      fields: [title, author, date]
+      primary: title
+    fields:
+      - name: title
+        label: Titre
+        type: string
+        required: true
+        description: "Titre court — sert aussi à l'adresse de la page. Ex : Ils ont volé la nuit"
+
+      - name: title_display
+        label: Titre affiché (avec ponctuation)
+        type: string
+        description: "Optionnel. Ex : « Ils ont volé la nuit. » — si vide, le Titre est utilisé."
+
+      - name: dek
+        label: Chapô (phrase d'accroche sous le titre)
+        type: text
+        required: true
+
+      - name: kicker
+        label: Rubriques (petite ligne au-dessus du titre)
+        type: string
+        description: "Ex : Sociologie · Capitalisme · Nuit"
+
+      - name: author
+        label: Auteur·rice
+        type: string
+        required: true
+
+      - name: date
+        label: Date de publication
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+          time: false
+
+      - name: date_display
+        label: Date affichée dans la signature
+        type: string
+        description: "Ex : Juin 2026"
+
+      - name: reading_time
+        label: Temps de lecture
+        type: string
+        description: "Ex : ≈ 13 min de lecture"
+
+      - name: cover
+        label: Image de couverture
+        type: image
+        required: true
+        options:
+          media: images
+        description: "Idéalement CARRÉE, ~1080 px. S'affiche au partage du lien et dans le carrousel."
+
+      - name: description
+        label: Description (Google + partage)
+        type: text
+        required: true
+        description: "1 à 2 phrases. C'est le résumé qui s'affiche dans Google et sur les réseaux."
+
+      - name: keywords
+        label: Mots-clés (SEO)
+        type: string
+        list: true
+        description: "Quelques mots-clés du sujet."
+
+      - name: tags_meta
+        label: Tags
+        type: string
+        list: true
+
+      - name: stats
+        label: Chiffres-clés (0 à 3 encadrés)
+        type: object
+        list: true
+        fields:
+          - name: n
+            label: Le chiffre
+            type: string
+            description: "Ex : 6h50, −1h30, ×2"
+          - name: l
+            label: Ce qu'il signifie
+            type: text
+          - name: s
+            label: Source
+            type: string
+
+      - name: body
+        label: L'article
+        type: rich-text
+        required: true
+        description: "Écris normalement. Un titre de partie = « Titre 2 » (numéroté I, II, III… automatiquement). Une phrase-choc = « Citation »."
+
+      - name: closing
+        label: Phrase de clôture — ligne 1
+        type: string
+        description: "Optionnel. La phrase finale en gros."
+
+      - name: closing_red
+        label: Phrase de clôture — ligne 2 (en rouge)
+        type: string
+
+      - name: sources
+        label: Sources & références
+        type: rich-text
+        description: "Optionnel. Sous-titres en « Titre 3 » + listes à puces. S'affiche dans un bloc dépliable."
+
+      - name: seo_title
+        label: Titre pour Google (avancé)
+        type: string
+        description: "Optionnel. Si vide : « Titre | Agora Dau »."
