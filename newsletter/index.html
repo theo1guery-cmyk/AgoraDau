@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Newsletter — Agora Dau</title>
+<meta name="description" content="Inscris-toi à la newsletter d'Agora Dau : on te prévient dès qu'une nouvelle analyse est en ligne. Zéro spam."/>
+<link rel="canonical" href="https://agoradau.fr/newsletter/"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<meta name="theme-color" content="#0A0A0A"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Agora Dau"/>
+<meta property="og:title" content="Newsletter Agora Dau"/>
+<meta property="og:description" content="On te prévient dès qu'une nouvelle analyse est en ligne. Zéro spam."/>
+<meta property="og:url" content="https://agoradau.fr/newsletter/"/>
+<meta property="og:image" content="https://agoradau.fr/og-image.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0A0A0A;--paper:#F0EDE6;--red:#FF3B30;--yellow:#FFE000;
+  --stone:#C8C4BC;--mist:#7A776F;
+  --display:"Syne",sans-serif;--body:"DM Sans",sans-serif;--mono:"DM Mono",monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+::selection{background:var(--yellow);color:var(--ink);}
+#cur{position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:var(--red);transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),opacity .2s;mix-blend-mode:multiply;}
+#cur.big{width:72px;height:72px;opacity:.15;}
+@media(hover:none){#cur{display:none;}body{cursor:auto;}}
+
+/* TICKER */
+.ticker{position:fixed;top:0;left:0;right:0;z-index:600;height:28px;background:var(--ink);overflow:hidden;display:flex;align-items:center;}
+.ticker-t{display:flex;white-space:nowrap;animation:rtl 32s linear infinite;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--paper);}
+.ticker-t span{padding:0 2.5rem;}
+.ticker-t em{color:var(--yellow);font-style:normal;}
+@keyframes rtl{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* NAV */
+nav{position:fixed;top:28px;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:54px;background:var(--paper);border-bottom:1px solid var(--ink);}
+.nav-logo{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-.03em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.nav-dot{width:9px;height:9px;border-radius:50%;background:var(--red);}
+.nav-back{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);}
+.nav-back:hover{color:var(--ink);}
+
+/* HERO */
+.wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:7rem 1.5rem 3rem;}
+.card{max-width:620px;width:100%;text-align:center;}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.6rem;}
+.kicker::before,.kicker::after{content:"";width:22px;height:1.5px;background:var(--red);}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,7vw,4.2rem);line-height:1;letter-spacing:-.04em;text-transform:uppercase;}
+h1 .red{color:var(--red);}
+.lead{font-size:clamp(1rem,2.4vw,1.18rem);line-height:1.6;color:var(--mist);margin:1.4rem auto 0;max-width:42ch;}
+
+/* FORM */
+.nl-form{display:flex;width:min(460px,100%);margin:2.4rem auto 0;border:1.5px solid var(--ink);border-radius:99px;overflow:hidden;background:#fff;transition:box-shadow .25s var(--ease);}
+.nl-form:focus-within{box-shadow:0 0 0 3px rgba(255,59,48,.18);}
+.nl-form input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--body);font-size:.95rem;color:var(--ink);padding:1rem 1.4rem;}
+.nl-form input::placeholder{color:var(--mist);}
+.nl-form button{background:var(--ink);color:var(--paper);border:none;cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:1rem 1.7rem;transition:background .2s;flex-shrink:0;white-space:nowrap;}
+.nl-form button:hover{background:var(--red);}
+.nl-msg{font-family:var(--mono);font-size:11px;letter-spacing:.03em;min-height:1.2em;margin-top:1rem;}
+.nl-msg.ok{color:#1f8a3b;}
+.nl-msg.err{color:var(--red);}
+.reassure{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem;}
+.reassure span{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);display:inline-flex;align-items:center;gap:.4rem;}
+.reassure b{color:var(--red);font-weight:500;}
+.alt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-top:2.2rem;}
+.alt a{color:var(--red);}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-t">
+    <span>Agora Dau</span><em> ◆ </em><span>Newsletter</span><em> ◆ </em>
+    <span>Une analyse, de temps en temps · zéro spam</span><em> ◆ </em><span>Le média qui vous donne la parole</span><em> ◆ </em>
+    <span>Agora Dau</span><em> ◆ </em><span>Newsletter</span><em> ◆ </em>
+    <span>Une analyse, de temps en temps · zéro spam</span><em> ◆ </em><span>Le média qui vous donne la parole</span><em> ◆ </em>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="nav-logo"><span class="nav-dot"></span>Agora Dau</a>
+  <a href="/" class="nav-back">← Accueil</a>
+</nav>
+
+<div class="wrap">
+  <div class="card">
+    <p class="kicker">Newsletter</p>
+    <h1>Ne rate aucune <span class="red">analyse.</span></h1>
+    <p class="lead">Laisse ton email : on te prévient dès qu'une nouvelle enquête ou analyse est en ligne. Une de temps en temps, jamais plus. <strong>Zéro spam.</strong></p>
+
+    <form id="nl-form" class="nl-form" action="https://formsubmit.co/ajax/agora.dau@gmail.com" method="post">
+      <input type="email" name="email" placeholder="ton adresse email" aria-label="Ton adresse email" required/>
+      <button type="submit">Je m'inscris →</button>
+    </form>
+    <p class="nl-msg" id="nl-msg" aria-live="polite"></p>
+
+    <div class="reassure">
+      <span><b>✓</b> Gratuit</span>
+      <span><b>✓</b> Désinscription en 1 clic</span>
+      <span><b>✓</b> Ton email reste privé</span>
+    </div>
+
+    <p class="alt">ou suis-nous sur <a href="https://www.instagram.com/agora_dau/" target="_blank" rel="noopener">Instagram ↗</a></p>
+  </div>
+</div>
+
+<script>
+const cur=document.getElementById("cur");
+document.addEventListener("mousemove",e=>{cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";});
+document.querySelectorAll("a,button,input").forEach(el=>{
+  el.addEventListener("mouseenter",()=>cur.classList.add("big"));
+  el.addEventListener("mouseleave",()=>cur.classList.remove("big"));
+});
+const f=document.getElementById("nl-form");
+f.addEventListener("submit",function(e){
+  e.preventDefault();
+  const email=f.email.value.trim();
+  const msg=document.getElementById("nl-msg");
+  if(!email)return;
+  msg.className="nl-msg";msg.textContent="Inscription…";
+  fetch(f.getAttribute("action"),{
+    method:"POST",
+    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    body:JSON.stringify({email:email,_subject:"Nouvel inscrit — newsletter Agora Dau"})
+  }).then(r=>r.json()).then(()=>{
+    msg.className="nl-msg ok";msg.textContent="Merci ! Tu es bien inscrit·e ✓ On te prévient dès la prochaine analyse.";f.reset();
+  }).catch(()=>{
+    msg.className="nl-msg err";msg.textContent="Oups, réessaie dans un instant.";
+  });
+});
+</script>
+</body>
+</html>
