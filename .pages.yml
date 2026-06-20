@@ -6,6 +6,7 @@ media:
     label: Images
     input: media
     output: /media
+    rename: safe   # nettoie les noms (espaces, virgules, accents) → évite de casser le build
 
 content:
   - name: analyses
