@@ -163,6 +163,11 @@ main{max-width:1180px;margin:0 auto;padding:7.5rem 1.5rem 0;}
 .art-body h2::after{content:"";flex:1;height:1.5px;background:var(--stone);align-self:center;}
 .art-body blockquote{margin:2.6rem 0;padding:0 0 0 1.6rem;border-left:3px solid var(--red);}
 .art-body blockquote p{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,3vw,1.7rem);line-height:1.28;letter-spacing:-.02em;color:var(--ink);}
+/* Image insérée via le CMS → figure cadrée + légende (paragraphe suivant) */
+.art-body p img{width:100%;border:1.5px solid var(--ink);display:block;margin-top:2.8rem;}
+.art-body p:has(img){margin-bottom:.7rem;}
+.art-body p:has(img) + p{font-size:.86rem;line-height:1.55;color:var(--mist);padding-left:1.1rem;border-left:2px solid var(--red);margin-bottom:2.8rem;}
+.art-body p:has(img) + p em{color:var(--ink);font-style:italic;}
 .art-end{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.18;letter-spacing:-.03em;text-transform:uppercase;margin:3rem 0 1rem;color:var(--ink);}
 .art-end .red{color:var(--red);}
 
