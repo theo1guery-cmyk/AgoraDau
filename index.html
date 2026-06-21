@@ -99,7 +99,7 @@ a{text-decoration:none;color:inherit;}
 @keyframes rtl{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* NAV */
-nav{position:fixed;top:28px;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:54px;transition:background .3s,border-bottom .3s;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:54px;transition:background .3s,border-bottom .3s;}
 nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
 .nav-logo{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-.03em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
 .nav-dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;}
@@ -120,7 +120,7 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
    ===================== */
 #hero{
   height:100vh;
-  padding-top:82px;
+  padding-top:54px;
   display:flex;
   flex-direction:column;
   border-bottom:1.5px solid var(--ink);
@@ -261,6 +261,7 @@ nav.pinned{background:var(--paper);border-bottom:1px solid var(--ink);}
   display:flex;border-top:1.5px solid var(--ink);
 }
 .hs{flex:1;padding:1.2rem 2.5rem;border-right:1.5px solid var(--ink);display:flex;flex-direction:column;gap:.25rem;}
+.hero-stats .hs:last-child{border-right:none;}
 .hs:last-child{border-right:none;flex:0 0 auto;justify-content:center;}
 .hs-n{font-family:var(--display);font-size:2.2rem;font-weight:800;letter-spacing:-.05em;line-height:1;}
 .hs-n sup{font-size:1rem;color:var(--red);}
@@ -541,7 +542,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   .nav-burger{display:flex;}
   .nav-links{
     display:flex;flex-direction:column;align-items:stretch;gap:0;
-    position:fixed;top:82px;left:0;right:0;
+    position:fixed;top:54px;left:0;right:0;
     background:var(--paper);border-bottom:1.5px solid var(--ink);
     padding:.4rem 1.2rem 1.2rem;
     transform:translateY(-135%);transition:transform .32s var(--ease);
@@ -590,24 +591,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 <body>
 <div id="cur"></div>
 
-<!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-t">
-    <span>Agora Dau</span><em> ◆ </em>
-    <span>Le média qui vous donne la parole</span><em> ◆ </em>
-    <span>Podcasts · micros-trottoirs · débats</span><em> ◆ </em>
-    <span>Esprit critique · sans filtre</span><em> ◆ </em>
-    <span>Paris Dauphine–PSL</span><em> ◆ </em>
-    <span>Issue No.01 — 2025/26</span><em> ◆ </em>
-    <span>Agora Dau</span><em> ◆ </em>
-    <span>Le média qui vous donne la parole</span><em> ◆ </em>
-    <span>Podcasts · micros-trottoirs · débats</span><em> ◆ </em>
-    <span>Esprit critique · sans filtre</span><em> ◆ </em>
-    <span>Paris Dauphine–PSL</span><em> ◆ </em>
-    <span>Issue No.01 — 2025/26</span><em> ◆ </em>
-  </div>
-</div>
-
 <!-- NAV -->
 <nav id="nav">
   <a href="#hero" class="nav-logo">
@@ -635,14 +618,12 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 
     <!-- COIN HAUT GAUCHE -->
     <div class="hero-tl">
-      <span class="badge">Issue N°01</span>
-      <span class="hero-label">Paris Dauphine–PSL<br>2025 / 26</span>
+      <span class="hero-label">Paris Dauphine–PSL<br>2025 — 26</span>
     </div>
 
     <!-- COIN HAUT DROIT -->
     <div class="hero-tr">
       <span class="hero-tr-tag">Média étudiant<br>indépendant</span>
-      <span class="hero-tr-tag" style="color:var(--red);">↓ Défiler</span>
     </div>
 
     <!-- BAS GAUCHE — slogan typographique -->
@@ -684,34 +665,8 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
       <span class="hs-n">0</span>
       <span class="hs-l">Filtre · langue de bois</span>
     </div>
-    <div class="hs">
-      <div class="scroll-hint">
-        <div class="scroll-line"></div>
-        Défiler
-      </div>
-    </div>
   </div>
 </section>
-
-<!-- MARQUEE -->
-<div class="mrq" aria-hidden="true">
-  <div class="mrq-t">
-    <span>Podcast</span><span class="x"> ✕ </span>
-    <span>Micro-trottoir</span><span class="x"> ✕ </span>
-    <span>Débat</span><span class="x"> ✕ </span>
-    <span>Analyse flash</span><span class="x"> ✕ </span>
-    <span>Opinion</span><span class="x"> ✕ </span>
-    <span>Esprit critique</span><span class="x"> ✕ </span>
-    <span>Dauphine PSL</span><span class="x"> ✕ </span>
-    <span>Podcast</span><span class="x"> ✕ </span>
-    <span>Micro-trottoir</span><span class="x"> ✕ </span>
-    <span>Débat</span><span class="x"> ✕ </span>
-    <span>Analyse flash</span><span class="x"> ✕ </span>
-    <span>Opinion</span><span class="x"> ✕ </span>
-    <span>Esprit critique</span><span class="x"> ✕ </span>
-    <span>Dauphine PSL</span><span class="x"> ✕ </span>
-  </div>
-</div>
 
 <!-- LE PROJET -->
 <section id="apropos" style="background:var(--ink);color:var(--paper);padding:5.5rem 2.5rem;border-bottom:1.5px solid var(--ink);">
@@ -727,7 +682,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 <section class="sec" id="formats">
   <div class="sh rv">
     <div><p class="s-over">Ce qu'on prépare</p><h2 class="s-title">Nos <em>formats</em></h2></div>
-    <span class="s-aside">Lancement 2025–26</span>
+    <span class="s-aside">2025 — 26</span>
   </div>
   <div class="fmt-grid">
     <div class="fmt-card">
@@ -777,7 +732,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 <section class="sec" id="publications">
   <div class="sh rv">
     <div><p class="s-over">Le contenu</p><h2 class="s-title">Nos <em>publications</em></h2></div>
-    <span class="s-aside">Saison 01</span>
+    <span class="s-aside">2025 — 26</span>
   </div>
 
   <!-- Carrousel à la une -->
