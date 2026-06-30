@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Charte anti-IA — Communiqué du Bureau | Agora Dau</title>
+<meta name="description" content="Communiqué du Bureau d'Agora Dau : notre charte anti-IA. Une information produite par des humains, et pour des humains — sans recours à l'intelligence artificielle."/>
+<link rel="canonical" href="https://agoradau.fr/charte/"/>
+<meta name="theme-color" content="#0A0A0A"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="Agora Dau"/>
+<meta property="og:title" content="Charte anti-IA — Communiqué du Bureau d'Agora Dau"/>
+<meta property="og:description" content="Une information produite au sein de notre association par des humains, et pour des humains."/>
+<meta property="og:url" content="https://agoradau.fr/charte/"/>
+<meta property="og:image" content="https://agoradau.fr/og-image.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--ink:#0A0A0A;--paper:#F0EDE6;--red:#FF3B30;--yellow:#EAC54A;--stone:#C8C4BC;--mist:#7A776F;
+--display:"Syne",sans-serif;--body:"DM Sans",sans-serif;--mono:"DM Mono",monospace;--ease:cubic-bezier(.16,1,.3,1);}
+html{scroll-behavior:smooth;}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+::selection{background:var(--yellow);color:var(--ink);}
+#cur{position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:var(--red);transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),opacity .2s;mix-blend-mode:multiply;}
+#cur.big{width:72px;height:72px;opacity:.15;}
+@media(hover:none){#cur{display:none;}body{cursor:auto;}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px;background:var(--paper);border-bottom:1px solid var(--ink);}
+.nav-logo{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-.03em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.nav-dot{width:9px;height:9px;border-radius:50%;background:var(--red);}
+.nav-back{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);}
+.nav-back:hover{color:var(--ink);}
+
+main{max-width:760px;margin:0 auto;padding:9rem 1.5rem 0;}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.6rem;margin-bottom:1.4rem;}
+.kicker::before{content:"";width:26px;height:1.5px;background:var(--red);}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,7vw,4.6rem);line-height:.98;letter-spacing:-.04em;text-transform:uppercase;}
+h1 .red{color:var(--red);}
+.dek{font-family:var(--display);font-weight:400;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.4;color:var(--ink);margin-top:1.3rem;max-width:34ch;}
+.meta{display:flex;gap:1.2rem;align-items:center;margin-top:1.6rem;padding-top:1.3rem;border-top:1.5px solid var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mist);}
+.meta b{color:var(--ink);font-weight:500;}
+
+.body{margin-top:3rem;}
+.body p{font-size:1.1rem;line-height:1.75;margin-bottom:1.4rem;color:#1a1a1a;}
+.body p:first-of-type::first-letter{font-family:var(--display);font-weight:800;font-size:3.4rem;float:left;line-height:.78;padding:.35rem .55rem 0 0;color:var(--red);}
+
+.engagements{list-style:none;margin:2.4rem 0;border-top:1.5px solid var(--stone);}
+.engagements li{display:flex;gap:1.1rem;padding:1.5rem 0;border-bottom:1.5px solid var(--stone);font-size:1.02rem;line-height:1.65;color:#1a1a1a;}
+.engagements .n{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--red);flex-shrink:0;line-height:1.3;}
+
+.refus{margin:3rem 0 2rem;padding:2rem 2.2rem;border:1.5px solid var(--ink);background:#fff;}
+.refus p{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,3vw,1.7rem);line-height:1.3;letter-spacing:-.02em;color:var(--ink);}
+.refus .red{color:var(--red);}
+
+.sign{margin-top:2.6rem;font-family:var(--display);font-weight:800;font-size:1.15rem;text-transform:uppercase;letter-spacing:-.01em;}
+.sign span{display:block;font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.15em;color:var(--mist);text-transform:uppercase;margin-top:.4rem;}
+
+.back-cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:3.5rem;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);transition:gap .2s,color .2s;}
+.back-cta:hover{color:var(--ink);gap:.85rem;}
+
+footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;margin-top:5rem;}
+.ft{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;padding-bottom:2rem;border-bottom:1px solid #1c1c1c;}
+.ft-brand{font-family:var(--display);font-size:1.2rem;font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:.5rem;}
+.ft-dot{width:9px;height:9px;border-radius:50%;background:var(--red);}
+.ft-nav{display:flex;gap:2rem;list-style:none;flex-wrap:wrap;}
+.ft-nav a{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#444;transition:color .2s;}
+.ft-nav a:hover{color:var(--yellow);}
+.ft-copy{padding-top:1.5rem;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:#333;}
+
+@media(max-width:640px){nav{padding:0 1.2rem;}main{padding-top:7.5rem;}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+
+<nav>
+  <a href="/" class="nav-logo"><span class="nav-dot"></span>Agora Dau</a>
+  <a href="/" class="nav-back">← Accueil</a>
+</nav>
+
+<main>
+  <p class="kicker">Communiqué du Bureau</p>
+  <h1>Charte <span class="red">anti-IA.</span></h1>
+  <p class="dek">Une information produite par des humains, et pour des humains.</p>
+  <div class="meta"><b>Le Bureau d'Agora Dau</b><span>·</span><span>2026</span></div>
+
+  <div class="body">
+    <p>Afin de garantir l'authenticité intellectuelle de l'ensemble de nos projets, nous avons décidé d'établir une charte anti-IA.</p>
+    <p>Cette charte a pour objectif premier de valoriser le travail analytique, qui est l'essence même de notre association, ainsi que de garantir l'authenticité de l'information qui vous est fournie. C'est notamment dans cette optique que nous affirmons notre attachement à une information produite au sein de notre association par des humains, et pour des humains. Notre ambition de réflexion propre ainsi que notre remise en cause des carcans préétablis nous incitent à établir les points suivants :</p>
+
+    <ul class="engagements">
+      <li><span class="n">01</span><span>Agora Dau, à travers ses membres, s'engage à promouvoir et à préserver le travail de ses rédacteurs, journalistes, chroniqueurs et contributeurs. Chaque contenu publié doit être le fruit d'une réflexion, d'une recherche et d'une rédaction réalisées par une personne physique.</span></li>
+      <li><span class="n">02</span><span>Agora Dau s'engage à offrir des contenus authentiques et qui reflètent les analyses, les opinions et les sensibilités de leurs auteurs.</span></li>
+      <li><span class="n">03</span><span>Agora Dau refuse également que ses contenus soient formatés selon des logiques algorithmiques susceptibles d'uniformiser les styles, les idées et les modes de pensée.</span></li>
+      <li><span class="n">04</span><span>Agora Dau assure ainsi la transparence mais également la diversité de ses articles et respecte un de ses principes fondateurs, la réflexion propre.</span></li>
+    </ul>
+
+    <div class="refus">
+      <p>Par la présente, nous refusons d'utiliser l'Intelligence Artificielle dans les procédés de recherche, de réflexion, de rédaction ou encore de <span class="red">graphisme.</span></p>
+    </div>
+
+    <div class="sign">Le Bureau d'Agora Dau<span>Agora Dau · Université Paris Dauphine–PSL</span></div>
+
+    <a href="/" class="back-cta">← Retour à l'accueil</a>
+  </div>
+</main>
+
+<footer>
+  <div class="ft">
+    <div class="ft-brand"><span class="ft-dot"></span>Agora Dau</div>
+    <ul class="ft-nav">
+      <li><a href="/#apropos">Le projet</a></li>
+      <li><a href="/#publications">Publications</a></li>
+      <li><a href="/charte/">Charte anti-IA</a></li>
+      <li><a href="https://www.instagram.com/agora_dau/" target="_blank" rel="noopener">Instagram ↗</a></li>
+      <li><a href="mailto:agora.dau@gmail.com">Contact</a></li>
+    </ul>
+  </div>
+  <div class="ft-copy">© 2026 Agora Dau · Université Paris Dauphine–PSL</div>
+</footer>
+
+<script>
+const cur=document.getElementById("cur");
+document.addEventListener("mousemove",e=>{cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";});
+document.querySelectorAll("a").forEach(el=>{el.addEventListener("mouseenter",()=>cur.classList.add("big"));el.addEventListener("mouseleave",()=>cur.classList.remove("big"));});
+</script>
+</body>
+</html>
