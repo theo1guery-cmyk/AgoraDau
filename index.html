@@ -509,6 +509,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 
 /* LE PROJET — soulignement animé */
 .apropos-hl{position:relative;display:inline-block;}
+.charte-cta:hover{border-color:var(--red)!important;background:rgba(255,59,48,.06);}
 .apropos-hl::after{content:"";position:absolute;left:0;bottom:-.04em;width:100%;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease) .45s;}
 .rv.in .apropos-hl::after{transform:scaleX(1);}
 
@@ -676,6 +677,13 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <h2 class="rv" style="font-family:var(--display);font-size:clamp(1.9rem,4.2vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;text-transform:uppercase;margin-bottom:1.8rem;">Une <em class="apropos-hl" style="color:var(--red);font-style:normal;">nouvelle voix</em> sur le campus.</h2>
     <p class="rv" style="font-size:1rem;line-height:1.85;color:#a8a49c;max-width:640px;">Agora Dau est un tout jeune média étudiant, indépendant, né à Paris Dauphine–PSL. Notre but : rendre la parole aux étudiants, sans filtre ni langue de bois — à travers des podcasts, des micros-trottoirs, des débats et des analyses.</p>
     <p class="rv" style="font-size:1rem;line-height:1.85;color:#a8a49c;max-width:640px;margin-top:1.1rem;">On démarre tout juste. Ce que tu vois ici, c'est notre point de départ : la première pierre. La suite — les contenus, les débats, les rencontres — on va l'écrire ensemble.</p>
+    <a href="/charte/" class="charte-cta rv" style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;max-width:640px;margin-top:2.6rem;border:1.5px solid #2e2e2e;padding:1.4rem 1.8rem;transition:border-color .25s,background .25s;">
+      <span>
+        <span style="display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;">Charte anti-IA</span>
+        <span style="display:block;font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-.02em;text-transform:uppercase;line-height:1.15;">Une information produite par des humains,<br>pour des humains.</span>
+      </span>
+      <span style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);white-space:nowrap;">Lire la charte →</span>
+    </a>
   </div>
 </section>
 
