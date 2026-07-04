@@ -13,6 +13,36 @@ cover: /analyse-colonialisme-vert.jpg
 description: "Des parcs naturels africains aux forêts indiennes, comment l'idéal de conservation de la nature — le « colonialisme vert » — sert de prétexte pour expulser des millions d'autochtones. Une analyse d'Agora Dau."
 keywords: ["colonialisme vert", "écologie", "conservation", "Guillaume Blanc", "peuples autochtones", "WWF"]
 tags_meta: ["Écologie", "Colonialisme", "Pouvoir"]
+sources: >+
+  ### Médias & presse
+
+
+  - Guillaume Blanc — *La nature confisquée : histoire du colonialisme vert*
+  (France Culture, Le Cours de l'histoire) — radiofrance.fr
+
+  - *Le WWF accusé de financer des factions paramilitaires violentes* (Le
+  Monde, 5 mars 2019) — lemonde.fr
+
+  - *Peuples autochtones : ils dénoncent le "colonialisme vert" sur leurs
+  terres* (France 24, Les Observateurs, octobre 2025) — france24.com
+
+  - Reportage sur le colonialisme vert en Afrique (BBC Afrique) — bbc.com
+
+  - *Brazil: Accelerating deforestation of Amazon a direct result of
+  Bolsonaro's policies* (Amnesty International, décembre 2020) —
+  amnesty.org
+
+  - Guillaume Blanc — *"Notre présent porte les marques indélébiles de
+  l'histoire de la colonisation"* (Les Champs Libres) — leschampslibres.fr
+
+
+  ### Ressources & institutions
+
+
+  - Apartheid vert et colonialisme vert (Géoconfluences, ENS Lyon) —
+  geoconfluences.ens-lyon.fr
+
+  - Site officiel du WWF France — wwf.fr
 ---
 
 ## La face cachée de l'écologie
