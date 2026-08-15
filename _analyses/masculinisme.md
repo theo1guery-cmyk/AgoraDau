@@ -3,7 +3,7 @@ title: "Quand le modèle masculin s'effondre"
 permalink: /analyses/masculinisme/
 title_display: "Quand le modèle masculin s'effondre."
 seo_title: "Quand le modèle masculin s'effondre : masculinisme, virilité et pouvoir | Agora Dau"
-dek: "Du Capitole aux forums en ligne : ce qui se joue quand la virilité traditionnelle vacille, et comment le masculinisme prospère sur une souffrance masculine bien réelle."
+dek: "Des incels à la « Red Pill », comment la crise de la masculinité nourrit le masculinisme."
 kicker: "Genre · Masculinisme · Pouvoir"
 author: "Oriane Poitrimol & Victoire Guillot"
 date: 2026-08-01
