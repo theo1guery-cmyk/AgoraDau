@@ -1,0 +1,189 @@
+---
+permalink: /app/
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=5"/>
+<title>Agora — l'app d'Agora Dau</title>
+<meta name="description" content="Agora, l'application d'Agora Dau : toutes les analyses et les podcasts du média étudiant indépendant, à lire et écouter partout, même hors connexion."/>
+<link rel="canonical" href="https://agoradau.fr/app/"/>
+<meta name="theme-color" content="#F0EDE6" id="tc"/>
+<meta name="robots" content="index,follow"/>
+
+<link rel="manifest" href="/app/manifest.webmanifest"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="apple-touch-icon" href="/app/icon-192.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="Agora"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Agora Dau"/>
+<meta property="og:title" content="Agora — l'app d'Agora Dau"/>
+<meta property="og:description" content="Les analyses et les podcasts d'Agora Dau, à lire et écouter partout. Même hors connexion."/>
+<meta property="og:url" content="https://agoradau.fr/app/"/>
+<meta property="og:image" content="https://agoradau.fr/og-image.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/app/app.css"/>
+<script>
+  (function(){try{
+    var p=JSON.parse(localStorage.getItem('agora.theme')||'"system"');
+    var d=p==='dark'||(p==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);
+    document.documentElement.setAttribute('data-theme',d?'dark':'light');
+    document.getElementById&&0;
+  }catch(e){}})();
+</script>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+  <a class="tb-brand" href="#/"><i></i>Agora<span>Dau</span></a>
+  <div class="tb-act">
+    <button class="iconbtn" id="instTop" style="display:none" aria-label="Installer l'application"></button>
+    <button class="iconbtn" id="themeBtn" aria-label="Changer le thème"></button>
+  </div>
+</header>
+<button class="backbtn" id="backBtn" aria-label="Retour">
+  <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+</button>
+
+<div class="netpill" id="netpill"><i></i>Hors connexion — contenus enregistrés</div>
+
+<!-- ===== VIEWS ===== -->
+<main>
+  <section class="view on" id="v-home"></section>
+  <section class="view" id="v-analyses"></section>
+  <section class="view" id="v-ecouter"></section>
+  <section class="view" id="v-asso"></section>
+  <section class="view reader" id="v-doc"></section>
+</main>
+
+<!-- ===== MINI PLAYER ===== -->
+<div class="mini" id="mini">
+  <span class="mini-bar" id="miniBar"></span>
+  <img class="mini-img" id="miniImg" src="/app/icon-192.png" alt=""/>
+  <div class="mini-b">
+    <p class="mini-t" id="miniT"></p>
+    <p class="mini-s" id="miniS"></p>
+  </div>
+  <button class="mini-btn" id="miniPlay" aria-label="Lecture / pause"></button>
+  <button class="mini-btn ghost" id="miniClose" aria-label="Fermer le lecteur">
+    <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+</div>
+
+<!-- ===== FULL PLAYER ===== -->
+<div class="player" id="player" role="dialog" aria-label="Lecteur">
+  <div class="pl-top">
+    <span class="mono">En écoute</span>
+    <button class="pl-close" id="plClose" aria-label="Réduire">
+      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+  <img class="pl-art" id="plArt" src="/app/icon-512.png" alt=""/>
+  <div class="pl-meta">
+    <p class="pl-ep" id="plEp"></p>
+    <h2 class="pl-t" id="plT"></h2>
+    <p class="pl-g" id="plG"></p>
+  </div>
+  <div class="pl-seek">
+    <div class="pl-track" id="plTrack">
+      <span class="pl-fill" id="plFill"></span>
+      <span class="pl-knob" id="plKnob"></span>
+    </div>
+    <div class="pl-times"><span id="plCur">0:00</span><span id="plDur">--:--</span></div>
+  </div>
+  <div class="pl-ctrl">
+    <button class="pl-b pl-sk" id="plBack" aria-label="Reculer de 15 secondes">
+      <svg viewBox="0 0 24 24"><path d="M11 4 7 8l4 4"/><path d="M7 8h6a7 7 0 1 1-7 7"/></svg><b>15</b>
+    </button>
+    <button class="pl-b pl-main" id="plPlay" aria-label="Lecture / pause"></button>
+    <button class="pl-b pl-sk" id="plFwd" aria-label="Avancer de 30 secondes">
+      <svg viewBox="0 0 24 24"><path d="m13 4 4 4-4 4"/><path d="M17 8h-6a7 7 0 1 0 7 7"/></svg><b>30</b>
+    </button>
+  </div>
+  <div class="pl-foot"><button class="pl-rate" id="plRate">× 1</button></div>
+  <div class="pl-links" id="plLinks"></div>
+</div>
+
+<!-- ===== TAB BAR ===== -->
+<nav class="tabbar">
+  <a class="tab on" data-v="home" href="#/">
+    <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Une</span>
+  </a>
+  <a class="tab" data-v="analyses" href="#/analyses">
+    <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg><span>Analyses</span>
+  </a>
+  <a class="tab" data-v="ecouter" href="#/ecouter">
+    <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M8 7v10"/><path d="M16 7v10"/><path d="M4 10v4"/><path d="M20 10v4"/></svg><span>Écouter</span>
+  </a>
+  <a class="tab" data-v="asso" href="#/asso">
+    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>L'asso</span>
+  </a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="sheet" id="sheet">
+  <div class="sheet-bg" id="sheetBg"></div>
+  <div class="sheet-c" id="sheetBody"></div>
+</div>
+
+<!-- ===== DATA (généré par Jekyll) ===== -->
+{% assign A = site.analyses | sort: "date" | reverse %}
+{% assign P = site.podcasts | sort: "episode" | reverse %}
+<script id="agora-data" type="application/json">
+{
+"analyses": [
+{% for a in A %}{
+"slug": {{ a.relative_path | split: "/" | last | remove: ".md" | jsonify }},
+"url": {{ a.url | jsonify }},
+"title": {{ a.title | jsonify }},
+"title_display": {{ a.title_display | jsonify }},
+"dek": {{ a.dek | jsonify }},
+"kicker": {{ a.kicker | jsonify }},
+"author": {{ a.author | jsonify }},
+"date": {{ a.date | date: "%Y-%m-%d" | jsonify }},
+"date_display": {{ a.date_display | jsonify }},
+"reading_time": {{ a.reading_time | jsonify }},
+"cover": {{ a.cover | jsonify }},
+"tags": {{ a.tags_meta | jsonify }},
+"closing": {{ a.closing | jsonify }},
+"closing_red": {{ a.closing_red | jsonify }},
+"sources": {{ a.sources | markdownify | jsonify | replace: "</", "<\/" }},
+"body": {{ a.content | jsonify | replace: "</", "<\/" }}
+}{% unless forloop.last %},{% endunless %}
+{% endfor %}],
+"podcasts": [
+{% for p in P %}{
+"slug": {{ p.relative_path | split: "/" | last | remove: ".md" | jsonify }},
+"title": {{ p.title | jsonify }},
+"episode": {{ p.episode | default: 0 | jsonify }},
+"dek": {{ p.dek | jsonify }},
+"date": {{ p.date | date: "%Y-%m-%d" | jsonify }},
+"duration": {{ p.duration | jsonify }},
+"guests": {{ p.guests | jsonify }},
+"cover": {{ p.cover | default: "/app/icon-512.png" | jsonify }},
+"audio": {{ p.audio | jsonify }},
+"spotify": {{ p.spotify | jsonify }},
+"apple": {{ p.apple | jsonify }},
+"youtube": {{ p.youtube | jsonify }},
+"tags": {{ p.tags_meta | jsonify }},
+"body": {{ p.content | jsonify | replace: "</", "<\/" }}
+}{% unless forloop.last %},{% endunless %}
+{% endfor %}]
+}
+</script>
+
+<script src="/app/app.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 # Configuration de l'éditeur Pages CMS (https://pagescms.org)
-# Décrit le formulaire de rédaction des analyses. Ne touche pas au site.
+# Décrit les formulaires de rédaction (analyses + podcasts). Ne touche pas au site.
 
 media:
   - name: images
@@ -7,6 +7,13 @@ media:
     input: media
     output: /media
     rename: safe   # nettoie les noms (espaces, virgules, accents) → évite de casser le build
+
+  - name: audio
+    label: Audio (épisodes de podcast)
+    input: media/audio
+    output: /media/audio
+    rename: safe
+    extensions: [mp3, m4a, wav, ogg, oga]
 
 content:
   - name: analyses
@@ -129,3 +136,88 @@ content:
         label: Titre pour Google (avancé)
         type: string
         description: "Optionnel. Si vide : « Titre | Agora Dau »."
+
+  - name: podcasts
+    label: Podcasts
+    type: collection
+    path: _podcasts
+    format: yaml-frontmatter
+    filename: '{slug}.md'
+    subfolders: false
+    view:
+      fields: [title, episode, date]
+      primary: title
+    fields:
+      - name: title
+        label: Titre de l'épisode
+        type: string
+        required: true
+
+      - name: episode
+        label: Numéro d'épisode
+        type: number
+        required: true
+        description: "Ex : 1, 2, 3… S'affiche comme « EP. 01 »."
+
+      - name: dek
+        label: Accroche (une phrase)
+        type: text
+        required: true
+        description: "La phrase qui donne envie d'écouter."
+
+      - name: date
+        label: Date de publication
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+          time: false
+
+      - name: duration
+        label: Durée
+        type: string
+        description: "Ex : 42 min"
+
+      - name: guests
+        label: Invité·e·s / voix
+        type: string
+        description: "Ex : Lissa Perrin & Rafael Gomes-Nascimento"
+
+      - name: cover
+        label: Image de l'épisode
+        type: image
+        options:
+          media: images
+        description: "Carrée, ~1080 px. Si vide, le logo Agora Dau est utilisé."
+
+      - name: audio
+        label: Fichier audio (MP3)
+        type: file
+        options:
+          media: audio
+        description: "Le fichier de l'épisode. Nécessaire pour la lecture directe dans l'app."
+
+      - name: spotify
+        label: Lien Spotify
+        type: string
+        description: "Optionnel. L'URL de l'épisode sur Spotify."
+
+      - name: apple
+        label: Lien Apple Podcasts
+        type: string
+        description: "Optionnel."
+
+      - name: youtube
+        label: Lien YouTube
+        type: string
+        description: "Optionnel."
+
+      - name: tags_meta
+        label: Tags
+        type: string
+        list: true
+
+      - name: body
+        label: Notes d'épisode
+        type: rich-text
+        description: "Optionnel. Résumé, chapitres, références citées."

@@ -1,0 +1,35 @@
+{
+  "name": "Agora — Agora Dau",
+  "short_name": "Agora",
+  "description": "Les analyses et les podcasts d'Agora Dau, le média étudiant indépendant. À lire et écouter partout, même hors connexion.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "id": "/app/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#F0EDE6",
+  "theme_color": "#F0EDE6",
+  "categories": ["news", "education", "magazines"],
+  "icons": [
+    { "src": "/app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/app/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Les analyses",
+      "short_name": "Analyses",
+      "url": "/app/#/analyses",
+      "icons": [{ "src": "/app/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "À écouter",
+      "short_name": "Écouter",
+      "url": "/app/#/ecouter",
+      "icons": [{ "src": "/app/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
