@@ -313,6 +313,11 @@
         '<span class="lnk-ic">' + svg(ICO.users) + '</span>' +
         '<span class="lnk-b"><span class="lnk-t">Découvrir l\'association</span>' +
         '<span class="lnk-d">Formats, bureau, nous rejoindre</span></span>' +
+        '<span class="lnk-go">' + svg(ICO.chevR) + '</span></a>' +
+      '<a class="lnk" href="#/proposer">' +
+        '<span class="lnk-ic" style="border-color:var(--red);color:var(--red)">' + svg(ICO.pen) + '</span>' +
+        '<span class="lnk-b"><span class="lnk-t">Proposer un contenu</span>' +
+        '<span class="lnk-d">Un article ou un podcast — sans compte</span></span>' +
         '<span class="lnk-go">' + svg(ICO.chevR) + '</span></a>';
 
     v.innerHTML = h;
@@ -534,11 +539,18 @@
       '<p>Tous nos contenus sont écrits par des humains. Aucune IA n\'intervient dans la recherche, la réflexion, la rédaction ou le graphisme.</p>' +
       '<a href="/charte/" target="_blank" rel="noopener">Lire la charte ↗</a></div>';
 
+    h += '<div class="sectop"><h2>Tu veux <em>publier</em> ?</h2></div>';
+    h += '<a class="resume" href="#/proposer" style="background:var(--red);color:#fff">' +
+      '<span class="resume-ic" style="background:#fff;color:var(--red)">' + svg(ICO.pen) + '</span>' +
+      '<span class="resume-tx"><p style="opacity:.75">Article ou podcast</p>' +
+      '<p>Proposer un contenu</p></span>' +
+      '<span class="resume-pct">→</span></a>';
+    h += '<p class="fnote" style="margin-bottom:.4rem">Aucun compte requis : tu remplis, le bureau relit et publie.</p>';
+
     h += '<div class="sectop"><h2>Nous <em>suivre</em></h2></div>';
     const LINKS = [
       [ICO.insta, 'Instagram', '@agora_dau', 'https://www.instagram.com/agora_dau/'],
       [ICO.mail, 'Newsletter', 'Être prévenu·e à chaque publication', '/newsletter/'],
-      [ICO.pen, 'Écrire pour Agora', 'Rejoindre la rédaction', '/publier/'],
       [ICO.globe, 'agoradau.fr', 'Le site complet', '/']
     ];
     h += LINKS.map(l => '<a class="lnk" href="' + l[3] + '"' +
@@ -561,9 +573,150 @@
   }
 
   /* =========================================================
+     PROPOSER UN CONTENU
+     ========================================================= */
+  const FORM_ACTION = 'https://formsubmit.co/agora.dau@gmail.com';
+  const NEXT_URL = 'https://agoradau.fr/app/?envoye=1';
+  let proposeKind = 'article';
+
+  function fld(label, name, opts) {
+    opts = opts || {};
+    const req = opts.required ? ' <b>*</b>' : '';
+    const hint = opts.hint ? '<span class="hint">' + opts.hint + '</span>' : '';
+    const id = 'f_' + name.replace(/[^a-z0-9]/gi, '');
+    let input;
+    if (opts.type === 'textarea') {
+      input = '<textarea id="' + id + '" name="' + esc(name) + '"' +
+        (opts.big ? ' class="big"' : '') +
+        (opts.required ? ' required' : '') +
+        ' placeholder="' + esc(opts.ph || '') + '"></textarea>';
+    } else if (opts.type === 'file') {
+      input = '<input id="' + id + '" type="file" name="' + esc(name) + '" accept="' +
+        (opts.accept || 'image/*') + '"/>';
+    } else {
+      input = '<input id="' + id + '" type="' + (opts.type || 'text') + '" name="' + esc(name) + '"' +
+        (opts.required ? ' required' : '') +
+        ' placeholder="' + esc(opts.ph || '') + '"/>';
+    }
+    return '<div class="fld"><label for="' + id + '">' + esc(label) + req + hint + '</label>' + input + '</div>';
+  }
+
+  function renderPropose() {
+    const v = $('#v-propose');
+    const isPod = proposeKind === 'podcast';
+
+    let h = '<div class="sectop"><h2>Proposer un <em>contenu</em></h2></div>';
+    h += '<p class="fnote">Pas besoin de compte, ni de GitHub, ni de quoi que ce soit. ' +
+      'Tu remplis, tu envoies — le bureau relit et met en ligne.</p>';
+
+    h += '<div class="seg">' +
+      '<button data-k="article" class="' + (isPod ? '' : 'on') + '">' + svg(ICO.doc) + 'Un article</button>' +
+      '<button data-k="podcast" class="' + (isPod ? 'on' : '') + '">' + svg(ICO.wave) + 'Un podcast</button>' +
+      '</div>';
+
+    h += '<form class="form" id="propForm" method="POST" action="' + FORM_ACTION + '" ' +
+      'enctype="multipart/form-data" accept-charset="UTF-8">' +
+      '<input type="hidden" name="_next" value="' + NEXT_URL + '"/>' +
+      '<input type="hidden" name="_subject" value="' +
+        (isPod ? 'Proposition de PODCAST — Agora Dau' : "Proposition d'ARTICLE — Agora Dau") + '"/>' +
+      '<input type="hidden" name="_template" value="table"/>' +
+      '<input type="hidden" name="Type de contenu" value="' + (isPod ? 'Podcast' : 'Article') + '"/>';
+
+    h += fld('Ton prénom et nom', 'Auteur', { required: true, ph: 'Ex : Lissa Perrin' });
+    h += fld('Ton email', '_replyto', { type: 'email', required: true, ph: 'pour te répondre' });
+
+    if (!isPod) {
+      h += fld('Titre de l\'article', 'Titre', { required: true, ph: 'Ex : Colonialisme vert' });
+      h += fld('Accroche', 'Accroche', {
+        type: 'textarea', required: true,
+        ph: 'La phrase qui donne envie de lire.',
+        hint: "Une ou deux phrases, affichées sous le titre."
+      });
+      h += fld('Rubriques', 'Rubriques', { ph: 'Ex : Écologie · Colonialisme · Pouvoir' });
+      h += fld('Ton texte', 'Texte', {
+        type: 'textarea', big: true, required: true,
+        ph: 'Écris ou colle ton article ici…',
+        hint: "Colle-le depuis Word, Google Docs, Notion… peu importe. Mets tes titres de partie sur une ligne seule."
+      });
+      h += fld('Tes sources', 'Sources', {
+        type: 'textarea',
+        ph: 'Un lien ou une référence par ligne.',
+        hint: "Obligatoire pour une analyse : on ne publie rien sans sources."
+      });
+      h += fld('Image de couverture', 'Image', {
+        type: 'file',
+        hint: "Facultatif — idéalement carrée. Moins de 10 Mo. Si tu n'en as pas, on s'en occupe."
+      });
+    } else {
+      h += fld('Titre de l\'épisode', 'Titre', { required: true });
+      h += fld('Accroche', 'Accroche', {
+        type: 'textarea', required: true,
+        ph: "La phrase qui donne envie d'écouter."
+      });
+      h += fld('Lien vers le fichier audio', 'Lien audio', {
+        type: 'url', required: true,
+        ph: 'https://…',
+        hint: "Dépose ton MP3 sur WeTransfer, Google Drive ou Dropbox et colle le lien ici. " +
+              "(Les fichiers audio sont trop lourds pour être envoyés directement.)"
+      });
+      h += fld('Invité·e·s / voix', 'Invités', { ph: 'Qui parle dans l\'épisode ?' });
+      h += fld('Durée', 'Duree', { ph: 'Ex : 42 min' });
+      h += fld('Déjà en ligne ailleurs ?', 'Liens plateformes', {
+        ph: 'Spotify, Apple Podcasts, YouTube…',
+        hint: 'Facultatif — colle les liens si l\'épisode est déjà publié.'
+      });
+      h += fld('Image de l\'épisode', 'Image', {
+        type: 'file',
+        hint: 'Facultatif — carrée si possible. Moins de 10 Mo.'
+      });
+      h += fld('Notes d\'épisode', 'Notes', {
+        type: 'textarea',
+        ph: 'Résumé, chapitres, références citées…'
+      });
+    }
+
+    h += fld('Un mot pour le bureau', 'Message', { type: 'textarea', ph: 'Facultatif' });
+
+    h += '<label class="check"><input type="checkbox" name="Charte respectee" value="Oui" required/>' +
+      '<span>Je certifie que ce contenu est <b>écrit par un humain</b>, sans intelligence artificielle — ' +
+      'conformément à la charte d\'Agora Dau.</span></label>';
+
+    h += '<button type="submit" class="submit" id="propSend">Envoyer au bureau →</button>';
+    h += '</form>';
+
+    h += '<p class="fnote" style="margin-top:1.2rem;margin-bottom:2rem">' +
+      'Une vérification anti-robot s\'affiche après l\'envoi, puis tu reviens ici. ' +
+      'Le bureau te répond par email.</p>';
+
+    v.innerHTML = h;
+
+    $$('.seg button', v).forEach(b => b.addEventListener('click', () => {
+      proposeKind = b.dataset.k;
+      haptic();
+      history.replaceState(null, '', '#/proposer/' + proposeKind);
+      renderPropose();
+    }));
+
+    $('#propForm').addEventListener('submit', () => {
+      const btn = $('#propSend');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+    });
+  }
+
+  function renderSent() {
+    $('#v-propose').innerHTML =
+      '<div class="sent"><div class="sent-ic"><svg viewBox="0 0 24 24"><path d="m4 12 6 6L20 6"/></svg></div>' +
+      '<h2>C\'est envoyé</h2>' +
+      '<p>Le bureau a reçu ta proposition et te répondra par email. Merci !</p>' +
+      '<a class="btn-full" style="max-width:260px;margin:1.6rem auto 0" href="#/">Retour à l\'accueil</a>' +
+      '<a class="btn-ghost" href="#/proposer">Proposer autre chose</a></div>';
+  }
+
+  /* =========================================================
      ROUTER
      ========================================================= */
-  const VIEWS = ['home', 'analyses', 'ecouter', 'asso', 'doc'];
+  const VIEWS = ['home', 'analyses', 'ecouter', 'asso', 'doc', 'propose'];
   function show(id) {
     VIEWS.forEach(v => $('#v-' + v).classList.toggle('on', v === id));
   }
@@ -582,10 +735,16 @@
     else if (root === 'analyses') { renderAnalyses(); show('analyses'); }
     else if (root === 'ecouter') { renderPods(); show('ecouter'); }
     else if (root === 'asso') { renderAsso(); show('asso'); }
+    else if (root === 'proposer') {
+      if (parts[1] === 'podcast' || parts[1] === 'article') proposeKind = parts[1];
+      renderPropose(); show('propose');
+    }
+    else if (root === 'envoye') { renderSent(); show('propose'); }
     else { renderHome(); show('home'); }
 
     // tab state
-    const tabFor = deep ? (root === 'a' ? 'analyses' : 'ecouter') : (root || 'home');
+    const tabFor = deep ? (root === 'a' ? 'analyses' : 'ecouter')
+      : (root === 'proposer' || root === 'envoye') ? 'asso' : (root || 'home');
     $$('.tab').forEach(t => t.classList.toggle('on', t.dataset.v === tabFor));
 
     if (!deep) window.scrollTo(0, 0);
@@ -685,6 +844,14 @@
 
   applyTheme();
   netState();
+
+  // Retour depuis l'envoi du formulaire
+  try {
+    if (new URLSearchParams(location.search).get('envoye') === '1') {
+      history.replaceState(null, '', '/app/#/envoye');
+    }
+  } catch (e) {}
+
   route();
   if (isStandalone) $('#instTop').style.display = 'none';
 
