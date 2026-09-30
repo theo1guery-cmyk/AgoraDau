@@ -257,7 +257,6 @@
      ========================================================= */
   function analysisRow(a) {
     return '<a class="row" href="#/a/' + esc(a.slug) + '">' +
-      '<img class="row-img" src="' + esc(a.cover) + '" alt="" loading="lazy"/>' +
       '<div class="row-b">' +
         '<p class="row-k">' + esc(a.kicker || 'Analyse') + '</p>' +
         '<p class="row-t">' + esc(a.title) + '</p>' +
@@ -282,10 +281,8 @@
 
     if (a) {
       h += '<a class="feat" href="#/a/' + esc(a.slug) + '">' +
-        '<div class="feat-media"><img src="' + esc(a.cover) + '" alt=""/>' +
-          '<span class="feat-badge"><i></i>Dernière analyse</span></div>' +
         '<div class="feat-body">' +
-          '<p class="feat-kick">' + esc(a.kicker || 'Analyse') + '</p>' +
+          '<p class="feat-kick"><i class="feat-dot"></i>' + esc(a.kicker || 'Analyse') + '</p>' +
           '<h3 class="feat-t">' + esc(a.title) + '</h3>' +
           '<p class="feat-d">' + esc(a.dek || '') + '</p>' +
           '<p class="feat-meta"><b>' + esc(a.author || '') + '</b><span></span>' +
@@ -459,7 +456,6 @@
     if (!a) { v.innerHTML = '<div class="empty"><h3>Analyse introuvable</h3></div>'; return; }
 
     let h = '<div class="rd-prog" id="rdProg"></div>';
-    h += '<div class="rd-hero"><img src="' + esc(a.cover) + '" alt=""/></div>';
     h += '<div class="rd-head">' +
       '<p class="rd-kick">' + esc(a.kicker || 'Analyse') + '</p>' +
       '<h1 class="rd-t">' + esc(a.title_display || a.title) + '</h1>' +

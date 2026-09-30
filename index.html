@@ -472,14 +472,11 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 
 /* PROCHAIN SUJET (featured) */
 .pub-feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1.5px solid var(--ink);background:var(--paper);overflow:hidden;margin-bottom:2.5rem;}
-.pub-feat-media{position:relative;overflow:hidden;aspect-ratio:1/1;}
-.pub-feat-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease);}
-.pub-feat:hover .pub-feat-media img{transform:scale(1.05);}
 .pub-feat-badge{position:absolute;top:1.1rem;left:1.1rem;font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:5px 13px;border-radius:99px;}
-.pub-feat-body{padding:2.6rem;display:flex;flex-direction:column;justify-content:center;gap:.9rem;min-width:0;}
+.pub-feat-body{padding:3.4rem 3rem;display:flex;flex-direction:column;justify-content:center;gap:1rem;min-width:0;min-height:215px;}
 .pub-feat-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.55rem;}
-.pub-feat-title{font-family:var(--display);font-size:clamp(1.3rem,2.4vw,2rem);font-weight:800;letter-spacing:-.03em;line-height:1.04;text-transform:uppercase;overflow-wrap:break-word;}
-.pub-feat-desc{font-size:.93rem;line-height:1.65;color:var(--mist);max-width:42ch;}
+.pub-feat-title{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.04;text-transform:uppercase;overflow-wrap:break-word;}
+.pub-feat-desc{font-size:.98rem;line-height:1.7;color:var(--mist);max-width:56ch;}
 .pub-more-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:1.3rem;display:flex;align-items:center;gap:.7rem;}
 .pub-more-label::before{content:"";width:14px;height:1.5px;background:var(--red);}
 .pub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--ink);outline:1.5px solid var(--ink);margin-bottom:2.5rem;}
@@ -488,7 +485,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 .pub-item:hover img{transform:scale(1.06);}
 .pub-carousel{position:relative;border:1.5px solid var(--ink);overflow:hidden;background:var(--paper);margin-bottom:2.5rem;}
 .pub-track{display:flex;transition:transform .55s var(--ease);}
-.pub-slide{flex:0 0 100%;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+.pub-slide{flex:0 0 100%;min-width:0;display:block;}
 .pub-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 1.5rem;border-top:1.5px solid var(--ink);}
 .pub-counter{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);}
 .pub-counter b{color:var(--red);font-weight:500;}
@@ -498,9 +495,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 /* slide publiée (cliquable) */
 .pub-slide--live{position:relative;}
 .pub-overlay{position:absolute;inset:0;z-index:5;}
-.pub-slide--live .pub-feat-media{position:relative;overflow:hidden;}
-.pub-slide--live .pub-feat-media img{transition:transform .7s var(--ease);}
-.pub-slide--live:hover .pub-feat-media img{transform:scale(1.05);}
 .pub-live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 0 rgba(255,59,48,.55);animation:livepulse 2s var(--ease) infinite;}
 @keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(255,59,48,.55);}70%{box-shadow:0 0 0 8px rgba(255,59,48,0);}100%{box-shadow:0 0 0 0 rgba(255,59,48,0);}}
 .pub-read{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);background:var(--yellow);align-self:flex-start;padding:.55rem 1.1rem;border-radius:99px;margin-top:.4rem;transition:background .22s,color .22s,transform .22s;}
@@ -582,7 +576,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   .rj-l{border-bottom:1.5px solid var(--ink);position:static;padding:3rem 1.4rem;}
   .rj-r{border-left:none;padding:2rem 1.4rem 3rem;}
   .pub-feat{grid-template-columns:minmax(0,1fr);}
-  .pub-slide{grid-template-columns:minmax(0,1fr);}
   .pub-feat-body{padding:2rem 1.5rem;}
   .sec{padding:4rem 1.5rem;}
   #voix,#participer{padding:4rem 1.5rem;}
@@ -747,7 +740,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   <div class="pub-carousel rv" id="pubCarousel">
     <div class="pub-track" id="pubTrack">
       <div class="pub-slide pub-slide--live">
-        <div class="pub-feat-media"><img src="./analyse-fin-sommeil.jpg" alt="Ils ont volé la nuit — analyse d'Agora Dau sur le capitalisme et le sommeil" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="pub-live-dot"></span>Analyse · En ligne</p>
           <p class="pub-feat-title">Ils ont volé la nuit</p>
@@ -757,7 +749,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         <a class="pub-overlay" href="/analyses/ils-ont-vole-la-nuit/" aria-label="Lire l'analyse : Ils ont volé la nuit"></a>
       </div>
       <div class="pub-slide pub-slide--live">
-        <div class="pub-feat-media"><img src="./analyse-colonialisme-vert.jpg" alt="Colonialisme vert — analyse d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="pub-live-dot"></span>Analyse · En ligne</p>
           <p class="pub-feat-title">Colonialisme vert</p>
@@ -767,7 +758,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         <a class="pub-overlay" href="/analyses/colonialisme-vert/" aria-label="Lire l'analyse : Colonialisme vert"></a>
       </div>
       <div class="pub-slide pub-slide--live">
-        <div class="pub-feat-media"><img src="./analyse-modele-masculin.jpg" alt="Quand le modèle masculin s'effondre — analyse d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="pub-live-dot"></span>Analyse · En ligne</p>
           <p class="pub-feat-title">Quand le modèle masculin s'effondre</p>
@@ -777,7 +767,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         <a class="pub-overlay" href="/analyses/masculinisme/" aria-label="Lire l'analyse : Quand le modèle masculin s'effondre"></a>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-eglise-trump.jpg" alt="L'église qui a fait Trump — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">L'église qui a fait Trump</p>
@@ -785,7 +774,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         </div>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-postes-police-pekin.jpg" alt="Les postes de police secrets de Pékin — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">Les postes de police secrets de Pékin</p>
@@ -793,7 +781,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         </div>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-fous-par-decret.jpg" alt="Fous par décret — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">Fous par décret</p>
@@ -801,7 +788,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         </div>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-lithium.jpg" alt="Propre ici, sale là-bas : l'envers du lithium — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">Propre ici, sale là-bas</p>
@@ -809,7 +795,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         </div>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-pegasus.jpg" alt="Pegasus, l'État contre ses propres citoyens — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">Pegasus — l'État contre ses citoyens</p>
@@ -817,7 +802,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         </div>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-realite-fox.jpg" alt="La réalité version Fox — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">La réalité, version Fox</p>
@@ -825,7 +809,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         </div>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-marche-dependance.jpg" alt="Le marché de la dépendance — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">Le marché de la dépendance</p>
@@ -833,7 +816,6 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         </div>
       </div>
       <div class="pub-slide">
-        <div class="pub-feat-media"><img src="./analyse-algorithme-haine.jpg" alt="L'algorithme de la haine : YouTube, TikTok, Facebook — analyse à venir d'Agora Dau" loading="lazy"/></div>
         <div class="pub-feat-body">
           <p class="pub-feat-kicker"><span class="fmt-dot"></span>Analyse · À venir</p>
           <p class="pub-feat-title">L'algorithme de la haine</p>

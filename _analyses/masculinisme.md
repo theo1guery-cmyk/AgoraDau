@@ -9,7 +9,7 @@ author: "Oriane Poitrimol & Victoire Guillot"
 date: 2026-08-01
 date_display: "Août 2026"
 reading_time: "≈ 14 min de lecture"
-cover: /analyse-modele-masculin.jpg
+cover: /og/masculinisme.png
 description: "De la panique de la virilité aux influenceurs masculinistes, en passant par Trump et les incels : une analyse des origines, des ressorts et des dangers du masculinisme contemporain. Une analyse d'Agora Dau."
 keywords: ["masculinisme", "féminisme", "virilité", "incels", "red pill", "Ivan Jablonka"]
 tags_meta: ["Genre", "Masculinisme", "Pouvoir"]

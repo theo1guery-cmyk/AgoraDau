@@ -8,7 +8,7 @@ author: Théo Guéry
 date: 2026-06-19
 date_display: Juin 2026
 reading_time: ≈ 13 min de lecture
-cover: /media/chatgpt-image-19-juin-2026-152624.png
+cover: /og/ils-ont-vole-la-nuit.png
 description: "Du dorveille médiéval aux algorithmes de Netflix : comment le
   capitalisme a colonisé la nuit, fragmenté le sommeil et privatisé notre repos.
   Une analyse Agora Dau."
@@ -162,10 +162,6 @@ Deux philosophes permettent de mesurer l'ancienneté de ce mépris. John Locke, 
 ## La fabrique de l'insomnie
 
 Un tableau de 1782 résume mieux que n'importe quel traité ce qui s'est passé. Joseph Wright of Derby a peint *Les filatures de coton d'Arkwright, la nuit*. Une usine illuminée sous un clair de lune, ses fenêtres brillant d'une lumière artificielle qui concurrence les étoiles. On présente souvent cette image, reproduite dans des dizaines de manuels d'histoire économique, comme une célébration du progrès industriel. Crary y lit autre chose : l'annonce d'un temps abstrait, détaché des cycles naturels, où la production peut théoriquement ne jamais s'arrêter. La lune est encore là dans le tableau. Mais elle a déjà perdu.
-
-![Les filatures de coton d'Arkwright la nuit, peinture de Joseph Wright of Derby (vers 1782-83)](/analyse-nuit-filature-wright.jpg)
-
-*Les filatures de coton d'Arkwright, la nuit — Joseph Wright of Derby, vers 1782-83. L'usine illuminée rivalise avec le clair de lune : la première image d'un monde où la production ne s'arrête plus jamais. Huile sur toile · Domaine public — via WikiArt*
 
 Ce temps abstrait, Crary l'appelle le "temps 24/7". Ce n'est pas une métaphore, c'est une description littérale. Un monde où les marchés ne ferment plus, où les flux d'information ne s'interrompent jamais, où la frontière entre jour et nuit a fini par être dissoute. L'expression "Open 24/7" n'est pas un simple argument commercial. C'est un programme anthropologique : l'être humain comme terminal toujours actif, qui ne se déconnecte jamais vraiment.
 

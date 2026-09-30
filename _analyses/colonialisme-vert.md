@@ -9,7 +9,7 @@ author: "Lissa Perrin & Rafael Gomes-Nascimento"
 date: 2026-07-01
 date_display: "Juillet 2026"
 reading_time: "≈ 12 min de lecture"
-cover: /analyse-colonialisme-vert.jpg
+cover: /og/colonialisme-vert.png
 description: "Des parcs naturels africains aux forêts indiennes, comment l'idéal de conservation de la nature — le « colonialisme vert » — sert de prétexte pour expulser des millions d'autochtones. Une analyse d'Agora Dau."
 keywords: ["colonialisme vert", "écologie", "conservation", "Guillaume Blanc", "peuples autochtones", "WWF"]
 tags_meta: ["Écologie", "Colonialisme", "Pouvoir"]
