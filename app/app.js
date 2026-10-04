@@ -395,6 +395,10 @@
         '<p>Podcasts, micros-trottoirs et débats : on prépare tout ça. Inscris-toi à la newsletter pour être prévenu·e.</p>' +
         '<a class="btn-full" style="max-width:260px;margin:1.4rem auto 0" href="/newsletter/">M\'inscrire</a></div>';
     } else {
+      h += '<div class="show">' +
+        '<img class="show-img" src="/media/agoradio.jpg" alt="Ago\'radio"/>' +
+        '<div class="show-b"><p class="show-k">Le podcast</p><p class="show-t">Ago\'<em>radio</em></p>' +
+        '<p class="show-d">Les sujets de société qu\'on regarde d\'habitude trop vite : entretiens, analyses de fond, enquêtes.</p></div></div>';
       h += '<div class="rows">' + PODCASTS.map(podRow).join('') + '</div>';
     }
     v.innerHTML = h;

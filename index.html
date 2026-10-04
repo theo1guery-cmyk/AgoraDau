@@ -500,6 +500,24 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
 .pub-read{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);background:var(--yellow);align-self:flex-start;padding:.55rem 1.1rem;border-radius:99px;margin-top:.4rem;transition:background .22s,color .22s,transform .22s;}
 .pub-slide--live:hover .pub-read{background:var(--red);color:#fff;transform:translateX(3px);}
 
+/* =====================
+   PODCAST — Ago'radio
+   ===================== */
+.pod-wrap{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:3rem;align-items:start;}
+.pod-cover{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border:1.5px solid var(--ink);}
+.pod-show{font-size:.98rem;line-height:1.7;color:var(--mist);max-width:62ch;}
+.pod-ep{margin-top:2rem;padding-top:1.6rem;border-top:1.5px solid var(--ink);}
+.pod-ep-k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;}
+.pod-ep-t{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.04;letter-spacing:-.03em;text-transform:uppercase;margin:.8rem 0 1.1rem;overflow-wrap:break-word;}
+.pod-ep-d{font-size:.95rem;line-height:1.75;color:#333;max-width:62ch;margin-bottom:.9rem;}
+.pod-ep audio{width:100%;max-width:560px;margin-top:.8rem;display:block;accent-color:var(--red);cursor:auto;}
+.pod-app{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);background:var(--yellow);padding:.55rem 1.1rem;border-radius:99px;transition:background .22s,color .22s;}
+.pod-app:hover{background:var(--red);color:#fff;}
+@media(max-width:860px){
+  .pod-wrap{grid-template-columns:minmax(0,1fr);gap:1.8rem;}
+  .pod-cover{max-width:280px;}
+}
+
 /* LE PROJET — soulignement animé */
 .apropos-hl{position:relative;display:inline-block;}
 .charte-cta:hover{border-color:var(--red)!important;background:rgba(255,59,48,.06);}
@@ -593,6 +611,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
   <ul class="nav-links" id="navLinks">
     <li><a href="#apropos">Le projet</a></li>
     <li><a href="#formats">Formats</a></li>
+    <li><a href="#podcast">Podcast</a></li>
     <li><a href="#bureau">Bureau</a></li>
     <li><a href="#rejoindre" class="nav-cta">Rejoindre</a></li>
   </ul>
@@ -693,7 +712,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         <p class="fmt-cat"><span class="fmt-dot"></span>Audio</p>
         <p class="fmt-name">Podcasts</p>
         <p class="fmt-desc">Conversations et débats de fond, en format long. On prend le temps d'aller au bout des sujets.</p>
-        <div class="fmt-foot"><span class="fmt-tag">Bientôt</span><span class="fmt-arrow">→</span></div>
+        <div class="fmt-foot"><span class="fmt-tag">En ligne</span><span class="fmt-arrow">→</span></div>
       </div>
     </div>
     <div class="fmt-card">
@@ -724,6 +743,29 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
         <p class="fmt-name">Analyses</p>
         <p class="fmt-desc">Des sujets de société décortiqués par des étudiants, avec un vrai regard critique.</p>
         <div class="fmt-foot"><span class="fmt-tag">Bientôt</span><span class="fmt-arrow">→</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PODCAST — Ago'radio -->
+<section class="sec" id="podcast">
+  <div class="sh rv">
+    <div><p class="s-over">Le podcast</p><h2 class="s-title">Ago'<em>radio</em></h2></div>
+    <span class="s-aside">Épisode 01 · en ligne</span>
+  </div>
+  <div class="pod-wrap rv">
+    <img class="pod-cover" src="/media/agoradio.jpg" alt="Ago'radio, le podcast d'Agora Dau" loading="lazy"/>
+    <div class="pod-main">
+      <p class="pod-show">Ago'radio, c'est le podcast d'Agora Dau, un média étudiant créé par des étudiants. On y prend le temps d'explorer les sujets de société qu'on regarde d'habitude trop vite : entretiens avec celles et ceux qui les vivent ou les étudient, analyses de fond, et enquêtes qui vont chercher ce qui reste hors champ.</p>
+      <div class="pod-ep">
+        <p class="pod-ep-k"><span class="pub-live-dot"></span>Épisode 01 · 46 min · avec Océlia Grandval</p>
+        <h3 class="pod-ep-t">Le tourisme de la pauvreté, au-delà des clichés</h3>
+        <p class="pod-ep-d">Pour son tout premier épisode, Ago'radio reçoit Océlia Grandval, étudiante en master à l'IEDES, l'Institut d'études du développement de la Sorbonne. Elle est partie huit mois vivre à Rocinha, la plus grande favela de Rio de Janeiro, pour réaliser un documentaire de recherche autour d'une question simple : comment les habitants vivent-ils le tourisme dans leur propre quartier ?</p>
+        <p class="pod-ep-d">Vidéos au drone sur les toits, visites guidées, influenceurs : la favela est devenue un décor très prisé des réseaux sociaux. Mais à qui profite réellement cet argent ? Peut-on donner de la visibilité à un quartier sans le transformer en carte postale exotique ? Et qu'en pensent, eux, celles et ceux qui y vivent ?</p>
+        <p class="pod-ep-d">Un échange sur le tourisme de la pauvreté, l'image, l'argent et la dignité, loin des clichés.</p>
+        <audio controls preload="none" src="/media/audio/ep01-tourisme-de-la-pauvrete.m4a">Ton navigateur ne lit pas l'audio.</audio>
+        <a class="pod-app" href="/app/#/ecouter">Écouter dans l'app →</a>
       </div>
     </div>
   </div>
@@ -896,6 +938,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;}
     <ul class="ft-nav">
       <li><a href="#apropos">Le projet</a></li>
       <li><a href="#formats">Formats</a></li>
+      <li><a href="#podcast">Podcast</a></li>
       <li><a href="#bureau">Bureau</a></li>
       <li><a href="#rejoindre">Rejoindre</a></li>
       <li><a href="https://www.instagram.com/agora_dau/" target="_blank" rel="noopener">Instagram ↗</a></li>

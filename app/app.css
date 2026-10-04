@@ -332,6 +332,15 @@ body.deep .tb-brand{opacity:0;pointer-events:none;}
 .pod-t{font-family:var(--display);font-weight:700;font-size:1rem;line-height:1.2;letter-spacing:-.025em;margin:.2rem 0 .28rem;}
 .pod-m{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);}
 
+/* ============ PODCAST (en-tête d'émission) ============ */
+.show{display:flex;gap:1rem;align-items:center;margin:.2rem 1.1rem 1.2rem;}
+.show-img{width:92px;height:92px;flex-shrink:0;object-fit:cover;border:1.5px solid var(--line);}
+.show-b{min-width:0;}
+.show-k{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);}
+.show-t{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.035em;text-transform:uppercase;line-height:1;margin:.3rem 0 .4rem;}
+.show-t em{font-style:normal;color:var(--red);}
+.show-d{font-size:.8rem;line-height:1.5;color:var(--dim);}
+
 /* ============ MINI PLAYER ============ */
 .mini{
   position:fixed;left:0;right:0;z-index:55;
@@ -582,6 +591,7 @@ body.deep .tb-brand{opacity:0;pointer-events:none;}
 .sent p{font-size:.9rem;line-height:1.7;color:var(--dim);margin-top:.7rem;}
 
 @media(min-width:640px){
+  .show{max-width:560px;margin-left:auto;margin-right:auto;}
   .form,.seg,.fnote{max-width:560px;margin-left:auto;margin-right:auto;}
   .feat,.resume,.rows,.search,.rd-head,.rd-body,.rd-end,.rd-src,.rd-tools{max-width:560px;margin-left:auto;margin-right:auto;}
   .rd-hero{max-width:560px;margin:0 auto;}
