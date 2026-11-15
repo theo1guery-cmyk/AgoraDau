@@ -137,6 +137,9 @@ main{max-width:1180px;margin:0 auto;padding:7.5rem 1.5rem 0;}
 .art-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.9rem 1.4rem;margin-top:1.8rem;padding-top:1.4rem;border-top:1.5px solid var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mist);}
 .art-meta .by{color:var(--ink);}
 .art-meta .sep{color:var(--stone);}
+.art-collab{display:flex;align-items:center;gap:.8rem;margin-top:1.4rem;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mist);}
+.art-collab img{width:46px;height:46px;border-radius:50%;display:block;}
+.art-collab b{color:var(--ink);font-weight:500;}
 
 /* FIGURE DANS L'ARTICLE */
 .art-fig{max-width:680px;margin:3rem auto;}
@@ -275,6 +278,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 2.5rem;margin-top:5
     <p class="art-kicker">{{ page.kicker }}</p>
     <h1 class="art-title">{{ page.title_display | default: page.title }}</h1>
     <p class="art-dek">{{ page.dek }}</p>
+    {% if page.partner %}<p class="art-collab">{% if page.partner_logo %}<img src="{{ page.partner_logo }}" alt="{{ page.partner }}"/>{% endif %}<span>En collaboration avec <b>{{ page.partner }}</b></span></p>{% endif %}
     <div class="art-meta">
       <span class="by">Par {{ page.author }}</span>
       <span class="sep">·</span>

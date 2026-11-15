@@ -53,6 +53,18 @@ content:
         type: string
         required: true
 
+      - name: partner
+        label: Partenaire (collaboration)
+        type: string
+        description: "Optionnel. Ex : A.C.D. Dauphine — affiche « En collaboration avec … » sous le chapô."
+
+      - name: partner_logo
+        label: Logo du partenaire
+        type: image
+        options:
+          media: images
+        description: "Optionnel. Logo carré ou rond, avec l'accord du partenaire."
+
       - name: date
         label: Date de publication
         type: date
