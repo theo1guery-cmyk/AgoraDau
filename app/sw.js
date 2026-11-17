@@ -1,14 +1,14 @@
 /* Agora — service worker
    Coquille de l'app en cache + contenus consultés disponibles hors connexion. */
 
-const VERSION = 'agora-v4';
+const VERSION = 'agora-v5';
 const SHELL = VERSION + '-shell';
 const RUNTIME = VERSION + '-runtime';
 
 const PRECACHE = [
   '/app/',
-  '/app/app.css?v=4',
-  '/app/app.js?v=4',
+  '/app/app.css?v=5',
+  '/app/app.js?v=5',
   '/app/manifest.webmanifest',
   '/app/icon-192.png',
   '/app/icon-512.png'

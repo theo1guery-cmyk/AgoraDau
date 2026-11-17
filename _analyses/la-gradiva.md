@@ -11,7 +11,7 @@ partner_logo: /media/partenaires/acd.png
 date: 2026-11-15
 date_display: "Novembre 2026"
 reading_time: "≈ 7 min de lecture"
-cover: /og/la-gradiva.png
+cover: /analyse-la-gradiva.jpg
 description: "La Gradiva, premier film de Marine Atlan : un voyage scolaire à Naples qui dit la solitude, le désir et la colère de notre jeunesse. Un article d'Agora Dau en collaboration avec l'ACD."
 keywords: ["La Gradiva", "Marine Atlan", "cinéma", "jeunesse", "adolescence", "Pompéi", "ACD"]
 tags_meta: ["Cinéma", "Jeunesse", "Collaboration"]
