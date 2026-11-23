@@ -5,7 +5,7 @@ title_display: "Face à l’omniprésence de Trump, les opposants dans la rue."
 seo_title: "Face à l’omniprésence de Trump, les opposants dans la rue | Agora Dau"
 dek: "Entre ingérence dans le monde entier et volonté de faire taire les contestations, une véritable omniprésence de Trump."
 kicker: "International · États-Unis · Pouvoir"
-author: "La rédaction d’Agora Dau"
+author: "Yanis Lacote"
 date: 2026-11-23
 date_display: "Novembre 2026"
 reading_time: "≈ 12 min de lecture"
