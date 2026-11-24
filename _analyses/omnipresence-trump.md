@@ -10,7 +10,6 @@ date: 2026-11-23
 date_display: "Novembre 2026"
 reading_time: "≈ 12 min de lecture"
 cover: /analyse-trump-omnipresence.jpg
-cover_pending: true   # image provisoire : retirer cette ligne quand la vraie image est en place
 description: "Midterms perdues, mouvement No Kings, ingérences en Amérique latine, en Europe, au Québec et en Iran : l’omniprésence de Trump face à des opposants dans la rue. Une analyse d’Agora Dau."
 keywords: ["Trump", "No Kings", "midterms", "ICE", "Amérique latine", "OTAN", "Iran", "Québec"]
 tags_meta: ["International", "États-Unis", "Pouvoir"]

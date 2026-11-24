@@ -9,7 +9,6 @@ date: 2026-06-19
 date_display: Juin 2026
 reading_time: ≈ 13 min de lecture
 cover: /media/chatgpt-image-19-juin-2026-152624.png
-card_image: /analyse-fin-sommeil.jpg
 description: "Du dorveille médiéval aux algorithmes de Netflix : comment le
   capitalisme a colonisé la nuit, fragmenté le sommeil et privatisé notre repos.
   Une analyse Agora Dau."
